@@ -434,6 +434,50 @@
     .navbtn{font-size:9px} .navbtn svg{width:19px;height:19px}
   }
 
+  .twocol.top{align-items:start}
+  .askgrid{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+  @media(max-width:640px){.askgrid{grid-template-columns:1fr}}
+
+  .wheelpanel #wheelbox,.wheelpanel .chips,.wheelpanel .scrub,
+  .wheelpanel .winfo,.wheelpanel>.hint{max-width:760px;margin-left:auto;margin-right:auto}
+  .wheelpanel .scrub{margin-top:16px}
+  .wheelpanel{padding:24px 22px 22px}
+  @media(max-width:560px){.wheelpanel{padding:16px 11px 16px}}
+
+  .acc{border:1px solid var(--edge);border-radius:20px;background:var(--panel);overflow:hidden}
+  .acc>summary{list-style:none;cursor:pointer;padding:17px 19px;display:flex;align-items:center;gap:10px;
+    font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;
+    transition:background .18s}
+  .acc>summary::-webkit-details-marker{display:none}
+  .acc>summary:hover{background:rgba(255,255,255,.03)}
+  .acc>summary .cnt{margin-left:auto;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--dimmer)}
+  .acc>summary .chev{width:17px;height:17px;flex:0 0 auto;fill:none;stroke:var(--dim);
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+  .acc[open]>summary .chev{transform:rotate(180deg)}
+  .acc[open]>summary{border-bottom:1px solid var(--edge)}
+  .accbody{padding:15px 19px 18px}
+  .asprow{display:flex;align-items:center;gap:11px;padding:10px 0;font-size:13.5px;line-height:1.45}
+  .asprow+.asprow{border-top:1px solid rgba(255,255,255,.05)}
+  .asprow .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  .asprow .dot.harm{background:var(--green);box-shadow:0 0 8px rgba(79,209,139,.45)}
+  .asprow .dot.tens{background:var(--amber);box-shadow:0 0 8px rgba(233,180,92,.45)}
+  .asprow .dot.neut{background:var(--gold);box-shadow:0 0 8px rgba(217,184,114,.45)}
+  .asprow .txt{flex:1;min-width:0}
+  .asprow .orb{color:var(--dimmer);font-size:11.5px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+
+  .palmwrap{position:relative;max-width:440px;margin:0 auto;border-radius:16px;overflow:hidden;
+    border:1px solid var(--edge);background:#04070f}
+  .palmwrap img{width:100%;height:auto;display:block}
+  .palmwrap .palmsvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .pmetrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+  .pmetrics>div{background:rgba(6,14,30,.45);border:1px solid var(--edge);border-radius:13px;padding:11px 13px}
+  .pmetrics span{display:block;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+  .pmetrics b{display:block;margin-top:5px;font-family:var(--serif);font-size:19px;font-weight:400;color:var(--gold-hi)}
+  input[type=file]{padding:10px 12px;font-size:13px;cursor:pointer}
+  input[type=file]::file-selector-button{margin-right:12px;padding:8px 14px;border-radius:9px;border:1px solid var(--edge);
+    background:rgba(217,184,114,.12);color:var(--gold-hi);font-family:inherit;font-size:12px;cursor:pointer}
+  .navbtn{max-width:120px}
+
   .foot{margin:26px 0 10px;font-size:11.5px;color:var(--dimmer);line-height:1.75;text-align:center}
   .locked{opacity:.45;pointer-events:none}
 </style>
@@ -536,38 +580,46 @@
 
     <div class="panel tight"><div class="idrow" id="idrow"></div></div>
 
-    <div class="twocol" style="grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)">
-      <div class="panel" style="margin:0">
-        <p class="lbl">La tua ruota</p>
-        <div class="chips">
-          <div class="chip on" data-t="transits">Transiti di oggi</div>
-          <div class="chip on" data-t="aspects">Aspetti</div>
-          <div class="chip on" data-t="houses">Case</div>
-          <div class="chip" data-t="equal">Case uguali</div>
-        </div>
-        <div id="wheelbox"></div>
-        <div class="scrub">
-          <div class="scrub-row">
-            <div class="iconbtn" id="wPlay" title="Scorri il tempo">
-              <svg viewBox="0 0 24 24"><path class="pi" d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/>
-                <path class="pa" d="M9 5v14M15 5v14"/></svg>
-            </div>
-            <input type="range" id="wTime" min="-360" max="360" step="1" value="0"
-                   aria-label="Sposta il momento nel tempo">
-            <div class="iconbtn" id="wNow" title="Torna al giorno letto">
-              <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></svg>
-            </div>
+    <div class="panel wheelpanel">
+      <p class="lbl">La tua ruota</p>
+      <div class="chips">
+        <div class="chip on" data-t="transits">Transiti di oggi</div>
+        <div class="chip on" data-t="aspects">Aspetti</div>
+        <div class="chip on" data-t="houses">Case</div>
+        <div class="chip" data-t="equal">Case uguali</div>
+      </div>
+      <div id="wheelbox"></div>
+      <div class="scrub">
+        <div class="scrub-row">
+          <div class="iconbtn" id="wPlay" title="Scorri il tempo">
+            <svg viewBox="0 0 24 24"><path class="pi" d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/>
+              <path class="pa" d="M9 5v14M15 5v14"/></svg>
           </div>
-          <div class="scrub-lbl"><b id="wWhen"></b><span id="wDelta"></span></div>
+          <input type="range" id="wTime" min="-360" max="360" step="1" value="0"
+                 aria-label="Sposta il momento nel tempo">
+          <div class="iconbtn" id="wNow" title="Torna al giorno letto">
+            <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></svg>
+          </div>
         </div>
-        <div class="winfo" id="winfo"></div>
-        <p class="hint">Anello interno: la carta natale. Anello esterno: i pianeti in transito.
-          L'Ascendente è sempre a sinistra, ore 9. Passa sopra segni, case e linee per i dettagli.</p>
+        <div class="scrub-lbl"><b id="wWhen"></b><span id="wDelta"></span></div>
       </div>
-      <div>
-        <div class="panel"><p class="lbl">Transiti di oggi</p><ul class="reasons gold" id="todaylist"></ul></div>
-        <div class="panel" style="margin:0"><p class="lbl">Aspetti attivi</p><div class="asplist" id="asplist"></div></div>
-      </div>
+      <div class="winfo" id="winfo"></div>
+      <p class="hint">Anello interno: la carta natale. Anello esterno: i pianeti in transito.
+        L'Ascendente è sempre a sinistra, ore 9. Tocca segni, case e linee per i dettagli.</p>
+    </div>
+
+    <div class="twocol top">
+      <div class="panel" style="margin:0"><p class="lbl">Transiti di oggi</p>
+        <ul class="reasons gold" id="todaylist"></ul></div>
+      <details class="acc" id="aspacc">
+        <summary><span>Aspetti attivi</span><span class="cnt" id="aspcount"></span>
+          <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="accbody">
+          <p class="hint" style="margin:0 0 10px">Ogni riga è un pianeta di oggi che tocca un punto
+            della tua carta di nascita. Il pallino dice se la spinta collabora o contrasta.</p>
+          <div id="asplist"></div>
+        </div>
+      </details>
     </div>
 
     <div class="panel"><p class="lbl">Dettaglio posizioni</p>
@@ -586,7 +638,7 @@
     </div>
 
     <div class="panel">
-      <div class="grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+      <div class="grid askgrid">
         <div>
           <label for="question">La tua domanda</label>
           <input id="question" maxlength="160" placeholder="Es. «È un buon momento per cambiare lavoro?»">
@@ -620,6 +672,57 @@
       <div id="tverdict"></div>
       <div class="tspread" id="tspread"></div>
       <div class="panel"><div id="treading"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ MANO ============ -->
+  <section class="tab" id="tab-mano">
+    <div class="rowtop" style="margin-bottom:14px">
+      <div>
+        <h1 class="title">La lettura della mano</h1>
+        <p class="sub">I sette monti del palmo portano i nomi dei pianeti. Li misuro sulla tua foto
+          e li leggo contro la tua carta natale, come faccio con gli arcani.</p>
+      </div>
+      <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l3 3"/></svg>La foto resta nel browser</div>
+    </div>
+
+    <div class="panel">
+      <div class="grid askgrid">
+        <div>
+          <label for="palmFile">Foto del palmo</label>
+          <input type="file" id="palmFile" accept="image/*">
+          <p class="hint">Palmo aperto verso la fotocamera, dita distese, sfondo scuro e luce
+            di lato: le pieghe si vedono molto meglio con la luce radente che con quella frontale.
+            La foto viene ridotta e analizzata qui dentro — <b>non viene inviata da nessuna parte</b>.</p>
+        </div>
+        <div>
+          <label for="handSide">Quale mano</label>
+          <select id="handSide">
+            <option value="dx">Destra</option>
+            <option value="sx">Sinistra</option>
+          </select>
+          <p class="hint">Nella tradizione la sinistra dice cosa hai ricevuto, la destra cosa ne hai fatto.
+            Mi serve comunque per sapere da che parte cercare il pollice.</p>
+        </div>
+      </div>
+      <button class="btn" id="palmGo" disabled>Leggi la mano</button>
+      <div class="err" id="palmErr"></div>
+    </div>
+
+    <div id="palmOut" style="display:none">
+      <div class="panel">
+        <p class="lbl">Cosa ho visto</p>
+        <div class="chips" id="palmChips">
+          <div class="chip on" data-p="lines">Linee</div>
+          <div class="chip on" data-p="mounts">Monti</div>
+          <div class="chip" data-p="palm">Cerchio del palmo</div>
+        </div>
+        <div class="palmwrap" id="palmWrap"></div>
+        <div id="palmMetrics"></div>
+      </div>
+      <div class="panel"><p class="lbl">Le tre linee</p><div id="palmLines"></div></div>
+      <div class="panel"><p class="lbl">I sette monti planetari</p><div id="palmMounts"></div></div>
+      <div class="tsynth" id="palmSynth"></div>
     </div>
   </section>
 
@@ -669,6 +772,8 @@
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="10.5" ry="4" transform="rotate(-24 12 12)"/></svg>Transiti</button>
   <button class="navbtn" data-tab="carte">
     <svg viewBox="0 0 24 24"><rect x="8" y="4" width="11" height="15" rx="2"/><path d="M5.5 7v11a2 2 0 0 0 2 2H15"/></svg>Carte</button>
+  <button class="navbtn" data-tab="mano">
+    <svg viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1V4.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5.2-3l-2.3-4a1.6 1.6 0 0 1 2.7-1.6L9 15V6.5a1.5 1.5 0 0 1 3 0"/></svg>Mano</button>
   <button class="navbtn on" data-tab="profilo">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>Profilo</button>
 </nav>
@@ -2373,13 +2478,16 @@ function render() {
   rows += `<tr><td class="gl" style="font-size:11px">MC</td><td>Medio Cielo</td><td class="el-${mc.sign.el}">${mc.sign.g} ${mc.sign.n}</td><td class="num2">${mc.txt}</td><td class="num2">10ª</td><td class="num2">—</td></tr>`;
   $('ptable').innerHTML = rows;
 
-  $('asplist').innerHTML = dayAsp.length ? dayAsp.slice(0, 16).map(a => {
-    const nm = k => { const b = BODIES.find(x => x.k === k);
-      return b ? `<span class="g">${b.g}</span> ${k}` : (k === 'MC' ? 'Medio Cielo' : 'Ascendente'); };
-    const cl = a.asp.q === 1 ? 'harm' : a.asp.q === -1 ? 'tens' : '';
-    return `<div>${nm(a.a)} <span class="${cl}">${a.asp.g}</span> ${nm(a.b)} `
-      + `<span style="color:var(--dimmer);font-size:11.5px">(${a.orbDiff.toFixed(1)}°)</span></div>`;
-  }).join('') : '<div style="color:var(--dimmer)">Nessun aspetto entro orbita oggi.</div>';
+  $('aspcount').textContent = dayAsp.length
+    ? `${dayAsp.length} · ${harm.length} armonici, ${tens.length} di tensione`
+    : 'nessuno oggi';
+  $('asplist').innerHTML = dayAsp.length ? dayAsp.slice(0, 14).map(a => {
+    const q = a.asp.q === 1 ? 'harm' : a.asp.q === -1 ? 'tens' : 'neut';
+    return `<div class="asprow"><span class="dot ${q}"></span>`
+      + `<span class="txt">${a.a} ${ASPTXT[a.asp.a]} ${ART[a.b] || 'a ' + a.b}</span>`
+      + `<span class="orb">${a.orbDiff.toFixed(1)}°</span></div>`;
+  }).join('') : '<div style="color:var(--dimmer);font-size:13.5px">Nessun aspetto entro orbita: '
+    + 'giornata astrologicamente silenziosa.</div>';
 
   /* ---- oroscopo ---- */
   const horo = buildHoroscope(natal, transit, luck, S);
@@ -2549,6 +2657,526 @@ function bindWheel() {
   $('wPlay').addEventListener('click', togglePlay);
   $('wNow').addEventListener('click', () => { stopPlay(); $('wTime').value = 0; paintWheel(); });
   wheelInfo(null);
+}
+
+/* =======================================================================
+   18. LETTURA DELLA MANO — analisi dell'immagine
+        Tutto in locale: la foto viene disegnata su una tela grafica e
+        letta pixel per pixel. Non esce mai dal browser.
+
+        Le funzioni lavorano su un oggetto {data, width, height} identico
+        a quello restituito da getImageData, così sono provabili da sole.
+   ======================================================================= */
+
+/* --- 1. pelle: soglia su YCbCr, robusta al colore della luce --- */
+function skinMask(img) {
+  const { data, width:w, height:h } = img;
+  const m = new Uint8Array(w * h);
+  let n = 0;
+  for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+    const r = data[i], g = data[i+1], b = data[i+2];
+    const y  =  0.299*r + 0.587*g + 0.114*b;
+    const cb = -0.169*r - 0.331*g + 0.500*b + 128;
+    const cr =  0.500*r - 0.419*g - 0.081*b + 128;
+    if (y > 45 && cb >= 74 && cb <= 132 && cr >= 132 && cr <= 180 && r > g && r > b) { m[p] = 1; n++; }
+  }
+  return { m, w, h, n };
+}
+
+/* --- 2. componente connessa più grande = la mano --- */
+function largestBlob(mask) {
+  const { m, w, h } = mask;
+  const lab = new Int32Array(w * h).fill(-1);
+  const stack = new Int32Array(w * h);
+  let best = -1, bestSize = 0, id = 0;
+  for (let s = 0; s < w * h; s++) {
+    if (!m[s] || lab[s] >= 0) continue;
+    let sp = 0, size = 0;
+    stack[sp++] = s; lab[s] = id;
+    while (sp) {
+      const p = stack[--sp]; size++;
+      const x = p % w, y = (p / w) | 0;
+      if (x > 0     && m[p-1] && lab[p-1] < 0) { lab[p-1] = id; stack[sp++] = p-1; }
+      if (x < w - 1 && m[p+1] && lab[p+1] < 0) { lab[p+1] = id; stack[sp++] = p+1; }
+      if (y > 0     && m[p-w] && lab[p-w] < 0) { lab[p-w] = id; stack[sp++] = p-w; }
+      if (y < h - 1 && m[p+w] && lab[p+w] < 0) { lab[p+w] = id; stack[sp++] = p+w; }
+    }
+    if (size > bestSize) { bestSize = size; best = id; }
+    id++;
+  }
+  const out = new Uint8Array(w * h);
+  if (best < 0) return { m: out, w, h, n: 0 };
+  for (let p = 0; p < w * h; p++) if (lab[p] === best) out[p] = 1;
+  return { m: out, w, h, n: bestSize };
+}
+
+/* --- 3. trasformata distanza (chamfer 3-4, due passate) --- */
+function distanceTransform(mask) {
+  const { m, w, h } = mask;
+  const INF = 1e9, d = new Float32Array(w * h);
+  for (let p = 0; p < w * h; p++) d[p] = m[p] ? INF : 0;
+  const set = (p, v) => { if (v < d[p]) d[p] = v; };
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const p = y*w + x; if (!d[p]) continue;
+    if (x > 0)              set(p, d[p-1] + 3);
+    if (y > 0)              set(p, d[p-w] + 3);
+    if (x > 0 && y > 0)     set(p, d[p-w-1] + 4);
+    if (x < w-1 && y > 0)   set(p, d[p-w+1] + 4);
+  }
+  for (let y = h-1; y >= 0; y--) for (let x = w-1; x >= 0; x--) {
+    const p = y*w + x; if (!d[p]) continue;
+    if (x < w-1)            set(p, d[p+1] + 3);
+    if (y < h-1)            set(p, d[p+w] + 3);
+    if (x < w-1 && y < h-1) set(p, d[p+w+1] + 4);
+    if (x > 0 && y < h-1)   set(p, d[p+w-1] + 4);
+  }
+  for (let p = 0; p < w * h; p++) d[p] /= 3;      // in pixel
+  return d;
+}
+
+/* --- 4. il palmo è il cerchio inscritto più grande --- */
+function palmCircle(dist, w, h) {
+  let best = 0, bx = 0, by = 0;
+  for (let p = 0; p < w * h; p++) if (dist[p] > best) { best = dist[p]; bx = p % w; by = (p / w) | 0; }
+  return { cx: bx, cy: by, r: best };
+}
+
+/* --- 5. luminanza e sfocatura a scatola --- */
+function luma(img) {
+  const { data, width:w, height:h } = img;
+  const g = new Float32Array(w * h);
+  for (let i = 0, p = 0; i < data.length; i += 4, p++)
+    g[p] = 0.299*data[i] + 0.587*data[i+1] + 0.114*data[i+2];
+  return g;
+}
+function boxBlur(src, w, h, rad) {
+  const tmp = new Float32Array(w * h), out = new Float32Array(w * h);
+  const win = 2*rad + 1;
+  for (let y = 0; y < h; y++) {
+    let acc = 0;
+    for (let x = -rad; x <= rad; x++) acc += src[y*w + Math.min(w-1, Math.max(0, x))];
+    for (let x = 0; x < w; x++) {
+      tmp[y*w + x] = acc / win;
+      acc -= src[y*w + Math.min(w-1, Math.max(0, x - rad))];
+      acc += src[y*w + Math.min(w-1, Math.max(0, x + rad + 1))];
+    }
+  }
+  for (let x = 0; x < w; x++) {
+    let acc = 0;
+    for (let y = -rad; y <= rad; y++) acc += tmp[Math.min(h-1, Math.max(0, y))*w + x];
+    for (let y = 0; y < h; y++) {
+      out[y*w + x] = acc / win;
+      acc -= tmp[Math.min(h-1, Math.max(0, y - rad))*w + x];
+      acc += tmp[Math.min(h-1, Math.max(0, y + rad + 1))*w + x];
+    }
+  }
+  return out;
+}
+
+/* --- 5b. erosione binaria (minimo su finestra quadrata, separabile) --- */
+function erode(mask, rad) {
+  const { m, w, h } = mask;
+  const t = new Uint8Array(w * h), o = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    let v = 1;
+    for (let k = -rad; k <= rad && v; k++) { const xx = x + k; if (xx < 0 || xx >= w || !m[y*w+xx]) v = 0; }
+    t[y*w+x] = v;
+  }
+  for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) {
+    let v = 1;
+    for (let k = -rad; k <= rad && v; k++) { const yy = y + k; if (yy < 0 || yy >= h || !t[yy*w+x]) v = 0; }
+    o[y*w+x] = v;
+  }
+  return o;
+}
+
+/* --- 6. risposta alle pieghe: quanto un pixel è più scuro dell'intorno.
+       Si azzera fuori dalla mano erosa, altrimenti il contorno del palmo,
+       molto più scuro dello sfondo, vincerebbe su qualsiasi piega. --- */
+function creaseResponse(gray, w, h, rad, inner) {
+  const blur = boxBlur(gray, w, h, rad);
+  const r = new Float32Array(w * h);
+  for (let p = 0; p < w * h; p++)
+    r[p] = (inner && !inner[p]) ? 0 : Math.max(0, blur[p] - gray[p]);
+  return r;
+}
+
+/* --- 7. minimi quadrati per una parabola y = a + b·t + c·t² --- */
+function fitQuad(pts) {
+  let n = 0, St = 0, St2 = 0, St3 = 0, St4 = 0, Sy = 0, Sty = 0, St2y = 0;
+  for (const [t, y, wgt] of pts) {
+    const k = wgt === undefined ? 1 : wgt;
+    n += k; St += k*t; St2 += k*t*t; St3 += k*t*t*t; St4 += k*t*t*t*t;
+    Sy += k*y; Sty += k*t*y; St2y += k*t*t*y;
+  }
+  const M = [[n, St, St2], [St, St2, St3], [St2, St3, St4]], V = [Sy, Sty, St2y];
+  const det = m => m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])
+                 - m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])
+                 + m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+  const D = det(M);
+  if (Math.abs(D) < 1e-9) return null;
+  const sub = i => { const c = M.map(r => r.slice()); for (let k = 0; k < 3; k++) c[k][i] = V[k]; return det(c); };
+  return { a: sub(0)/D, b: sub(1)/D, c: sub(2)/D };
+}
+
+/* --- 8. una linea: si scandisce una banda e si insegue la piega più marcata --- */
+function traceLine(resp, w, h, box, axis, minFrac) {
+  const pts = [];
+  const [x0, y0, x1, y1] = box;
+  const along = axis === 'x' ? [x0, x1] : [y0, y1];
+  const across = axis === 'x' ? [y0, y1] : [x0, x1];
+  let sum = 0, cnt = 0;
+  for (let t = along[0]; t <= along[1]; t++) {
+    let bv = 0, bu = -1;
+    for (let u = across[0]; u <= across[1]; u++) {
+      const p = axis === 'x' ? u*w + t : t*w + u;
+      if (p < 0 || p >= w*h) continue;
+      if (resp[p] > bv) { bv = resp[p]; bu = u; }
+    }
+    if (bu >= 0) { pts.push([t, bu, bv]); sum += bv; cnt++; }
+  }
+  if (cnt < 6) return null;
+  const mean = sum / cnt;
+  const keep = pts.filter(p => p[2] > mean * 0.75);
+  const span = along[1] - along[0] + 1;
+  if (keep.length < span * minFrac) return null;
+  const fit = fitQuad(keep.map(p => [p[0], p[1], p[2]]));
+  if (!fit) return null;
+  const ts = keep.map(p => p[0]);
+  const tMin = Math.min(...ts), tMax = Math.max(...ts);
+  const len = (tMax - tMin) / span;
+  const arc = tMax - tMin;
+  return {
+    axis, fit, tMin, tMax, arc,
+    length: len,                                   // frazione della banda percorsa
+    curve: fit.c,                                  // curvatura grezza (1/px)
+    bend: fit.c * arc * arc / 4,                   // scostamento dalla corda, in pixel
+    depth: mean,                                   // contrasto medio della piega
+    support: keep.length / span,
+    pts: keep.filter((_, i) => i % 3 === 0).map(p => axis === 'x' ? [p[0], p[1]] : [p[1], p[0]])
+  };
+}
+
+/* --- 9. i sette monti planetari, in posizione classica --- */
+const MOUNTS = [
+  { k:'Giove',    u:-0.30, v:-0.62, note:'ambizione, fiducia, voglia di guidare' },
+  { k:'Saturno',  u:-0.02, v:-0.72, note:'disciplina, misura, rapporto col limite' },
+  { k:'Sole',     u: 0.26, v:-0.64, note:'espressione, talento, desiderio di essere visto' },
+  { k:'Mercurio', u: 0.50, v:-0.48, note:'parola, scambio, destrezza' },
+  { k:'Marte',    u:-0.52, v:-0.20, note:'spinta, reattività, coraggio' },
+  { k:'Venere',   u:-0.46, v: 0.42, note:'affetti, piacere, vitalità del corpo' },
+  { k:'Luna',     u: 0.50, v: 0.44, note:'immaginazione, memoria, vita interiore' }
+];
+
+function readMounts(gray, w, h, palm, hand) {
+  const s = hand === 'sx' ? -1 : 1;            // specchio per la mano sinistra
+  const out = [];
+  const vals = [];
+  for (const m of MOUNTS) {
+    const cx = palm.cx + s * m.u * palm.r * 1.6;
+    const cy = palm.cy + m.v * palm.r * 1.6;
+    const rr = Math.max(4, palm.r * 0.30);
+    let sum = 0, n = 0;
+    for (let y = Math.round(cy-rr); y <= cy+rr; y++)
+      for (let x = Math.round(cx-rr); x <= cx+rr; x++) {
+        if (x < 0 || y < 0 || x >= w || y >= h) continue;
+        if ((x-cx)**2 + (y-cy)**2 > rr*rr) continue;
+        sum += gray[y*w + x]; n++;
+      }
+    const val = n ? sum/n : 0;
+    vals.push(val);
+    out.push({ ...m, cx, cy, r: rr, raw: val, ok: n > 8 });
+  }
+  const mu = vals.reduce((a,b) => a+b, 0) / (vals.length || 1);
+  const sd = Math.sqrt(vals.reduce((a,b) => a + (b-mu)**2, 0) / (vals.length || 1)) || 1;
+  for (const m of out) m.z = (m.raw - mu) / sd;   // rilievo relativo agli altri monti
+  return out;
+}
+
+/* --- 10. analisi completa --- */
+function analysePalm(img, hand) {
+  const w = img.width, h = img.height;
+  const sk = skinMask(img);
+  if (sk.n < w*h*0.04)
+    return { ok:false, why:'Non riconosco una mano: serve il palmo aperto, ben illuminato e su uno sfondo che non sia color pelle.' };
+  const blob = largestBlob(sk);
+  if (blob.n < w*h*0.03)
+    return { ok:false, why:'La mano occupa troppo poco spazio nella foto: avvicinala fino a riempire buona parte dell\'inquadratura.' };
+
+  const dist = distanceTransform(blob);
+  const palm = palmCircle(dist, w, h);
+  if (palm.r < Math.min(w,h) * 0.07)
+    return { ok:false, why:'Non trovo un palmo abbastanza largo: apri bene la mano, con le dita distese e il palmo verso la fotocamera.' };
+
+  const gray = luma(img);
+  const rad = Math.max(2, Math.round(palm.r / 5));
+  const inner = erode(blob, Math.max(2, Math.round(palm.r / 9)));
+  const resp = creaseResponse(gray, w, h, rad, inner);
+
+  const R = palm.r, cx = palm.cx, cy = palm.cy;
+  const s = hand === 'sx' ? -1 : 1;
+  const clampX = v => Math.max(0, Math.min(w-1, Math.round(v)));
+  const clampY = v => Math.max(0, Math.min(h-1, Math.round(v)));
+  const bx = (a, b) => s > 0 ? [clampX(cx + a*R), clampX(cx + b*R)] : [clampX(cx - b*R), clampX(cx - a*R)];
+
+  // cuore e testa: bande orizzontali, si scandisce per colonne
+  const hx = bx(-0.85, 0.95);
+  const heart = traceLine(resp, w, h, [hx[0], clampY(cy - 1.05*R), hx[1], clampY(cy - 0.45*R)], 'x', .45);
+  const head  = traceLine(resp, w, h, [hx[0], clampY(cy - 0.42*R), hx[1], clampY(cy + 0.15*R)], 'x', .45);
+  // vita: arco attorno al pollice, si scandisce per righe
+  const lx = bx(-1.05, -0.10);
+  const life  = traceLine(resp, w, h, [lx[0], clampY(cy - 0.55*R), lx[1], clampY(cy + 1.00*R)], 'y', .40);
+
+  const mounts = readMounts(gray, w, h, palm, hand);
+
+  // proporzioni del palmo dalla maschera
+  let minX = w, maxX = 0, minY = h, maxY = 0;
+  for (let p = 0; p < w*h; p++) if (blob.m[p]) {
+    const x = p % w, y = (p/w)|0;
+    if (x < minX) minX = x; if (x > maxX) maxX = x;
+    if (y < minY) minY = y; if (y > maxY) maxY = y;
+  }
+  const handW = maxX - minX + 1, handH = maxY - minY + 1;
+
+  return {
+    ok: true, w, h, hand, palm,
+    lines: { heart, head, life },
+    mounts,
+    metrics: {
+      palmRatio: +(2*R / Math.max(1, handH)).toFixed(3),
+      handRatio: +(handW / Math.max(1, handH)).toFixed(3),
+      coverage: +(blob.n / (w*h)).toFixed(3),
+      box: [minX, minY, handW, handH]
+    }
+  };
+}
+
+/* =======================================================================
+   19. LETTURA DELLA MANO — interpretazione e interfaccia
+   ======================================================================= */
+const LINE_META = {
+  heart: { n:'Linea del cuore', k:'heart' },
+  head:  { n:'Linea della testa', k:'head' },
+  life:  { n:'Linea della vita', k:'life' }
+};
+const LINE_TXT = {
+  heart: {
+    ll:'Lunga: la vita affettiva occupa molto spazio e non la nascondi. Quello che senti si vede prima che tu lo dica.',
+    ls:'Breve: in amore selezioni invece di spargerti. Pochi legami, ma con dentro tutto.',
+    cc:'Curva verso l’alto: esprimi quello che provi, anche quando sarebbe più comodo tacere.',
+    cs:'Corre dritta: tieni i sentimenti sotto controllo e li lasci uscire solo quando hai deciso tu.'
+  },
+  head: {
+    ll:'Lunga: ti piace arrivare in fondo alle cose e fatichi a chiudere un ragionamento a metà.',
+    ls:'Breve: decidi in fretta, per istinto, e raramente torni sui tuoi passi.',
+    cc:'Curva: pensiero che associa e divaga, buono per immaginare, meno per stare in riga.',
+    cs:'Dritta: logica lineare, un passo dopo l’altro, poca pazienza per il vago.'
+  },
+  life: {
+    ll:'Ampia e lunga: energia fisica disponibile, presenza, radicamento nel corpo.',
+    ls:'Corta o stretta: risparmi le forze e le tiri fuori solo quando serve davvero.',
+    cc:'Arco largo attorno al pollice: ti muovi, esci, occupi spazio.',
+    cs:'Arco stretto: la tua base è raccolta, e ti serve tornarci spesso.'
+  }
+};
+const MOUNT_TXT = {
+  Giove:    { hi:'pieno: ambizione dichiarata, ti prendi la guida senza chiedere permesso',
+              lo:'piatto: comandare non ti interessa, preferisci non doverti esporre',
+              md:'regolare: sai prendere il comando quando serve e lasciarlo quando non serve' },
+  Saturno:  { hi:'pieno: senso del limite e del dovere, a volte più severo del necessario',
+              lo:'piatto: le regole ti stanno strette e la struttura te la costruisci ogni volta da capo',
+              md:'regolare: disciplina che c’è ma non ti governa' },
+  Sole:     { hi:'pieno: bisogno di essere visto, e talento che giustifica il bisogno',
+              lo:'piatto: lavori bene lontano dai riflettori e ti infastidisce doverti mettere in mostra',
+              md:'regolare: ti fai notare quando c’è motivo' },
+  Mercurio: { hi:'pieno: parola rapida, scambio facile, destrezza nel trattare',
+              lo:'piatto: poche parole, e quelle poche pesate',
+              md:'regolare: comunichi bene senza farne una professione' },
+  Marte:    { hi:'pieno: reattività pronta, non aspetti che qualcuno decida per te',
+              lo:'piatto: eviti lo scontro, anche quando servirebbe',
+              md:'regolare: tieni testa senza cercare battaglia' },
+  Venere:   { hi:'pieno: affettività calda, piacere dei sensi, vitalità del corpo',
+              lo:'piatto: austerità, o affetti tenuti a distanza di sicurezza',
+              md:'regolare: sai godere delle cose senza dipenderne' },
+  Luna:     { hi:'pieno: immaginazione fertile, memoria lunga, vita interiore abitata',
+              lo:'piatto: stai coi piedi per terra e le fantasticherie ti annoiano',
+              md:'regolare: immaginazione presente ma sotto controllo' }
+};
+
+/* aggancio del monte al pianeta corrispondente nella carta natale */
+function planetHook(pl, natal, transit, dayAsp) {
+  const nf = fmtPos(natal.pos[pl]), tf = fmtPos(transit.pos[pl]);
+  const h = houseOf(natal.pos[pl], natal.cusps);
+  const rel = dayAsp.filter(a => a.a === pl).slice(0, 1);
+  let t = `Nella tua carta ${plArt(pl)} sta ${inSg(nf.sign.n)} ${nf.txt}, ${h}ª casa: riguarda ${HOUSE_AREA[h-1]}`;
+  t += natal.spd[pl] < 0 ? ', ed è retrogrado — il tema lavora verso l’interno. ' : '. ';
+  t += rel.length
+    ? `Oggi ${plArt(pl)} forma ${ASPN[rel[0].asp.a]} con ${plWith(rel[0].b)}: il monte è acceso proprio adesso.`
+    : `Oggi ${plArt(pl)} transita ${inSg(tf.sign.n)} senza aspetti stretti alla tua carta.`;
+  return t;
+}
+
+function palmReading(res, natal, transit, luck) {
+  const dayAsp = findAspects(transit.pos, natal.pos,
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'],
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Ascendente','MC'], false);
+  const R = res.palm.r;
+
+  const lines = Object.keys(LINE_META).map(k => {
+    const l = res.lines[k], meta = LINE_META[k];
+    if (!l) return { ...meta, found:false,
+      txt:'Non sono riuscito a distinguerla con sicurezza in questa foto. Di solito basta più luce radente, che fa risaltare le pieghe.' };
+    const long = l.length > 0.72;
+    const bend = Math.abs(l.bend) / R;
+    const curved = bend > 0.10;
+    return { ...meta, found:true, long, curved, bend,
+      length:l.length, depth:l.depth,
+      txt: LINE_TXT[k][long ? 'll' : 'ls'] + ' ' + LINE_TXT[k][curved ? 'cc' : 'cs'] };
+  });
+
+  const mounts = res.mounts.map(m => {
+    const state = m.z > 0.55 ? 'hi' : m.z < -0.55 ? 'lo' : 'md';
+    return { ...m, state,
+      txt: `Il monte di ${m.k} è ${MOUNT_TXT[m.k][state]}.`,
+      astro: planetHook(m.k, natal, transit, dayAsp),
+      area: m.note };
+  });
+
+  const top = mounts.slice().sort((a,b) => b.z - a.z)[0];
+  const low = mounts.slice().sort((a,b) => a.z - b.z)[0];
+  const nFound = lines.filter(l => l.found).length;
+
+  const synth = [];
+  synth.push(`Il monte che risalta di più è quello di <b>${top.k}</b> — ${top.area} — e il più spento quello di `
+    + `<b>${low.k}</b>. Se la chiromanzia avesse ragione, sarebbe l’asse attorno a cui gira il tuo carattere.`);
+  synth.push(`Delle tre linee principali ne ho individuate ${nFound} su 3, e il palmo occupa `
+    + `${(res.metrics.coverage*100).toFixed(0)}% del fotogramma con un rapporto larghezza-altezza di ${res.metrics.handRatio}.`);
+  synth.push(`<b>Cosa ho misurato davvero e cosa no.</b> Ho misurato: dove sta il palmo, le tre pieghe più marcate `
+    + `con la loro lunghezza e curvatura, e quanta luce riflette ciascuna delle sette zone. Non ho misurato: `
+    + `il rilievo vero dei monti, che dipende da come tieni la mano e da dove arriva la luce. `
+    + `Sposta la lampada e i numeri cambiano — tienine conto prima di prendere sul serio la classifica qui sopra.`);
+  synth.push(`La chiromanzia non ha alcuna validità dimostrata: non predice niente e non descrive niente `
+    + `di verificabile. Questo è un modo strutturato di guardarti la mano, con il vantaggio che almeno le misure `
+    + `vengono dalla tua foto e non da un generatore di frasi.`);
+
+  return { lines, mounts, synth, top, low };
+}
+
+/* --- disegno sopra la foto --- */
+function palmOverlay(res, opt) {
+  const { w, h, palm } = res;
+  let s = `<svg class="palmsvg" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`;
+  if (opt.palm)
+    s += `<circle cx="${palm.cx}" cy="${palm.cy}" r="${palm.r.toFixed(1)}" fill="none" `
+       + `stroke="#5aa9e6" stroke-opacity=".55" stroke-width="2" stroke-dasharray="6 7"/>`;
+  if (opt.lines) {
+    const col = { heart:'#e87ba4', head:'#8fc7f5', life:'#4fd18b' };
+    for (const [k, l] of Object.entries(res.lines)) {
+      if (!l) continue;
+      const pts = [];
+      for (let t = l.tMin; t <= l.tMax; t += 2) {
+        const u = l.fit.a + l.fit.b*t + l.fit.c*t*t;
+        pts.push(l.axis === 'x' ? `${t},${u.toFixed(1)}` : `${u.toFixed(1)},${t}`);
+      }
+      if (pts.length < 2) continue;
+      s += `<polyline points="${pts.join(' ')}" fill="none" stroke="${col[k]}" stroke-width="3.5" `
+         + `stroke-linecap="round" stroke-opacity=".95" filter="url(#pglow)"/>`;
+    }
+  }
+  if (opt.mounts) {
+    for (const m of res.mounts) {
+      const g = (BODIES.find(b => b.k === m.k) || { g:'·' }).g;
+      s += `<circle cx="${m.cx.toFixed(1)}" cy="${m.cy.toFixed(1)}" r="${m.r.toFixed(1)}" `
+         + `fill="rgba(217,184,114,${(0.06 + Math.max(0, m.z) * 0.10).toFixed(2)})" `
+         + `stroke="#d9b872" stroke-opacity=".7" stroke-width="1.6"/>`
+         + `<text x="${m.cx.toFixed(1)}" y="${(m.cy + m.r*0.28).toFixed(1)}" text-anchor="middle" `
+         + `font-size="${(m.r*0.85).toFixed(0)}" fill="#f0dcac">${g}</text>`;
+    }
+  }
+  s += `<defs><filter id="pglow" x="-25%" y="-25%" width="150%" height="150%">`
+     + `<feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/>`
+     + `<feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  return s + `</svg>`;
+}
+
+/* --- interfaccia --- */
+const PALM = { img:null, url:null, res:null, opt:{ lines:true, mounts:true, palm:false } };
+
+function loadPalmFile(file) {
+  const err = $('palmErr'); err.style.display = 'none';
+  if (!file) return;
+  if (!/^image\//.test(file.type)) { err.textContent = 'Serve un file immagine.'; err.style.display = 'block'; return; }
+  const fr = new FileReader();
+  fr.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const MAX = 480;
+      const sc = Math.min(1, MAX / Math.max(im.width, im.height));
+      const w = Math.round(im.width * sc), h = Math.round(im.height * sc);
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      const cx = cv.getContext('2d', { willReadFrequently:true });
+      cx.drawImage(im, 0, 0, w, h);
+      PALM.img = cx.getImageData(0, 0, w, h);
+      PALM.url = cv.toDataURL('image/jpeg', 0.86);
+      PALM.res = null;
+      $('palmGo').disabled = false;
+      $('palmOut').style.display = 'block';
+      $('palmWrap').innerHTML = `<img src="${PALM.url}" alt="La tua mano">`;
+      $('palmLines').innerHTML = $('palmMounts').innerHTML = '';
+      $('palmSynth').innerHTML = '<p style="margin:0;color:var(--dimmer)">Premi «Leggi la mano» per analizzare la foto.</p>';
+      $('palmMetrics').innerHTML = '';
+    };
+    im.onerror = () => { err.textContent = 'Non riesco ad aprire questa immagine.'; err.style.display = 'block'; };
+    im.src = fr.result;
+  };
+  fr.onerror = () => { err.textContent = 'Lettura del file non riuscita.'; err.style.display = 'block'; };
+  fr.readAsDataURL(file);
+}
+
+function paintPalm() {
+  if (!PALM.res || !PALM.res.ok) return;
+  $('palmWrap').innerHTML = `<img src="${PALM.url}" alt="La tua mano">` + palmOverlay(PALM.res, PALM.opt);
+}
+
+function runPalm() {
+  const err = $('palmErr'); err.style.display = 'none';
+  if (!PALM.img) { err.textContent = 'Carica prima una foto del palmo.'; err.style.display = 'block'; return; }
+  if (!STATE || !STATE.natal) { err.textContent = 'Calcola prima la tua carta natale, nella scheda Profilo.'; err.style.display = 'block'; return; }
+  const hand = $('handSide').value;
+  const res = analysePalm(PALM.img, hand);
+  if (!res.ok) { err.textContent = res.why; err.style.display = 'block'; PALM.res = null; return; }
+  PALM.res = res;
+  paintPalm();
+
+  const r = palmReading(res, STATE.natal, STATE.transit, STATE.luck);
+
+  $('palmMetrics').innerHTML = `<div class="pmetrics">`
+    + [['Palmo', `raggio ${res.palm.r.toFixed(0)} px`],
+       ['Mano nel fotogramma', `${(res.metrics.coverage*100).toFixed(0)}%`],
+       ['Rapporto larghezza-altezza', res.metrics.handRatio],
+       ['Linee individuate', `${r.lines.filter(l => l.found).length} su 3`]]
+      .map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('') + `</div>`;
+
+  $('palmLines').innerHTML = r.lines.map(l =>
+    `<div class="tread shown" style="border-top-color:var(--edge)">`
+    + `<div class="pos">${l.n}${l.found ? '' : ' · non trovata'}</div>`
+    + (l.found ? `<p class="dir">${l.long ? 'Lunga' : 'Breve'}, ${l.curved ? 'curva' : 'dritta'} `
+        + `<span style="font-family:var(--sans);font-size:12px;color:var(--dimmer)">`
+        + `(percorre il ${(l.length*100).toFixed(0)}% della banda, scostamento ${(l.bend*100).toFixed(0)}% del raggio)</span></p>` : '')
+    + `<p>${l.txt}</p></div>`).join('');
+
+  $('palmMounts').innerHTML = r.mounts.map(m => {
+    const g = (BODIES.find(b => b.k === m.k) || { g:'·' }).g;
+    const cls = m.state === 'hi' ? 'harm' : m.state === 'lo' ? 'tens' : 'neut';
+    return `<div class="tread shown" style="border-top-color:var(--edge)">`
+      + `<div class="pos"><span class="dot ${cls}" style="display:inline-block;width:8px;height:8px;`
+      + `border-radius:50%;margin-right:8px"></span>Monte di ${m.k} · ${m.area}</div>`
+      + `<div class="name" style="font-size:20px"><span class="n">${g}</span>${m.k}</div>`
+      + `<p>${m.txt}</p><div class="astro">${m.astro}</div></div>`;
+  }).join('');
+
+  $('palmSynth').innerHTML = `<h3>Lettura d'insieme</h3>` + r.synth.map(s => `<p>${s}</p>`).join('');
+  $('palmOut').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 /* =======================================================================
@@ -2822,6 +3450,14 @@ $('question').addEventListener('input', () => { $('tarotout').style.display = 'n
 })();
 
 bindWheel();
+$('palmFile').addEventListener('change', e => loadPalmFile(e.target.files && e.target.files[0]));
+$('palmGo').addEventListener('click', runPalm);
+document.querySelectorAll('#palmChips .chip').forEach(el => {
+  el.addEventListener('click', () => {
+    const k = el.dataset.p; PALM.opt[k] = !PALM.opt[k];
+    el.classList.toggle('on', PALM.opt[k]); paintPalm();
+  });
+});
 $('rtSkip').addEventListener('click', skipAll);
 $('soundBtn').addEventListener('click', () => {
   SOUND_ON = !SOUND_ON; localStorage_set('suono', SOUND_ON ? '1' : '0');
