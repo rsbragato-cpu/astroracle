@@ -1,0 +1,2853 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Astroracle — carta natale, transiti, tarocchi</title>
+<meta name="theme-color" content="#050a16">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Astroracle">
+<meta name="description" content="Carta natale, transiti planetari e arcani maggiori, calcolati nel browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-0:#050a16; --night-1:#0a1428; --night-2:#0e1c38;
+    --panel:linear-gradient(155deg,rgba(38,72,132,.30) 0%,rgba(14,28,56,.55) 55%,rgba(9,18,38,.62) 100%);
+    --panel-flat:rgba(13,26,52,.55);
+    --edge:rgba(150,186,240,.17);
+    --edge-hi:rgba(160,196,250,.34);
+    --gold:#d9b872; --gold-hi:#f0dcac; --gold-dim:rgba(217,184,114,.55);
+    --ivory:#ecdfbe;
+    --ink:#eaf0fb; --dim:#8fa2c4; --dimmer:#67789a;
+    --blue:#5aa9e6; --blue-soft:#8fc7f5;
+    --pink:#e87ba4; --green:#4fd18b; --amber:#e9b45c; --red:#e57b7b;
+    --serif:'Cormorant Garamond','Marcellus',Georgia,'Times New Roman',serif;
+    --sans:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --nav-h:66px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 780px at 8% -12%, #1c2e5e 0%, transparent 58%),
+      radial-gradient(1000px 700px at 96% 2%, #14304f 0%, transparent 52%),
+      radial-gradient(900px 900px at 50% 112%, #14224a 0%, transparent 60%),
+      var(--night-0);
+    color:var(--ink); font-family:var(--sans); min-height:100vh;
+    -webkit-font-smoothing:antialiased; padding-bottom:calc(var(--nav-h) + 24px + env(safe-area-inset-bottom));
+  }
+  #stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .shell{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 18px}
+
+  /* ---------- barra superiore ---------- */
+  .appbar{
+    position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;
+    padding:14px 18px;margin:0 -18px 6px;
+    background:linear-gradient(180deg,rgba(5,10,22,.94) 0%,rgba(5,10,22,.72) 70%,transparent 100%);
+    backdrop-filter:blur(12px);
+  }
+  .iconbtn{
+    width:40px;height:40px;flex:0 0 auto;border-radius:12px;cursor:pointer;
+    background:rgba(255,255,255,.05);border:1px solid var(--edge);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;transition:.18s;
+  }
+  .iconbtn:hover{background:rgba(217,184,114,.14);border-color:var(--gold-dim)}
+  .iconbtn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+  .brand{flex:1;display:flex;align-items:center;justify-content:center;gap:11px}
+  .brand .mono{width:34px;height:34px;flex:0 0 auto}
+  .brand .wordmark{
+    font-family:var(--serif);font-size:26px;font-weight:500;letter-spacing:.06em;
+    background:linear-gradient(100deg,var(--gold-hi),var(--gold) 55%,#b98f4e);
+    -webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;
+  }
+  .brand .tag{display:block;font-family:var(--sans);font-size:8px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--dimmer);margin-top:4px;text-align:center}
+
+  /* ---------- pannelli ---------- */
+  .panel{
+    background:var(--panel);border:1px solid var(--edge);border-radius:20px;
+    padding:20px 22px;margin-bottom:16px;position:relative;overflow:hidden;
+  }
+  .panel::before{content:'';position:absolute;inset:0 0 auto 0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(190,215,255,.3),transparent)}
+  .panel.tight{padding:16px 18px}
+  .lbl{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 12px}
+  .lbl.blue{color:var(--blue-soft)}
+  h1.title{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.4vw,38px);
+    margin:6px 0 4px;letter-spacing:.01em;line-height:1.15}
+  .sub{color:var(--dim);font-size:14px;line-height:1.6;margin:0 0 18px;max-width:62ch}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
+    border:1px solid rgba(90,169,230,.45);background:rgba(90,169,230,.10);
+    color:var(--blue-soft);font-size:12px;letter-spacing:.04em;white-space:nowrap;
+  }
+  .pill svg{width:13px;height:13px;fill:currentColor}
+  .rowtop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+  /* ---------- form ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  input,select,button{font-family:inherit;font-size:15px}
+  input,select{
+    width:100%;padding:12px 14px;border-radius:12px;color:var(--ink);
+    background:rgba(4,10,22,.55);border:1px solid var(--edge);outline:none;transition:.18s;
+  }
+  input:focus,select:focus{border-color:rgba(90,169,230,.65);box-shadow:0 0 0 3px rgba(90,169,230,.14)}
+  select option{background:#0e1c38;color:var(--ink)}
+  .hint{font-size:11.5px;color:var(--dimmer);margin-top:7px;line-height:1.55}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:13px 30px;border:0;
+    border-radius:13px;cursor:pointer;background:linear-gradient(100deg,var(--gold-hi),var(--gold) 60%,#c19a55);
+    color:#20180a;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px;transition:.18s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(217,184,114,.22)}
+  .btn.alt{background:rgba(90,169,230,.14);border:1px solid rgba(90,169,230,.45);color:var(--blue-soft);font-weight:600}
+  .btn.alt:hover{box-shadow:0 12px 30px rgba(90,169,230,.18)}
+  .err{color:var(--red);font-size:13px;margin-top:12px;display:none}
+
+  /* ---------- schede identità ---------- */
+  .idrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .idbox{background:rgba(6,14,30,.45);border:1px solid var(--edge);border-radius:16px;padding:14px 15px}
+  .idbox .k{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
+  .idbox .v{font-family:var(--serif);font-size:22px;margin-top:7px;display:flex;align-items:center;gap:9px;line-height:1}
+  .idbox .v i{font-style:normal;font-size:24px;color:var(--gold)}
+  .idbox .s{font-size:11px;color:var(--dim);margin-top:6px;line-height:1.45}
+
+  /* ---------- responso ---------- */
+  .responso{
+    background:linear-gradient(150deg,rgba(46,86,152,.36),rgba(12,26,54,.6));
+    border:1px solid var(--edge-hi);border-radius:20px;padding:22px 24px;margin-bottom:16px;
+    display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;
+  }
+  .responso .star{flex:0 0 auto;width:74px;height:74px}
+  .responso .txt{flex:1;min-width:230px}
+  .responso h2{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.9vw,27px);
+    line-height:1.32;margin:8px 0 0;color:#fff}
+
+  /* ---------- metriche ---------- */
+  .metrics{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+  @media(max-width:560px){.metrics{grid-template-columns:1fr}}
+  .ring{position:relative;width:132px;height:132px;margin:0 auto}
+  .ring .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .mid b{font-family:var(--serif);font-size:38px;font-weight:400;line-height:1}
+  .ring .mid span{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);margin-top:3px}
+  .bar{margin-bottom:13px}
+  .bar:last-child{margin-bottom:0}
+  .bar .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+  .bar .nm{font-size:13.5px;display:flex;align-items:center;gap:8px}
+  .bar .nm i{font-style:normal;font-size:15px;opacity:.9}
+  .bar .vl{font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .bar .vl b{color:var(--ink);font-size:14px;font-weight:600}
+  .track{height:6px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+  .fill{height:100%;border-radius:4px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .desc{font-size:11px;color:var(--dimmer);margin-top:2px}
+
+  /* ---------- elenco motivi ---------- */
+  .reasons{list-style:none;margin:0;padding:0}
+  .reasons li{display:flex;gap:12px;align-items:flex-start;padding:9px 0;font-size:14px;line-height:1.6;color:#d9e2f4}
+  .reasons li+li{border-top:1px solid rgba(255,255,255,.05)}
+  .reasons .bul{
+    flex:0 0 auto;width:23px;height:23px;border-radius:50%;margin-top:1px;
+    background:rgba(90,169,230,.14);border:1px solid rgba(90,169,230,.42);
+    display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--blue-soft);
+  }
+  .reasons.gold .bul{background:rgba(217,184,114,.13);border-color:var(--gold-dim);color:var(--gold)}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:700px){.twocol{grid-template-columns:1fr}}
+  .agree{background:rgba(79,209,139,.07);border:1px solid rgba(79,209,139,.24);border-radius:16px;padding:14px 16px}
+  .disagree{background:rgba(229,123,123,.07);border:1px solid rgba(229,123,123,.24);border-radius:16px;padding:14px 16px}
+  .agree .lbl{color:var(--green)} .disagree .lbl{color:var(--red)}
+  .agree ul,.disagree ul{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:1.55}
+  .agree li,.disagree li{display:flex;gap:9px;padding:5px 0}
+  .agree li::before{content:'✓';color:var(--green);flex:0 0 auto}
+  .disagree li::before{content:'✕';color:var(--red);flex:0 0 auto}
+
+  /* ---------- numeri ---------- */
+  .nums{display:flex;gap:11px;flex-wrap:wrap}
+  .num{
+    width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:21px;font-weight:600;color:#231a08;
+    background:radial-gradient(circle at 32% 28%,var(--gold-hi),var(--gold) 55%,#b9903f);
+    box-shadow:0 6px 18px rgba(217,184,114,.2);
+  }
+  .num.alt{background:radial-gradient(circle at 32% 28%,#a9cdf5,var(--blue) 55%,#2f6ea8);color:#04182c}
+
+  /* ---------- ruota e tabella ---------- */
+  svg.wheel{width:100%;height:auto;display:block}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .chip{padding:7px 14px;border-radius:999px;font-size:11.5px;cursor:pointer;user-select:none;
+    border:1px solid var(--edge);background:rgba(4,10,22,.4);color:var(--dim);letter-spacing:.05em;transition:.16s}
+  .chip.on{background:rgba(217,184,114,.14);border-color:var(--gold-dim);color:var(--gold-hi)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);
+    font-weight:600;padding:0 8px 10px;border-bottom:1px solid var(--edge)}
+  td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.045)}
+  tr:last-child td{border-bottom:0}
+  td.gl{font-size:18px;color:var(--gold);width:28px}
+  td.num2{font-variant-numeric:tabular-nums;color:var(--dim)}
+  .rx{color:var(--red);font-size:11px;font-weight:700}
+  .el-fire{color:#e8926f} .el-earth{color:#7cc08d} .el-air{color:#7db8e8} .el-water{color:#a58ee0}
+  .asplist{font-size:13px;line-height:1.95;column-count:2;column-gap:26px}
+  @media(max-width:620px){.asplist{column-count:1}}
+  .asplist .g{color:var(--gold);font-size:15px}
+  .asplist .harm{color:var(--green)} .asplist .tens{color:var(--amber)}
+
+  /* ---------- tarocchi ---------- */
+  .tspread{margin:24px 0 6px}
+  .trow{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+  .tcard{width:160px;flex:0 0 auto;text-align:center}
+  .tcard .cap{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:8px;min-height:24px;display:flex;align-items:flex-end;justify-content:center;line-height:1.3}
+  .flipbox{position:relative;width:100%;aspect-ratio:2/3;perspective:1100px}
+  .flipin{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.3,.9,.3,1)}
+  .flipbox.up .flipin{transform:rotateY(180deg)}
+  .flipin>*{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .flipin .face{transform:rotateY(180deg)}
+  .flipin svg,.flipin img{width:100%;height:100%;display:block;border-radius:11px;object-fit:cover}
+  .flipin .face.rot img{transform:rotate(180deg)}
+  .tcard.key .flipin .face svg,.tcard.key .flipin .face img{box-shadow:0 0 0 2px var(--gold),0 0 28px rgba(217,184,114,.34)}
+  .tcard .rev{font-size:9.5px;color:var(--red);letter-spacing:.12em;margin-top:7px;text-transform:uppercase}
+  .tcard .keytag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-hi);margin-top:5px}
+
+  .celtic{position:relative;width:100%;max-width:700px;margin:0 auto;height:700px}
+  .celtic .tcard{position:absolute;width:104px}
+  @media(max-width:720px){
+    .celtic{height:auto;position:static;display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+    .celtic .tcard{position:static!important;width:118px;transform:none!important}
+  }
+  .houses{position:relative;width:100%;max-width:700px;margin:0 auto;aspect-ratio:1/1}
+  .houses .tcard{position:absolute;width:88px;transform:translate(-50%,-50%)}
+  .houses .hcenter{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:170px}
+  .houses .hcenter b{display:block;font-family:var(--serif);font-size:17px;color:var(--gold);letter-spacing:.05em}
+  .houses .hcenter span{font-size:11px;color:var(--dimmer);line-height:1.5;display:block;margin-top:6px}
+  @media(max-width:760px){
+    .houses{aspect-ratio:auto;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+    .houses .tcard{position:static!important;transform:none!important;width:104px}
+    .houses .hcenter{position:static;transform:none;width:100%;margin-bottom:12px}
+  }
+
+  .verdict{margin:22px 0 4px;padding:22px 24px;border-radius:20px;border:1px solid var(--edge);
+    border-left-width:3px;background:linear-gradient(150deg,rgba(46,86,152,.3),rgba(12,26,54,.55))}
+  .verdict.v-yes{border-left-color:var(--green)}
+  .verdict.v-no{border-left-color:var(--red)}
+  .verdict.v-mid{border-left-color:var(--gold)}
+  .verdict .qecho{font-family:var(--serif);font-size:17px;color:var(--gold-hi);font-style:italic;margin:0;line-height:1.5}
+  .verdict h3{font-family:var(--serif);font-weight:400;margin:10px 0 13px;
+    font-size:clamp(26px,3.8vw,36px);line-height:1.18;color:#fff}
+  .verdict.v-yes h3{color:#9fe8bd} .verdict.v-no h3{color:#f2adad}
+  .verdict .ctx{margin:0 0 14px;font-size:14.5px;line-height:1.68;color:#d3ddf0}
+  .verdict .act{margin:0;font-size:15px;line-height:1.62;border-top:1px solid var(--edge);padding-top:13px}
+  .verdict .act b{color:var(--gold-hi)}
+
+  .tread{border-top:1px solid var(--edge);padding-top:18px;margin-top:20px}
+  .tread .pos{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-soft);margin-bottom:7px}
+  .tread .name{font-family:var(--serif);font-size:23px;margin-bottom:11px;line-height:1.2}
+  .tread .name .n{color:var(--dimmer);font-size:14px;margin-right:9px;letter-spacing:.1em}
+  .tread .name .or{font-family:var(--sans);font-size:10px;color:var(--red);letter-spacing:.12em;
+    margin-left:10px;text-transform:uppercase;vertical-align:middle}
+  .tread .dir{font-size:16px;color:var(--gold-hi);margin:0 0 11px;line-height:1.55;font-family:var(--serif)}
+  .tread p{margin:0 0 10px;line-height:1.72;font-size:14.5px;color:#d3ddf0}
+  .tread .astro{font-size:13px;line-height:1.65;color:var(--gold-hi);background:rgba(217,184,114,.07);
+    border-left:2px solid var(--gold-dim);padding:10px 14px;border-radius:0 10px 10px 0;margin-top:6px}
+
+  /* ---------- navigazione inferiore ---------- */
+  .bottomnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;height:var(--nav-h);
+    display:flex;align-items:stretch;justify-content:center;gap:2px;
+    background:linear-gradient(0deg,rgba(5,10,22,.97),rgba(6,14,30,.86));
+    border-top:1px solid var(--edge);backdrop-filter:blur(14px);
+    height:calc(var(--nav-h) + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  .navbtn{
+    flex:1;max-width:150px;border:0;background:none;cursor:pointer;color:var(--dimmer);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    font-size:10px;letter-spacing:.1em;transition:.18s;padding:0;
+  }
+  .navbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .navbtn:hover{color:var(--dim)}
+  .navbtn.on{color:var(--gold)}
+  .navbtn.on svg{filter:drop-shadow(0 0 8px rgba(217,184,114,.5))}
+
+  .tab{display:none}
+  .tab.on{display:block;animation:fade .38s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .sheet{
+    position:fixed;inset:0;z-index:60;background:rgba(3,7,16,.72);backdrop-filter:blur(5px);
+    display:none;align-items:flex-start;justify-content:center;padding:70px 18px 18px;overflow:auto;
+  }
+  .sheet.on{display:flex}
+  .sheet .inner{max-width:520px;width:100%;background:linear-gradient(155deg,#12223f,#0a1428);
+    border:1px solid var(--edge-hi);border-radius:22px;padding:24px}
+  .sheet h3{font-family:var(--serif);font-weight:400;font-size:24px;margin:0 0 18px}
+
+  .wheel .sg{transition:fill-opacity .18s;cursor:pointer}
+  .wheel .sg:hover,.wheel .sg.hot{fill-opacity:.32}
+  .wheel .hs{fill:transparent;cursor:pointer;transition:fill .18s}
+  .wheel .hs:hover,.wheel .hs.hot{fill:rgba(217,184,114,.11)}
+  .wheel .asp .hit{stroke:transparent;stroke-width:7;cursor:pointer}
+  .wheel .asp .vis{transition:stroke-width .15s}
+  .wheel .asp:hover .vis,.wheel .asp.hot .vis{stroke-width:2.8;stroke:var(--gold-hi)}
+
+  .scrub{margin:14px 0 0}
+  .scrub-row{display:flex;align-items:center;gap:12px}
+  .scrub-row .iconbtn{width:36px;height:36px;border-radius:10px}
+  .scrub-row .iconbtn svg{width:16px;height:16px}
+  #wPlay .pa{opacity:0} #wPlay.on .pa{opacity:1} #wPlay.on .pi{opacity:0}
+  #wPlay.on{color:var(--gold-hi);border-color:var(--gold-dim);background:rgba(217,184,114,.14)}
+  input[type=range]{-webkit-appearance:none;appearance:none;padding:0;border:0;background:transparent;height:26px;flex:1;cursor:pointer}
+  input[type=range]:focus{box-shadow:none}
+  input[type=range]::-webkit-slider-runnable-track{height:5px;border-radius:3px;
+    background:linear-gradient(90deg,rgba(90,169,230,.35),rgba(217,184,114,.5),rgba(90,169,230,.35))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
+    margin-top:-6px;background:radial-gradient(circle at 34% 30%,var(--gold-hi),var(--gold) 60%,#a8813c);
+    border:0;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+  input[type=range]::-moz-range-track{height:5px;border-radius:3px;background:rgba(217,184,114,.4);border:0}
+  input[type=range]::-moz-range-thumb{width:17px;height:17px;border:0;border-radius:50%;
+    background:radial-gradient(circle at 34% 30%,var(--gold-hi),var(--gold) 60%,#a8813c)}
+  .scrub-lbl{display:flex;justify-content:space-between;gap:12px;margin-top:7px;font-size:12px}
+  .scrub-lbl b{font-weight:500;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+  .scrub-lbl span{color:var(--dimmer)}
+  .winfo{margin-top:12px;min-height:66px;padding:12px 14px;border-radius:14px;
+    background:rgba(4,10,22,.45);border:1px solid var(--edge);font-size:13.5px;line-height:1.6;color:#d3ddf0}
+  .winfo .wi-h{font-family:var(--serif);font-size:19px;color:var(--gold-hi);margin-bottom:4px}
+  .winfo .wi-h i{font-style:normal;margin-right:8px}
+  .winfo .wi-s{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer)}
+  .winfo em{font-style:normal;color:var(--gold-hi)}
+  .winfo .idle{color:var(--dimmer)}
+
+  .flipin .face{cursor:zoom-in}
+
+  /* --- il rito --- */
+  .ritual{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;
+    align-items:center;justify-content:center;gap:22px;padding:26px;
+    background:radial-gradient(circle at 50% 42%,rgba(26,52,102,.55),rgba(3,7,16,.985) 68%);
+    backdrop-filter:blur(11px)}
+  .ritual.on{display:flex;animation:fade .5s ease}
+  .rt-stage{position:relative;width:min(94vw,580px);height:min(48vh,340px);
+    display:flex;align-items:center;justify-content:center}
+  .rt-say{font-family:var(--serif);font-size:clamp(20px,3.2vw,28px);color:var(--gold-hi);
+    text-align:center;min-height:34px;letter-spacing:.02em}
+  .rt-say .rt-sub{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--dimmer);margin-top:9px}
+  .rt-q{font-family:var(--serif);font-style:italic;font-size:16.5px;color:var(--dim);
+    text-align:center;max-width:540px;line-height:1.5}
+  .rt-skip{position:absolute;top:20px;right:20px;width:auto;padding:0 16px;height:36px;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+  .rcard{position:absolute;width:76px;aspect-ratio:2/3;transform-origin:50% 128%;
+    transition:transform 1s cubic-bezier(.36,.06,.2,1);
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,.55))}
+  .rcard svg{width:100%;height:100%;display:block;border-radius:6px}
+  .pile{position:absolute;width:96px;aspect-ratio:2/3;cursor:pointer;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .45s;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))}
+  .pile svg{width:100%;height:100%;display:block;border-radius:7px}
+  .pile .pshadow{position:absolute;inset:0;border-radius:7px;
+    box-shadow:4px 4px 0 rgba(109,82,40,.55),8px 8px 0 rgba(109,82,40,.3)}
+  .pile:hover{transform:translateX(var(--px,0)) translateY(-16px) scale(1.05)!important}
+  .pile.taken{transform:translateX(var(--px,0)) translateY(-44px) scale(1.12)!important;opacity:0}
+  .sigil{width:min(62vw,230px);height:auto}
+  .sigil .spin{transform-origin:100px 100px;animation:rotSlow 26s linear infinite}
+  .sigil .prog{animation:fill 3.6s cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes rotSlow{to{transform:rotate(360deg)}}
+  @keyframes fill{to{stroke-dashoffset:0}}
+
+  /* --- distribuzione e scoperta --- */
+  .tcard{transition:opacity .5s ease}
+  .tcard .flipbox{transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s}
+  .tcard.dealing{opacity:0}
+  .tcard.dealing .flipbox{opacity:0;transform:translateY(-42px) scale(.9)}
+  .tcard.dealing.landed{opacity:1}
+  .tcard.dealing.landed .flipbox{opacity:1;transform:none}
+  .tcard .flipbox::after{content:'';position:absolute;inset:0;border-radius:11px;pointer-events:none;
+    z-index:6;opacity:0;background:linear-gradient(115deg,transparent 32%,rgba(240,220,172,.6) 49%,transparent 66%)}
+  .tcard.shine .flipbox::after{animation:sweep .95s ease-out}
+  @keyframes sweep{0%{opacity:0;transform:translateX(-115%)}22%{opacity:1}100%{opacity:0;transform:translateX(115%)}}
+  #tverdict{opacity:0;transform:translateY(12px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  #tverdict.shown{opacity:1;transform:none}
+  .tread{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+  .tread.shown{opacity:1;transform:none}
+
+  .sndbtn .wv{opacity:0} .sndbtn .mute{opacity:1}
+  .sndbtn.on .wv{opacity:1} .sndbtn.on .mute{opacity:0}
+  .sndbtn.on{color:var(--gold-hi);border-color:var(--gold-dim);background:rgba(217,184,114,.14)}
+  .btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+  .lightbox{position:fixed;inset:0;z-index:80;background:rgba(3,7,16,.94);backdrop-filter:blur(9px);
+    display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:26px}
+  .lightbox.on{display:flex;animation:fade .25s ease}
+  .lightbox #lbimg{display:flex;align-items:center;justify-content:center}
+  .lightbox img,.lightbox svg{max-width:min(92vw,560px);max-height:72vh;width:auto;height:auto;
+    border-radius:14px;box-shadow:0 22px 70px rgba(0,0,0,.75),0 0 0 1px rgba(217,184,114,.4)}
+  .lightbox img.rot{transform:rotate(180deg)}
+  .lightbox .cap{text-align:center;max-width:540px}
+  .lightbox .cap b{font-family:var(--serif);font-size:27px;font-weight:400;color:var(--gold-hi);display:block}
+  .lightbox .cap span{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer)}
+  .lightbox .cap p{font-family:var(--serif);font-size:19px;color:#e4ebf8;line-height:1.5;margin:12px 0 0}
+  .lightbox .lbcount{font-size:11px;letter-spacing:.2em;color:var(--dimmer);font-variant-numeric:tabular-nums}
+  .lb-close{position:absolute;top:20px;right:20px}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%)}
+  .lb-prev{left:20px} .lb-next{right:20px}
+  @media(max-width:620px){.lb-prev{left:8px}.lb-next{right:8px}.lightbox .cap p{font-size:16px}}
+
+  /* --- schermi stretti e comandi da toccare --- */
+  .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  @media (pointer:coarse){
+    input[type=range]{height:34px}
+    input[type=range]::-webkit-slider-thumb{width:26px;height:26px;margin-top:-10px}
+    input[type=range]::-moz-range-thumb{width:26px;height:26px}
+    .wheel .asp .hit{stroke-width:14}
+  }
+  @media(max-width:620px){
+    .lightbox img,.lightbox svg{max-width:78vw;max-height:58vh}
+    .lightbox{gap:10px;padding:20px 14px}
+    .lightbox .cap b{font-size:23px}
+  }
+  @media(max-width:560px){
+    .shell{padding:0 13px} .appbar{padding:12px 13px;margin:0 -13px 6px}
+    .panel{padding:16px 15px;border-radius:17px}
+    .responso{padding:18px 16px;gap:14px}
+    .responso .star{width:56px;height:56px}
+    table{font-size:12.5px} th{padding:0 5px 8px} td{padding:8px 5px}
+    .rcard{width:clamp(50px,16vw,76px)}
+    .pile{width:clamp(64px,21vw,96px)}
+    .rt-stage{height:min(42vh,290px)}
+    .rt-say{font-size:20px} .rt-q{font-size:14.5px}
+    .verdict{padding:18px 16px}
+    .winfo{font-size:13px;padding:11px 12px}
+  }
+  @media(max-width:520px){
+    .tcard{width:140px} .trow{gap:16px}
+    .num{width:46px;height:46px;font-size:19px}
+  }
+  @media(max-width:420px){
+    .brand .wordmark{font-size:21px}
+    .brand .tag{font-size:7px;letter-spacing:.22em}
+    .brand .mono{width:28px;height:28px}
+    .brand{gap:8px}
+    .navbtn{font-size:9px} .navbtn svg{width:19px;height:19px}
+  }
+
+  .foot{margin:26px 0 10px;font-size:11.5px;color:var(--dimmer);line-height:1.75;text-align:center}
+  .locked{opacity:.45;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+
+<div class="shell">
+
+  <header class="appbar">
+    <div class="iconbtn" id="menuBtn" title="Impostazioni">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </div>
+    <div class="brand">
+      <svg class="mono" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="#d9b872" stroke-opacity=".35" stroke-dasharray="1 3.4"/>
+        <circle cx="20" cy="3.6" r="1.7" fill="#f0dcac"/><circle cx="36" cy="24" r="1.3" fill="#d9b872"/>
+        <circle cx="5" cy="27" r="1.1" fill="#d9b872"/><circle cx="33" cy="10" r="1" fill="#f0dcac"/>
+        <text x="20" y="27.5" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif"
+              font-size="22" fill="#e8c98a">A</text>
+      </svg>
+      <div>
+        <div class="wordmark">Astroracle</div>
+        <span class="tag">effemeridi · transiti · arcani</span>
+      </div>
+    </div>
+    <div class="iconbtn" id="profBtn" title="I tuoi dati">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+    </div>
+  </header>
+
+  <!-- ============ SINTESI ============ -->
+  <section class="tab" id="tab-sintesi">
+    <div class="rowtop" style="margin-bottom:14px">
+      <div>
+        <h1 class="title">Il responso del giorno</h1>
+        <p class="sub" id="dayline"></p>
+      </div>
+      <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.3L20.5 10l-5.4 3.6L16.4 20 12 16.4 7.6 20l1.3-6.4L3.5 10l6.3-1.7z"/></svg>Motore locale</div>
+    </div>
+
+    <div class="responso">
+      <svg class="star" viewBox="0 0 80 80">
+        <circle cx="40" cy="40" r="30" fill="none" stroke="#d9b872" stroke-opacity=".22" stroke-dasharray="1 4"/>
+        <path d="M40 8 l5.6 22.6L68 40l-22.4 9.4L40 72l-5.6-22.6L12 40l22.4-9.4z" fill="#e8c98a" fill-opacity=".9"/>
+        <path d="M40 20 l2.6 12.4L55 40l-12.4 5.6L40 60l-2.6-14.4L25 40l12.4-5.6z" fill="#fff6e0" fill-opacity=".55"/>
+      </svg>
+      <div class="txt">
+        <p class="lbl" style="margin-bottom:4px">Il tuo responso</p>
+        <h2 id="responso"></h2>
+      </div>
+    </div>
+
+    <div class="panel">
+      <p class="lbl">Scala di fortuna</p>
+      <div class="metrics">
+        <div class="ring" id="ring"></div>
+        <div id="bars"></div>
+      </div>
+      <p class="hint" style="margin-top:16px">
+        Media di quattro indicatori indipendenti, ciascuno calcolato sui transiti planetari reali
+        della giornata rispetto alla tua carta natale.
+      </p>
+    </div>
+
+    <div class="twocol">
+      <div class="agree"><p class="lbl">Dove le spinte concordano</p><ul id="agree"></ul></div>
+      <div class="disagree"><p class="lbl">Dove si contraddicono</p><ul id="disagree"></ul></div>
+    </div>
+
+    <div class="panel">
+      <p class="lbl">Perché siamo arrivati a questo risultato</p>
+      <ul class="reasons" id="reasons"></ul>
+    </div>
+
+    <div class="panel">
+      <p class="lbl">La tua giornata</p>
+      <div id="horo"></div>
+    </div>
+
+    <div class="twocol">
+      <div class="panel" style="margin:0">
+        <p class="lbl">Numeri fortunati</p>
+        <div class="nums" id="nums"></div>
+        <p class="hint">Dai gradi esatti dei tuoi pianeti natali combinati con la data. Stabili per tutta la giornata.</p>
+        <p class="lbl" style="margin-top:20px">Numero guida</p>
+        <div class="nums" id="numsalt"></div>
+      </div>
+      <div class="panel" style="margin:0">
+        <p class="lbl">Momento migliore</p>
+        <p id="besttime" style="line-height:1.7;font-size:14.5px;margin:0;color:#d3ddf0"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRANSITI ============ -->
+  <section class="tab" id="tab-transiti">
+    <h1 class="title">Transiti astrologici personali</h1>
+    <p class="sub">Il tuo cielo di nascita e i movimenti planetari di oggi che lo attivano.</p>
+
+    <div class="panel tight"><div class="idrow" id="idrow"></div></div>
+
+    <div class="twocol" style="grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)">
+      <div class="panel" style="margin:0">
+        <p class="lbl">La tua ruota</p>
+        <div class="chips">
+          <div class="chip on" data-t="transits">Transiti di oggi</div>
+          <div class="chip on" data-t="aspects">Aspetti</div>
+          <div class="chip on" data-t="houses">Case</div>
+          <div class="chip" data-t="equal">Case uguali</div>
+        </div>
+        <div id="wheelbox"></div>
+        <div class="scrub">
+          <div class="scrub-row">
+            <div class="iconbtn" id="wPlay" title="Scorri il tempo">
+              <svg viewBox="0 0 24 24"><path class="pi" d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/>
+                <path class="pa" d="M9 5v14M15 5v14"/></svg>
+            </div>
+            <input type="range" id="wTime" min="-360" max="360" step="1" value="0"
+                   aria-label="Sposta il momento nel tempo">
+            <div class="iconbtn" id="wNow" title="Torna al giorno letto">
+              <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></svg>
+            </div>
+          </div>
+          <div class="scrub-lbl"><b id="wWhen"></b><span id="wDelta"></span></div>
+        </div>
+        <div class="winfo" id="winfo"></div>
+        <p class="hint">Anello interno: la carta natale. Anello esterno: i pianeti in transito.
+          L'Ascendente è sempre a sinistra, ore 9. Passa sopra segni, case e linee per i dettagli.</p>
+      </div>
+      <div>
+        <div class="panel"><p class="lbl">Transiti di oggi</p><ul class="reasons gold" id="todaylist"></ul></div>
+        <div class="panel" style="margin:0"><p class="lbl">Aspetti attivi</p><div class="asplist" id="asplist"></div></div>
+      </div>
+    </div>
+
+    <div class="panel"><p class="lbl">Dettaglio posizioni</p>
+      <div class="tblwrap"><table id="ptable"></table></div></div>
+  </section>
+
+  <!-- ============ CARTE ============ -->
+  <section class="tab" id="tab-carte">
+    <div class="rowtop" style="margin-bottom:14px">
+      <div>
+        <h1 class="title">Il consulto delle carte</h1>
+        <p class="sub">Ventidue arcani maggiori letti contro la tua carta natale, attraverso le
+          corrispondenze planetarie della Golden Dawn.</p>
+      </div>
+      <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.3L20.5 10l-5.4 3.6L16.4 20 12 16.4 7.6 20l1.3-6.4L3.5 10l6.3-1.7z"/></svg>Mescolata, taglio, lettura</div>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+        <div>
+          <label for="question">La tua domanda</label>
+          <input id="question" maxlength="160" placeholder="Es. «È un buon momento per cambiare lavoro?»">
+          <p class="hint">Il mazzo viene mescolato da capo a ogni consulto e <b>la pila che tagli
+            decide da dove si estrae</b>: due letture della stessa domanda daranno carte diverse.
+            La tua carta natale non sceglie le carte — decide come vengono lette.</p>
+        </div>
+        <div>
+          <label for="spread">Stesa</label>
+          <select id="spread">
+            <option value="one">Carta del giorno — 1</option>
+            <option value="three" selected>Tre carte — 3</option>
+            <option value="celtic">Croce Celtica — 10</option>
+            <option value="houses">Stesa astrologica — 12</option>
+          </select>
+          <p class="hint" id="spreadhint"></p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <button class="btn" id="draw">Estrai le carte</button>
+        <div class="iconbtn sndbtn" id="soundBtn" title="Suono spento">
+          <svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/>
+            <path class="wv" d="M15.5 9.5a4 4 0 0 1 0 5M18 7a7.5 7.5 0 0 1 0 10"/>
+            <path class="mute" d="M16 9.5l5 5m0-5l-5 5"/></svg>
+        </div>
+      </div>
+      <div class="err" id="qerr"></div>
+    </div>
+
+    <div id="tarotout" style="display:none">
+      <div id="tverdict"></div>
+      <div class="tspread" id="tspread"></div>
+      <div class="panel"><div id="treading"></div></div>
+    </div>
+  </section>
+
+  <!-- ============ PROFILO ============ -->
+  <section class="tab on" id="tab-profilo">
+    <h1 class="title">I tuoi dati di nascita</h1>
+    <p class="sub">Data, ora e luogo servono a calcolare l'Ascendente e le case. Tutto resta nel tuo
+      browser: non viene inviato niente da nessuna parte.</p>
+
+    <div class="panel">
+      <div class="grid">
+        <div>
+          <label for="bdate">Data di nascita</label>
+          <input type="date" id="bdate" value="1990-06-15">
+        </div>
+        <div>
+          <label for="btime">Ora di nascita</label>
+          <input type="time" id="btime" value="10:30">
+          <p class="hint">Se non la conosci lascia 12:00: l'Ascendente sarà indicativo.</p>
+        </div>
+        <div>
+          <label for="bcity">Luogo di nascita</label>
+          <input list="cities" id="bcity" value="Roma" placeholder="Inizia a scrivere…">
+          <datalist id="cities"></datalist>
+          <p class="hint" id="coordhint">—</p>
+        </div>
+        <div>
+          <label for="tdate">Giorno da leggere</label>
+          <input type="date" id="tdate">
+        </div>
+      </div>
+      <button class="btn" id="go">Calcola il cielo</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="panel"><p class="lbl">La tua carta in breve</p><div class="idrow" id="idrow2"></div></div>
+    <div class="foot" id="foot"></div>
+  </section>
+
+  <div class="foot" id="foot2"></div>
+</div>
+
+<nav class="bottomnav">
+  <button class="navbtn" data-tab="sintesi">
+    <svg viewBox="0 0 24 24"><path d="M12 3l2 6.2 6.2 2-6.2 2-2 6.2-2-6.2-6.2-2 6.2-2z"/></svg>Sintesi</button>
+  <button class="navbtn" data-tab="transiti">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="10.5" ry="4" transform="rotate(-24 12 12)"/></svg>Transiti</button>
+  <button class="navbtn" data-tab="carte">
+    <svg viewBox="0 0 24 24"><rect x="8" y="4" width="11" height="15" rx="2"/><path d="M5.5 7v11a2 2 0 0 0 2 2H15"/></svg>Carte</button>
+  <button class="navbtn on" data-tab="profilo">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>Profilo</button>
+</nav>
+
+<div class="ritual" id="ritual">
+  <div class="iconbtn rt-skip" id="rtSkip">salta</div>
+  <div class="rt-stage" id="rtStage"></div>
+  <div class="rt-say" id="rtSay"></div>
+  <div class="rt-q" id="rtQ"></div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <div class="iconbtn lb-close" id="lbClose" title="Chiudi (Esc)">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+  <div class="iconbtn lb-nav lb-prev" id="lbPrev" title="Precedente">
+    <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div>
+  <div class="iconbtn lb-nav lb-next" id="lbNext" title="Successiva">
+    <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></div>
+  <div id="lbimg"></div>
+  <div class="cap" id="lbcap"></div>
+  <div class="lbcount" id="lbcount"></div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="inner">
+    <h3>Impostazioni della carta</h3>
+    <div class="grid">
+      <div>
+        <label for="tdate2">Giorno da leggere</label>
+        <input type="date" id="tdate2">
+      </div>
+      <div>
+        <label for="housemode">Sistema delle case</label>
+        <select id="housemode">
+          <option value="whole">Segni interi</option>
+          <option value="equal">Case uguali</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label for="ceremony">Cerimonia dell'estrazione</label>
+      <select id="ceremony">
+        <option value="full">Completa — raccoglimento, mescolata, taglio</option>
+        <option value="short">Breve — mescolata e taglio</option>
+        <option value="none">Nessuna — estrazione immediata, taglio a caso</option>
+      </select>
+      <p class="hint">La pila che tagli entra nel calcolo, quindi decide davvero le carte.
+        Senza cerimonia il taglio lo fa il sito al posto tuo.</p>
+    </div>
+    <p class="hint">I segni interi fanno coincidere ogni casa con un segno intero a partire
+      dall'Ascendente. Le case uguali partono dal grado esatto dell'Ascendente e proseguono di 30° in 30°.</p>
+    <button class="btn alt" id="sheetClose">Chiudi</button>
+  </div>
+</div>
+
+<script>
+
+/* =======================================================================
+   1. UTILITÀ MATEMATICHE
+   ======================================================================= */
+const DEG = Math.PI / 180;
+const RAD = 180 / Math.PI;
+const sin = a => Math.sin(a * DEG), cos = a => Math.cos(a * DEG), tan = a => Math.tan(a * DEG);
+const norm360 = x => ((x % 360) + 360) % 360;
+const norm180 = x => { const v = norm360(x); return v > 180 ? v - 360 : v; };
+
+/* =======================================================================
+   2. TEMPO
+   ======================================================================= */
+function julianDay(y, m, d, hUT) {
+  if (m <= 2) { y -= 1; m += 12; }
+  const A = Math.floor(y / 100);
+  const B = 2 - A + Math.floor(A / 4);
+  return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1))
+       + d + B - 1524.5 + hUT / 24;
+}
+
+/* Offset del fuso orario (minuti) per un istante e una zona IANA */
+function tzOffsetMin(utcDate, tz) {
+  const dtf = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hour12: false,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+  const p = {};
+  for (const part of dtf.formatToParts(utcDate)) p[part.type] = part.value;
+  const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day,
+                         +p.hour % 24, +p.minute, +p.second);
+  return (asUTC - utcDate.getTime()) / 60000;
+}
+
+/* Da ora locale (in una zona) a JD, gestendo l'ora legale */
+function localToJD(y, mo, d, h, mi, tz) {
+  let guess = Date.UTC(y, mo - 1, d, h, mi, 0);
+  for (let i = 0; i < 3; i++) {
+    const off = tzOffsetMin(new Date(guess), tz);
+    guess = Date.UTC(y, mo - 1, d, h, mi, 0) - off * 60000;
+  }
+  const u = new Date(guess);
+  return {
+    jd: julianDay(u.getUTCFullYear(), u.getUTCMonth() + 1, u.getUTCDate(),
+                  u.getUTCHours() + u.getUTCMinutes() / 60 + u.getUTCSeconds() / 3600),
+    offsetMin: tzOffsetMin(u, tz),
+    utc: u
+  };
+}
+
+/* Tempo siderale medio di Greenwich, in gradi */
+function gmst(jd) {
+  const T = (jd - 2451545.0) / 36525;
+  return norm360(280.46061837 + 360.98564736629 * (jd - 2451545.0)
+       + 0.000387933 * T * T - T * T * T / 38710000);
+}
+
+/* Obliquità media dell'eclittica */
+function obliquity(T) {
+  return 23.439291111 - 0.0130041667 * T - 1.6667e-7 * T * T + 5.0278e-7 * T * T * T;
+}
+
+/* Precessione generale in longitudine da J2000 alla data (gradi) */
+function precession(T) {
+  return (5028.796195 * T + 1.1054348 * T * T) / 3600;
+}
+
+/* =======================================================================
+   3. ELEMENTI ORBITALI (JPL / Standish, validi 1800–2050)
+      [valore a J2000, variazione per secolo giuliano]
+   ======================================================================= */
+const ELEMENTS = {
+  Mercurio: { a:[0.38709927, 0.00000037], e:[0.20563593, 0.00001906], I:[7.00497902,-0.00594749],
+              L:[252.25032350,149472.67411175], w:[77.45779628,0.16047689], O:[48.33076593,-0.12534081] },
+  Venere:   { a:[0.72333566, 0.00000390], e:[0.00677672,-0.00004107], I:[3.39467605,-0.00078890],
+              L:[181.97909950,58517.81538729], w:[131.60246718,0.00268329], O:[76.67984255,-0.27769418] },
+  Terra:    { a:[1.00000261, 0.00000562], e:[0.01671123,-0.00004392], I:[-0.00001531,-0.01294668],
+              L:[100.46457166,35999.37244981], w:[102.93768193,0.32327364], O:[0.0,0.0] },
+  Marte:    { a:[1.52371034, 0.00001847], e:[0.09339410, 0.00007882], I:[1.84969142,-0.00813131],
+              L:[-4.55343205,19140.30268499], w:[-23.94362959,0.44441088], O:[49.55953891,-0.29257343] },
+  Giove:    { a:[5.20288700,-0.00011607], e:[0.04838624,-0.00013253], I:[1.30439695,-0.00183714],
+              L:[34.39644051,3034.74612775], w:[14.72847983,0.21252668], O:[100.47390909,0.20469106] },
+  Saturno:  { a:[9.53667594,-0.00125060], e:[0.05386179,-0.00050991], I:[2.48599187,0.00193609],
+              L:[49.95424423,1222.49362201], w:[92.59887831,-0.41897216], O:[113.66242448,-0.28867794] },
+  Urano:    { a:[19.18916464,-0.00196176], e:[0.04725744,-0.00004397], I:[0.77263783,-0.00242939],
+              L:[313.23810451,428.48202785], w:[170.95427630,0.40805281], O:[74.01692503,0.04240589] },
+  Nettuno:  { a:[30.06992276, 0.00026291], e:[0.00859048, 0.00005105], I:[1.77004347,0.00035372],
+              L:[-55.12002969,218.45945325], w:[44.96476227,-0.32241464], O:[131.78422574,-0.00508664] },
+  Plutone:  { a:[39.48211675,-0.00031596], e:[0.24882730, 0.00005170], I:[17.14001206,0.00004818],
+              L:[238.92903833,145.20780515], w:[224.06891629,-0.04062942], O:[110.30393684,-0.01183482] }
+};
+
+function kepler(M, e) {
+  const eStar = RAD * e;
+  let E = M + eStar * sin(M);
+  for (let i = 0; i < 30; i++) {
+    const dE = (M - (E - eStar * sin(E))) / (1 - e * cos(E));
+    E += dE;
+    if (Math.abs(dE) < 1e-10) break;
+  }
+  return E;
+}
+
+/* Coordinate eliocentriche rettangolari, eclittica J2000 */
+function heliocentric(name, T) {
+  const el = ELEMENTS[name];
+  const a = el.a[0] + el.a[1] * T,
+        e = el.e[0] + el.e[1] * T,
+        I = el.I[0] + el.I[1] * T,
+        L = el.L[0] + el.L[1] * T,
+        wb = el.w[0] + el.w[1] * T,
+        Om = el.O[0] + el.O[1] * T;
+  const w = wb - Om;
+  const E = kepler(norm180(L - wb), e);
+  const xp = a * (cos(E) - e);
+  const yp = a * Math.sqrt(1 - e * e) * sin(E);
+  const cw = cos(w), sw = sin(w), cO = cos(Om), sO = sin(Om), ci = cos(I), si = sin(I);
+  return {
+    x: (cw * cO - sw * sO * ci) * xp + (-sw * cO - cw * sO * ci) * yp,
+    y: (cw * sO + sw * cO * ci) * xp + (-sw * sO + cw * cO * ci) * yp,
+    z: (sw * si) * xp + (cw * si) * yp
+  };
+}
+
+/* Longitudine eclittica geocentrica, riferita all'equinozio della data */
+function geoLongitude(name, jd) {
+  const T = (jd - 2451545.0) / 36525;
+  const earth = heliocentric('Terra', T);
+  let X, Y;
+  if (name === 'Sole') {
+    X = -earth.x; Y = -earth.y;
+  } else {
+    const p = heliocentric(name, T);
+    X = p.x - earth.x; Y = p.y - earth.y;
+  }
+  return norm360(Math.atan2(Y, X) * RAD + precession(T));
+}
+
+/* --- Luna: serie ELP2000 abbreviata (Meeus cap. 47) ---------------- */
+const MOON_TERMS = [
+  [0,0,1,0,6288774],[2,0,-1,0,1274027],[2,0,0,0,658314],[0,0,2,0,213618],
+  [0,1,0,0,-185116],[0,0,0,2,-114332],[2,0,-2,0,58793],[2,-1,-1,0,57066],
+  [2,0,1,0,53322],[2,-1,0,0,45758],[0,1,-1,0,-40923],[1,0,0,0,-34720],
+  [0,1,1,0,-30383],[2,0,0,-2,15327],[0,0,1,2,-12528],[0,0,1,-2,10980],
+  [4,0,-1,0,10675],[0,0,3,0,10034],[4,0,-2,0,8548],[2,1,-1,0,-7888],
+  [2,1,0,0,-6766],[1,0,-1,0,-5163],[1,1,0,0,4987],[2,-1,1,0,4036],
+  [2,0,2,0,3994],[4,0,0,0,3861],[2,0,-3,0,3665],[0,1,-2,0,-2689],
+  [2,0,-1,2,-2602],[2,-1,-2,0,2390],[1,0,1,0,-2348],[2,-2,0,0,2236],
+  [0,1,2,0,-2120],[0,2,0,0,-2069],[2,-2,-1,0,2048],[2,0,1,-2,-1773],
+  [2,0,0,2,-1595],[4,-1,-1,0,1215],[0,0,2,2,-1110],[3,0,-1,0,-892],
+  [2,1,1,0,-810],[4,-1,-2,0,759],[0,2,-1,0,-713],[2,2,-1,0,-700],
+  [2,1,-2,0,691],[2,-1,0,-2,596],[4,0,1,0,549],[0,0,4,0,537],
+  [4,-1,0,0,520],[1,0,-2,0,-487],[2,1,0,-2,-399],[0,0,2,-2,-381],
+  [1,1,1,0,351],[3,0,-2,0,-340],[4,0,-3,0,330],[2,-1,2,0,327],
+  [0,2,1,0,-323],[1,1,-1,0,299],[2,0,3,0,294]
+];
+
+function moonLongitude(jd) {
+  const T = (jd - 2451545.0) / 36525;
+  const Lp = 218.3164477 + 481267.88123421*T - 0.0015786*T*T + T**3/538841 - T**4/65194000;
+  const D  = 297.8501921 + 445267.1114034*T - 0.0018819*T*T + T**3/545868 - T**4/113065000;
+  const M  = 357.5291092 + 35999.0502909*T - 0.0001536*T*T + T**3/24490000;
+  const Mp = 134.9633964 + 477198.8675055*T + 0.0087414*T*T + T**3/69699 - T**4/14712000;
+  const F  = 93.2720950 + 483202.0175233*T - 0.0036539*T*T - T**3/3526000 + T**4/863310000;
+  const E  = 1 - 0.002516*T - 0.0000074*T*T;
+
+  let sum = 0;
+  for (const [d, m, mp, f, c] of MOON_TERMS) {
+    let coef = c;
+    const ma = Math.abs(m);
+    if (ma === 1) coef *= E; else if (ma === 2) coef *= E * E;
+    sum += coef * sin(d*D + m*M + mp*Mp + f*F);
+  }
+  const Om = 125.04452 - 1934.136261*T;
+  const nut = (-17.20 * sin(Om) - 1.32 * sin(2*(280.4665 + 36000.7698*T))) / 3600;
+  return norm360(Lp + sum / 1e6 + nut);
+}
+
+function meanNode(jd) {
+  const T = (jd - 2451545.0) / 36525;
+  return norm360(125.0445479 - 1934.1362891*T + 0.0020754*T*T + T**3/467441);
+}
+
+/* =======================================================================
+   4. ASCENDENTE, MEDIO CIELO, CASE
+   ======================================================================= */
+function angles(jd, latDeg, lonDeg) {
+  const T = (jd - 2451545.0) / 36525;
+  const eps = obliquity(T);
+  const ramc = norm360(gmst(jd) + lonDeg);           // longitudine est positiva
+  const mc = norm360(Math.atan2(sin(ramc), cos(ramc) * cos(eps)) * RAD);
+  const lat = Math.max(-89.5, Math.min(89.5, latDeg));
+  const asc = norm360(Math.atan2(cos(ramc),
+              -(sin(ramc) * cos(eps) + tan(lat) * sin(eps))) * RAD);
+  return { asc, mc, ramc, eps };
+}
+
+function houseCusps(asc, mode) {
+  const cusps = [];
+  if (mode === 'equal') {
+    for (let i = 0; i < 12; i++) cusps.push(norm360(asc + 30 * i));
+  } else { // segni interi
+    const start = Math.floor(asc / 30) * 30;
+    for (let i = 0; i < 12; i++) cusps.push(norm360(start + 30 * i));
+  }
+  return cusps;
+}
+
+function houseOf(lon, cusps) {
+  for (let i = 0; i < 12; i++) {
+    const a = cusps[i], b = cusps[(i + 1) % 12];
+    const span = norm360(b - a), off = norm360(lon - a);
+    if (off < span || span === 0) return i + 1;
+  }
+  return 12;
+}
+
+/* =======================================================================
+   5. ZODIACO
+   ======================================================================= */
+const SIGNS = [
+  {n:'Ariete',g:'♈',el:'fire',ru:'Marte'},   {n:'Toro',g:'♉',el:'earth',ru:'Venere'},
+  {n:'Gemelli',g:'♊',el:'air',ru:'Mercurio'},{n:'Cancro',g:'♋',el:'water',ru:'Luna'},
+  {n:'Leone',g:'♌',el:'fire',ru:'Sole'},     {n:'Vergine',g:'♍',el:'earth',ru:'Mercurio'},
+  {n:'Bilancia',g:'♎',el:'air',ru:'Venere'}, {n:'Scorpione',g:'♏',el:'water',ru:'Plutone'},
+  {n:'Sagittario',g:'♐',el:'fire',ru:'Giove'},{n:'Capricorno',g:'♑',el:'earth',ru:'Saturno'},
+  {n:'Acquario',g:'♒',el:'air',ru:'Urano'},  {n:'Pesci',g:'♓',el:'water',ru:'Nettuno'}
+];
+const ELNAME = {fire:'Fuoco', earth:'Terra', air:'Aria', water:'Acqua'};
+
+const BODIES = [
+  {k:'Sole',    g:'☉', w:10, cls:'lum'},
+  {k:'Luna',    g:'☽', w:10, cls:'lum'},
+  {k:'Mercurio',g:'☿', w:7,  cls:'per'},
+  {k:'Venere',  g:'♀', w:8,  cls:'per'},
+  {k:'Marte',   g:'♂', w:8,  cls:'per'},
+  {k:'Giove',   g:'♃', w:8,  cls:'soc'},
+  {k:'Saturno', g:'♄', w:8,  cls:'soc'},
+  {k:'Urano',   g:'♅', w:5,  cls:'gen'},
+  {k:'Nettuno', g:'♆', w:5,  cls:'gen'},
+  {k:'Plutone', g:'♇', w:5,  cls:'gen'},
+  {k:'Nodo',    g:'☊', w:4,  cls:'pt'}
+];
+
+function signIdx(lon){ return Math.floor(norm360(lon) / 30); }
+function fmtPos(lon) {
+  const l = norm360(lon), si = signIdx(l), deg = l - si * 30;
+  const d = Math.floor(deg), m = Math.floor((deg - d) * 60);
+  return { sign: SIGNS[si], d, m, txt: d + '°' + String(m).padStart(2,'0') + "'" };
+}
+
+/* Tutte le posizioni per un istante */
+function computeChart(jd, lat, lon, houseMode) {
+  const pos = {};
+  pos.Sole = geoLongitude('Sole', jd);
+  pos.Luna = moonLongitude(jd);
+  for (const p of ['Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'])
+    pos[p] = geoLongitude(p, jd);
+  pos.Nodo = meanNode(jd);
+
+  // velocità (gradi/giorno) per il moto retrogrado
+  const spd = {};
+  const dt = 0.5;
+  spd.Sole = norm180(geoLongitude('Sole', jd + dt) - pos.Sole) / dt;
+  spd.Luna = norm180(moonLongitude(jd + dt) - pos.Luna) / dt;
+  for (const p of ['Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'])
+    spd[p] = norm180(geoLongitude(p, jd + dt) - pos[p]) / dt;
+  spd.Nodo = -0.053;
+
+  const ang = (lat === null) ? null : angles(jd, lat, lon);
+  const cusps = ang ? houseCusps(ang.asc, houseMode) : null;
+
+  return { jd, pos, spd, ang, cusps,
+    house: b => cusps ? houseOf(pos[b], cusps) : null };
+}
+
+/* =======================================================================
+   6. ASPETTI
+   ======================================================================= */
+const ASPECTS = [
+  {n:'Congiunzione', a:0,   orb:8, g:'☌', q:0},
+  {n:'Sestile',      a:60,  orb:5, g:'⚹', q:1},
+  {n:'Quadrato',     a:90,  orb:6, g:'□', q:-1},
+  {n:'Trigono',      a:120, orb:7, g:'△', q:1},
+  {n:'Opposizione',  a:180, orb:7, g:'☍', q:-1}
+];
+const BENEFIC = {Venere:1.0, Giove:1.0, Sole:0.5, Mercurio:0.3, Luna:0.3,
+                 Marte:-0.4, Saturno:-0.8, Urano:-0.3, Nettuno:-0.3, Plutone:-0.5, Nodo:0.2};
+
+function findAspects(posA, posB, keysA, keysB, sameSet) {
+  const out = [];
+  for (let i = 0; i < keysA.length; i++) {
+    for (let j = sameSet ? i + 1 : 0; j < keysB.length; j++) {
+      const A = keysA[i], B = keysB[j];
+      if (sameSet && A === B) continue;
+      const sep = Math.abs(norm180(posA[A] - posB[B]));
+      for (const asp of ASPECTS) {
+        let orb = asp.orb;
+        if (A === 'Sole' || A === 'Luna' || B === 'Sole' || B === 'Luna') orb += 1.5;
+        if (A === 'Nodo' || B === 'Nodo') orb -= 2;
+        const diff = Math.abs(sep - asp.a);
+        if (diff <= orb) {
+          out.push({ a:A, b:B, asp, orbDiff:diff,
+                     strength: Math.max(0, 1 - diff / orb) });
+          break;
+        }
+      }
+    }
+  }
+  return out.sort((x, y) => y.strength - x.strength);
+}
+
+/* =======================================================================
+   7. CITTÀ  (nome | lat | lon)  — fuso Europe/Rome per l'Italia
+   ======================================================================= */
+const IT = `Roma|41.9028|12.4964;Milano|45.4642|9.1900;Napoli|40.8518|14.2681;Torino|45.0703|7.6869;
+Palermo|38.1157|13.3615;Genova|44.4056|8.9463;Bologna|44.4949|11.3426;Firenze|43.7696|11.2558;
+Bari|41.1171|16.8719;Catania|37.5079|15.0830;Venezia|45.4408|12.3155;Verona|45.4384|10.9916;
+Messina|38.1938|15.5540;Padova|45.4064|11.8768;Trieste|45.6495|13.7768;Brescia|45.5416|10.2118;
+Parma|44.8015|10.3279;Prato|43.8777|11.1023;Modena|44.6471|10.9252;Reggio Calabria|38.1113|15.6473;
+Reggio Emilia|44.6989|10.6297;Perugia|43.1107|12.3908;Ravenna|44.4184|12.2035;Livorno|43.5485|10.3106;
+Rimini|44.0678|12.5695;Cagliari|39.2238|9.1217;Foggia|41.4622|15.5444;Ferrara|44.8381|11.6198;
+Salerno|40.6824|14.7681;Latina|41.4676|12.9037;Monza|45.5845|9.2744;Sassari|40.7259|8.5557;
+Bergamo|45.6983|9.6773;Pescara|42.4643|14.2142;Trento|46.0748|11.1217;Forlì|44.2227|12.0407;
+Siracusa|37.0755|15.2866;Vicenza|45.5455|11.5354;Terni|42.5636|12.6427;Bolzano|46.4983|11.3548;
+Piacenza|45.0526|9.6930;Novara|45.4469|8.6222;Ancona|43.6158|13.5189;Andria|41.2270|16.2960;
+Arezzo|43.4633|11.8796;Udine|46.0711|13.2346;Cesena|44.1391|12.2431;Lecce|40.3515|18.1750;
+Pesaro|43.9102|12.9132;Barletta|41.3128|16.2810;Alessandria|44.9133|8.6151;La Spezia|44.1025|9.8241;
+Pistoia|43.9333|10.9167;Pisa|43.7160|10.3966;Catanzaro|38.9098|16.5877;Lucca|43.8430|10.5079;
+Brindisi|40.6327|17.9366;Treviso|45.6669|12.2431;Como|45.8081|9.0852;Varese|45.8206|8.8251;
+Marsala|37.7990|12.4359;Grosseto|42.7635|11.1128;Pozzuoli|40.8433|14.0975;Asti|44.9009|8.2065;
+Caserta|41.0733|14.3325;Gela|37.0736|14.2411;Ragusa|36.9250|14.7306;Pavia|45.1847|9.1582;
+Cremona|45.1332|10.0227;Carpi|44.7833|10.8833;Lamezia Terme|38.9650|16.3100;Altamura|40.8267|16.5533;
+Imola|44.3531|11.7147;L'Aquila|42.3498|13.3995;Massa|44.0367|10.1417;Trapani|38.0176|12.5365;
+Viterbo|42.4207|12.1077;Cosenza|39.2983|16.2536;Potenza|40.6395|15.8052;Campobasso|41.5603|14.6627;
+Aosta|45.7372|7.3206;Matera|40.6664|16.6043;Benevento|41.1300|14.7826;Avellino|40.9147|14.7906;
+Crotone|39.0808|17.1270;Vibo Valentia|38.6759|16.1017;Enna|37.5667|14.2833;Agrigento|37.3111|13.5765;
+Caltanissetta|37.4901|14.0625;Oristano|39.9036|8.5917;Nuoro|40.3210|9.3300;Belluno|46.1400|12.2167;
+Rovigo|45.0700|11.7900;Sondrio|46.1700|9.8700;Lodi|45.3140|9.5031;Lecco|45.8566|9.3977;
+Mantova|45.1564|10.7914;Savona|44.3090|8.4772;Imperia|43.8853|8.0276;Biella|45.5667|8.0500;
+Cuneo|44.3841|7.5426;Vercelli|45.3200|8.4200;Verbania|45.9214|8.5519;Gorizia|45.9410|13.6220;
+Pordenone|45.9628|12.6555;Macerata|43.3007|13.4534;Ascoli Piceno|42.8536|13.5749;Fermo|43.1607|13.7180;
+Teramo|42.6589|13.7040;Chieti|42.3512|14.1678;Isernia|41.5952|14.2308;Frosinone|41.6396|13.3417;
+Rieti|42.4043|12.8567;Siena|43.3188|11.3308;Olbia|40.9236|9.4989;Trani|41.2769|16.4172;
+Bolzano Bozen|46.4983|11.3548;Merano|46.6713|11.1594;Sanremo|43.8159|7.7761;Rovereto|45.8906|11.0400`;
+
+const WORLD = `Londra|51.5074|-0.1278|Europe/London;Parigi|48.8566|2.3522|Europe/Paris;
+Berlino|52.5200|13.4050|Europe/Berlin;Monaco di Baviera|48.1351|11.5820|Europe/Berlin;
+Madrid|40.4168|-3.7038|Europe/Madrid;Barcellona|41.3851|2.1734|Europe/Madrid;
+Lisbona|38.7223|-9.1393|Europe/Lisbon;Amsterdam|52.3676|4.9041|Europe/Amsterdam;
+Bruxelles|50.8503|4.3517|Europe/Brussels;Zurigo|47.3769|8.5417|Europe/Zurich;
+Ginevra|46.2044|6.1432|Europe/Zurich;Lugano|46.0037|8.9511|Europe/Zurich;
+Vienna|48.2082|16.3738|Europe/Vienna;Praga|50.0755|14.4378|Europe/Prague;
+Varsavia|52.2297|21.0122|Europe/Warsaw;Budapest|47.4979|19.0402|Europe/Budapest;
+Atene|37.9838|23.7275|Europe/Athens;Istanbul|41.0082|28.9784|Europe/Istanbul;
+Mosca|55.7558|37.6173|Europe/Moscow;Kiev|50.4501|30.5234|Europe/Kiev;
+Bucarest|44.4268|26.1025|Europe/Bucharest;Sofia|42.6977|23.3219|Europe/Sofia;
+Belgrado|44.7866|20.4489|Europe/Belgrade;Zagabria|45.8150|15.9819|Europe/Zagreb;
+Lubiana|46.0569|14.5058|Europe/Ljubljana;Tirana|41.3275|19.8187|Europe/Tirane;
+Dublino|53.3498|-6.2603|Europe/Dublin;Stoccolma|59.3293|18.0686|Europe/Stockholm;
+Oslo|59.9139|10.7522|Europe/Oslo;Copenaghen|55.6761|12.5683|Europe/Copenhagen;
+Helsinki|60.1699|24.9384|Europe/Helsinki;Nizza|43.7102|7.2620|Europe/Paris;
+Marsiglia|43.2965|5.3698|Europe/Paris;Malta|35.8989|14.5146|Europe/Malta;
+New York|40.7128|-74.0060|America/New_York;Los Angeles|34.0522|-118.2437|America/Los_Angeles;
+Chicago|41.8781|-87.6298|America/Chicago;Miami|25.7617|-80.1918|America/New_York;
+Toronto|43.6532|-79.3832|America/Toronto;Montreal|45.5017|-73.5673|America/Toronto;
+Città del Messico|19.4326|-99.1332|America/Mexico_City;Buenos Aires|-34.6037|-58.3816|America/Argentina/Buenos_Aires;
+San Paolo|-23.5505|-46.6333|America/Sao_Paulo;Rio de Janeiro|-22.9068|-43.1729|America/Sao_Paulo;
+Lima|-12.0464|-77.0428|America/Lima;Bogotà|4.7110|-74.0721|America/Bogota;
+Caracas|10.4806|-66.9036|America/Caracas;Santiago del Cile|-33.4489|-70.6693|America/Santiago;
+Il Cairo|30.0444|31.2357|Africa/Cairo;Casablanca|33.5731|-7.5898|Africa/Casablanca;
+Tunisi|36.8065|10.1815|Africa/Tunis;Algeri|36.7538|3.0588|Africa/Algiers;
+Lagos|6.5244|3.3792|Africa/Lagos;Nairobi|-1.2921|36.8219|Africa/Nairobi;
+Johannesburg|-26.2041|28.0473|Africa/Johannesburg;Addis Abeba|9.0320|38.7469|Africa/Addis_Ababa;
+Dubai|25.2048|55.2708|Asia/Dubai;Tel Aviv|32.0853|34.7818|Asia/Jerusalem;
+Teheran|35.6892|51.3890|Asia/Tehran;Mumbai|19.0760|72.8777|Asia/Kolkata;
+Nuova Delhi|28.6139|77.2090|Asia/Kolkata;Bangkok|13.7563|100.5018|Asia/Bangkok;
+Singapore|1.3521|103.8198|Asia/Singapore;Giacarta|-6.2088|106.8456|Asia/Jakarta;
+Hong Kong|22.3193|114.1694|Asia/Hong_Kong;Pechino|39.9042|116.4074|Asia/Shanghai;
+Shanghai|31.2304|121.4737|Asia/Shanghai;Seul|37.5665|126.9780|Asia/Seoul;
+Tokyo|35.6762|139.6503|Asia/Tokyo;Osaka|34.6937|135.5023|Asia/Tokyo;
+Sydney|-33.8688|151.2093|Australia/Sydney;Melbourne|-37.8136|144.9631|Australia/Melbourne;
+Auckland|-36.8485|174.7633|Pacific/Auckland`;
+
+const CITIES = {};
+IT.replace(/\s*\n\s*/g, '').split(';').forEach(r => {
+  const [n, la, lo] = r.split('|');
+  if (n) CITIES[n] = { lat:+la, lon:+lo, tz:'Europe/Rome' };
+});
+WORLD.replace(/\s*\n\s*/g, '').split(';').forEach(r => {
+  const [n, la, lo, tz] = r.split('|');
+  if (n) CITIES[n] = { lat:+la, lon:+lo, tz };
+});
+
+/* =======================================================================
+   8. RUOTA ZODIACALE (SVG)
+   ======================================================================= */
+const CX = 280, CY = 280;
+const R_OUT = 268, R_TR = 246, R_TRIN = 231, R_SIGN_O = 230, R_SIGN_I = 196,
+      R_GLYPH = 213, R_NAT = 168, R_NATTICK = 190, R_HOUSE_IN = 108,
+      R_HNUM = 124, R_ASP = 104;
+
+function pt(lon, r, ascLon) {
+  const th = (180 + (lon - ascLon)) * DEG;
+  return [CX + r * Math.cos(th), CY - r * Math.sin(th)];
+}
+function P(lon, r, ascLon) { const p = pt(lon, r, ascLon); return p[0].toFixed(2) + ',' + p[1].toFixed(2); }
+
+function spread(items, minSep) {
+  const arr = items.slice().sort((a, b) => a.lon - b.lon).map(o => ({ ...o, d: o.lon }));
+  const n = arr.length;
+  if (n < 2) return arr;
+  for (let pass = 0; pass < 200; pass++) {
+    let moved = false;
+    for (let i = 0; i < n; i++) {
+      const j = (i + 1) % n;
+      const gap = norm360(arr[j].d - arr[i].d);
+      if (gap < minSep) {
+        const push = (minSep - gap) / 2.2;
+        arr[i].d = norm360(arr[i].d - push);
+        arr[j].d = norm360(arr[j].d + push);
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+  return arr;
+}
+
+const ELCOL = { fire:'#e8785a', earth:'#6fae7d', air:'#68a8d8', water:'#9a7ad0' };
+
+function drawWheel(natal, transit, opt) {
+  const asc = natal.ang.asc;
+  let s = `<svg class="wheel" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<defs><radialGradient id="core"><stop offset="0%" stop-color="#1a1430"/><stop offset="100%" stop-color="#0d0a1c"/></radialGradient></defs>`;
+
+  // cerchi base
+  s += `<circle cx="${CX}" cy="${CY}" r="${R_ASP}" fill="url(#core)"/>`;
+  [R_OUT, R_SIGN_O, R_SIGN_I, R_ASP].forEach(r =>
+    s += `<circle cx="${CX}" cy="${CY}" r="${r}" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1"/>`);
+  if (opt.transits)
+    s += `<circle cx="${CX}" cy="${CY}" r="${R_TRIN}" fill="none" stroke="rgba(255,255,255,.07)"/>`;
+
+  // settori dei segni
+  for (let i = 0; i < 12; i++) {
+    const a0 = i * 30, a1 = a0 + 30;
+    const [x0,y0] = pt(a0, R_SIGN_I, asc), [x1,y1] = pt(a0, R_SIGN_O, asc);
+    const [x2,y2] = pt(a1, R_SIGN_O, asc), [x3,y3] = pt(a1, R_SIGN_I, asc);
+    const c = ELCOL[SIGNS[i].el];
+    s += `<path d="M${x0.toFixed(2)},${y0.toFixed(2)} L${x1.toFixed(2)},${y1.toFixed(2)} `
+       + `A${R_SIGN_O},${R_SIGN_O} 0 0 0 ${x2.toFixed(2)},${y2.toFixed(2)} `
+       + `L${x3.toFixed(2)},${y3.toFixed(2)} A${R_SIGN_I},${R_SIGN_I} 0 0 1 ${x0.toFixed(2)},${y0.toFixed(2)} Z" `
+       + `fill="${c}" fill-opacity="${i % 2 ? .13 : .07}" stroke="rgba(255,255,255,.10)" `
+       + `stroke-width=".7" class="sg" data-s="${i}"/>`;
+    const [gx,gy] = pt(a0 + 15, R_GLYPH, asc);
+    s += `<text x="${gx.toFixed(1)}" y="${(gy+7).toFixed(1)}" text-anchor="middle" font-size="20" fill="${c}">${SIGNS[i].g}</text>`;
+  }
+
+  // tacche di grado
+  for (let d = 0; d < 360; d += 5) {
+    const len = d % 30 === 0 ? 9 : (d % 10 === 0 ? 5 : 3);
+    const [ax,ay] = pt(d, R_SIGN_I, asc), [bx,by] = pt(d, R_SIGN_I - len, asc);
+    s += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="rgba(255,255,255,${d%30===0?.22:.12})" stroke-width=".8"/>`;
+  }
+
+  // case
+  if (opt.houses) {
+    natal.cusps.forEach((c, i) => {
+      const main = (i % 3 === 0);
+      const [ax,ay] = pt(c, R_HOUSE_IN, asc), [bx,by] = pt(c, R_SIGN_I, asc);
+      s += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" `
+         + `stroke="rgba(232,196,106,${main?.5:.16})" stroke-width="${main?1.4:.8}" ${main?'':'stroke-dasharray="3 4"'}/>`;
+      const nx0 = natal.cusps[(i+1)%12];
+      const [h0x,h0y] = pt(c, R_HOUSE_IN, asc), [h1x,h1y] = pt(c, R_SIGN_I, asc);
+      const [h2x,h2y] = pt(nx0, R_SIGN_I, asc), [h3x,h3y] = pt(nx0, R_HOUSE_IN, asc);
+      s += `<path class="hs" data-h="${i+1}" d="M${h0x.toFixed(2)},${h0y.toFixed(2)} L${h1x.toFixed(2)},${h1y.toFixed(2)} `
+         + `A${R_SIGN_I},${R_SIGN_I} 0 0 0 ${h2x.toFixed(2)},${h2y.toFixed(2)} L${h3x.toFixed(2)},${h3y.toFixed(2)} `
+         + `A${R_HOUSE_IN},${R_HOUSE_IN} 0 0 1 ${h0x.toFixed(2)},${h0y.toFixed(2)} Z"/>`;
+      const mid = norm360(c + norm360(nx0 - c) / 2);
+      const [nx,ny] = pt(mid, R_HNUM, asc);
+      s += `<text x="${nx.toFixed(1)}" y="${(ny+4).toFixed(1)}" text-anchor="middle" font-size="10.5" fill="rgba(232,196,106,.5)" pointer-events="none">${i+1}</text>`;
+    });
+  }
+
+  // aspetti natali
+  if (opt.aspects) {
+    const keys = BODIES.map(b => b.k).filter(k => k !== 'Nodo');
+    for (const a of findAspects(natal.pos, natal.pos, keys, keys, true)) {
+      const col = a.asp.q === 1 ? '95,201,138' : a.asp.q === -1 ? '224,114,114' : '232,196,106';
+      const [ax,ay] = pt(natal.pos[a.a], R_ASP - 2, asc), [bx,by] = pt(natal.pos[a.b], R_ASP - 2, asc);
+      const co = `x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}"`;
+      s += `<g class="asp" data-a="${a.a}" data-b="${a.b}" data-n="${a.asp.n}" data-g="${a.asp.g}" `
+         + `data-o="${a.orbDiff.toFixed(1)}" data-q="${a.asp.q}">`
+         + `<line class="vis" ${co} stroke="rgba(${col},${(.18 + .5 * a.strength).toFixed(2)})" `
+         + `stroke-width="${(.6 + a.strength).toFixed(2)}"/><line class="hit" ${co}/></g>`;
+    }
+  }
+
+  // ASC / MC
+  const marks = [
+    { lon: asc, lbl: 'ASC' }, { lon: norm360(asc + 180), lbl: 'DSC' },
+    { lon: natal.ang.mc, lbl: 'MC' }, { lon: norm360(natal.ang.mc + 180), lbl: 'IC' }
+  ];
+  for (const m of marks) {
+    const [ax,ay] = pt(m.lon, R_HOUSE_IN, asc), [bx,by] = pt(m.lon, R_SIGN_I, asc);
+    const strong = m.lbl === 'ASC' || m.lbl === 'MC';
+    s += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="rgba(232,196,106,${strong?.85:.3})" stroke-width="${strong?1.8:1}"/>`;
+    const [tx,ty] = pt(m.lon, R_SIGN_I - 16, asc);
+    s += `<text x="${tx.toFixed(1)}" y="${(ty+4).toFixed(1)}" text-anchor="middle" font-size="10" letter-spacing="1" fill="rgba(232,196,106,${strong?.95:.45})">${m.lbl}</text>`;
+  }
+
+  // pianeti natali
+  const nat = spread(BODIES.map(b => ({ k:b.k, g:b.g, lon:natal.pos[b.k], rx:natal.spd[b.k] < 0 })), 7.5);
+  for (const p of nat) {
+    const [ax,ay] = pt(p.lon, R_NATTICK, asc), [bx,by] = pt(p.d, R_NAT + 12, asc);
+    s += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="rgba(255,255,255,.28)" stroke-width=".8"/>`;
+    const [gx,gy] = pt(p.d, R_NAT, asc);
+    const f = fmtPos(p.lon);
+    s += `<g><title>${p.k} — ${f.sign.n} ${f.txt}${p.rx?' ℞':''} (natale)</title>`
+       + `<circle cx="${gx.toFixed(1)}" cy="${gy.toFixed(1)}" r="12.5" fill="rgba(10,8,19,.85)" stroke="rgba(232,196,106,.35)"/>`
+       + `<text x="${gx.toFixed(1)}" y="${(gy+6).toFixed(1)}" text-anchor="middle" font-size="16" fill="#f5dfa4">${p.g}</text>`;
+    if (p.rx) s += `<text x="${(gx+11).toFixed(1)}" y="${(gy+13).toFixed(1)}" font-size="8" fill="#e07272">℞</text>`;
+    s += `</g>`;
+  }
+
+  // pianeti in transito
+  if (opt.transits) {
+    const tr = spread(BODIES.map(b => ({ k:b.k, g:b.g, lon:transit.pos[b.k], rx:transit.spd[b.k] < 0 })), 7.5);
+    for (const p of tr) {
+      const [ax,ay] = pt(p.lon, R_SIGN_O, asc), [bx,by] = pt(p.d, R_TR - 11, asc);
+      s += `<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="rgba(139,123,216,.35)" stroke-width=".8"/>`;
+      const [gx,gy] = pt(p.d, R_TR, asc);
+      const f = fmtPos(p.lon);
+      s += `<g><title>${p.k} oggi — ${f.sign.n} ${f.txt}${p.rx?' ℞':''}</title>`
+         + `<circle cx="${gx.toFixed(1)}" cy="${gy.toFixed(1)}" r="11" fill="rgba(10,8,19,.7)" stroke="rgba(139,123,216,.5)"/>`
+         + `<text x="${gx.toFixed(1)}" y="${(gy+5).toFixed(1)}" text-anchor="middle" font-size="14" fill="#c3b6f0">${p.g}</text></g>`;
+    }
+  }
+
+  s += `</svg>`;
+  return s;
+}
+
+/* =======================================================================
+   9. FORTUNA — quattro indicatori indipendenti, poi media
+   ======================================================================= */
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function hashStr(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+function scoreOn(transit, natal, targets, movers) {
+  let sc = 50, used = [];
+  const asps = findAspects(transit.pos, natal.pos, movers, targets, false);
+  for (const a of asps) {
+    const q = a.asp.q !== 0 ? a.asp.q : Math.sign(BENEFIC[a.a] || 0.1);
+    const amp = 0.55 + Math.abs(BENEFIC[a.a] || 0.3);
+    sc += a.strength * q * amp * 17;
+    used.push(a);
+  }
+  return { score: Math.max(4, Math.min(96, Math.round(sc))), asps: used };
+}
+
+function luckReport(transit, natal, birthKey, dayKey) {
+  const movers = ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'];
+
+  const A = scoreOn(transit, natal, ['Sole'], movers);
+  const B = scoreOn(transit, natal, ['Luna','Venere'], movers);
+
+  // indicatore 3: Luna del giorno (fase + aspetti a tutta la carta)
+  const phase = norm360(transit.pos.Luna - transit.pos.Sole);
+  const phaseScore = 50 + 26 * Math.sin(phase * DEG / 2) * (phase < 180 ? 1 : 0.75);
+  const lunAsp = findAspects(transit.pos, natal.pos, ['Luna'],
+                 ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno'], false);
+  let lun = phaseScore;
+  for (const a of lunAsp) {
+    const q = a.asp.q !== 0 ? a.asp.q : Math.sign(BENEFIC[a.b] || 0.1);
+    lun += a.strength * q * 11;
+  }
+  const C = { score: Math.max(4, Math.min(96, Math.round(lun))), asps: lunAsp };
+
+  // indicatore 4: cicli personali (solare annuale + lunare mensile)
+  const solar = cos(norm360(transit.pos.Sole - natal.pos.Sole));
+  const lunar = cos(norm360(transit.pos.Luna - natal.pos.Luna));
+  const rnd = mulberry32(hashStr(birthKey + '|' + dayKey))();
+  const D = { score: Math.max(4, Math.min(96, Math.round(50 + 15 * solar + 13 * lunar + (rnd - .5) * 10))), asps: [] };
+
+  const parts = [
+    { n:'Identità e vitalità',    d:'transiti al Sole natale',        v:A.score },
+    { n:'Cuore e relazioni',      d:'transiti a Luna e Venere natali', v:B.score },
+    { n:'Umore del giorno',       d:'fase lunare e transiti della Luna', v:C.score },
+    { n:'Cicli personali',        d:'ritorno solare e lunare',        v:D.score }
+  ];
+  const total = Math.round(parts.reduce((s, p) => s + p.v, 0) / parts.length);
+  return { total, parts, sunAsp:A.asps, venAsp:B.asps, moonAsp:C.asps, phase };
+}
+
+const PHASES = [
+  ['Luna nuova',        'la Luna nuova'],
+  ['Luna crescente',    'la Luna crescente'],
+  ['primo quarto',      'il primo quarto'],
+  ['gibbosa crescente', 'la gibbosa crescente'],
+  ['Luna piena',        'la Luna piena'],
+  ['gibbosa calante',   'la gibbosa calante'],
+  ['ultimo quarto',     "l'ultimo quarto"],
+  ['Luna calante',      'la Luna calante']
+];
+function phaseIdx(ph) {
+  if (ph < 22.5 || ph >= 337.5) return 0;
+  return Math.floor((ph + 22.5) / 45) % 8;
+}
+const phaseName = ph => PHASES[phaseIdx(ph)][0];
+const phaseArt  = ph => PHASES[phaseIdx(ph)][1];
+
+/* =======================================================================
+   10. GENERAZIONE DEL TESTO dai transiti reali
+   ======================================================================= */
+const PHRASES = {
+  Sole:    { p:'la vitalità è alta e ti fai notare senza dover forzare niente',
+             n:'qualcuno mette alla prova il tuo spazio: scegli con cura le battaglie' },
+  Luna:    { p:'le emozioni scorrono pulite e le conversazioni personali funzionano',
+             n:"l'umore è ballerino nelle prime ore, rimanda le decisioni al pomeriggio" },
+  Mercurio:{ p:'la mente è rapida: giornata ottima per scrivere, trattare e chiarire',
+             n:'ricontrolla messaggi, orari e cifre, oggi i dettagli scappano facilmente' },
+  Venere:  { p:'il tuo fascino sale di un gradino e gli incontri hanno un peso reale',
+             n:'aspettative e realtà non coincidono in amore: non forzare la mano' },
+  Marte:   { p:"c'è energia diretta da spendere: spingi sui progetti rimasti fermi",
+             n:"un'irritabilità sotterranea cerca sfogo, dagliene uno fisico e non umano" },
+  Giove:   { p:"si apre uno spiraglio, un'occasione o un contatto utile: guardati intorno",
+             n:'tendenza a strafare, promettere troppo o spendere oltre il necessario' },
+  Saturno: { p:'la disciplina paga: i risultati arrivano lenti ma restano solidi',
+             n:'un limite si fa sentire; è informazione sulla struttura, non una punizione' },
+  Urano:   { p:'un imprevisto ti libera da una routine che non ti serviva più',
+             n:'terreno instabile: tieni margine nei piani, qualcosa cambierà' },
+  Nettuno: { p:"intuito e immaginazione al massimo, ottimo per l'arte e per ascoltare",
+             n:'confusione o idealizzazione: evita firme e promesse definitive' },
+  Plutone: { p:'hai la forza di trasformare a fondo una situazione bloccata da tempo',
+             n:'dinamiche di controllo e pensieri ossessivi: alza lo sguardo dal dettaglio' }
+};
+const ASPTXT = { 0:'in congiunzione', 60:'in sestile', 90:'in quadratura', 120:'in trigono', 180:'in opposizione' };
+const ART = {
+  Sole:'al tuo Sole natale', Luna:'alla tua Luna natale', Mercurio:'al tuo Mercurio natale',
+  Venere:'alla tua Venere natale', Marte:'al tuo Marte natale', Giove:'al tuo Giove natale',
+  Saturno:'al tuo Saturno natale', Urano:'al tuo Urano natale', Nettuno:'al tuo Nettuno natale',
+  Plutone:'al tuo Plutone natale', Ascendente:'al tuo Ascendente', MC:'al tuo Medio Cielo'
+};
+
+function describe(a) {
+  const q = a.asp.q !== 0 ? a.asp.q : (BENEFIC[a.a] >= 0 ? 1 : -1);
+  const ph = PHRASES[a.a] || PHRASES.Sole;
+  return { txt: ph[q > 0 ? 'p' : 'n'], q,
+           label: `${a.a} ${ASPTXT[a.asp.a]} ${ART[a.b] || ('a ' + a.b)}` };
+}
+
+function pickFor(asps, planets, n) {
+  return asps.filter(a => planets.includes(a.a)).slice(0, n);
+}
+
+function buildHoroscope(natal, transit, luck, ctx) {
+  const sunS = SIGNS[signIdx(natal.pos.Sole)], moonS = SIGNS[signIdx(natal.pos.Luna)],
+        ascS = SIGNS[signIdx(natal.ang.asc)];
+  const all = findAspects(transit.pos, natal.pos,
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'],
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Ascendente'], false);
+
+  const trToSun = findAspects(transit.pos, natal.pos,
+    ['Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'], ['Sole','Luna'], false);
+
+  const out = [];
+  const tone = luck.total >= 68 ? 'aperta' : luck.total >= 45 ? 'mista' : 'in salita';
+
+  // Sintesi
+  const lead = trToSun[0] || all[0];
+  let p1 = `Sei ${sunS.n} con Luna in ${moonS.n} e Ascendente ${ascS.n}: il Sole dice cosa vuoi, `
+         + `la Luna come lo senti, l'Ascendente come lo mostri. `;
+  if (lead) {
+    const d = describe(lead);
+    p1 += `Oggi il fattore dominante è ${d.label} — ${d.txt}. `;
+  }
+  p1 += `Nel complesso è una giornata ${tone}, e sullo sfondo c'è ${phaseArt(luck.phase)}.`;
+  out.push({ h:'Sintesi', p:[p1] });
+
+  // Amore
+  const love = pickFor(all, ['Venere','Luna','Nettuno'], 2);
+  const lovep = love.length
+    ? love.map(a => { const d = describe(a); return `${d.label}: ${d.txt}`; })
+    : [`Nessun transito forte tocca oggi la tua area affettiva: giornata neutra in amore, `
+      + `il che di solito significa che quello che c'è resta com'è. Se vuoi muovere qualcosa, `
+      + `l'iniziativa deve essere tua, non del cielo.`];
+  out.push({ h:'Amore', p:lovep });
+
+  // Lavoro
+  const work = pickFor(all, ['Marte','Mercurio','Giove','Saturno','Plutone'], 2);
+  const workp = work.length
+    ? work.map(a => { const d = describe(a); return `${d.label}: ${d.txt}`; })
+    : [`Il settore lavoro è scarico di transiti: nessuna spinta e nessun ostacolo. `
+      + `È il momento giusto per il lavoro noioso e arretrato, quello che di solito rimandi.`];
+  out.push({ h:'Lavoro e denaro', p:workp });
+
+  // Benessere
+  const moonH = natal.house ? houseOf(transit.pos.Luna, natal.cusps) : null;
+  const HOUSETXT = {
+    1:'sul tuo corpo e sulla tua immagine', 2:'sulle risorse e su cosa ti dà sicurezza',
+    3:'sulle comunicazioni e sui rapporti brevi', 4:'su casa, famiglia e radici',
+    5:'sul piacere, i figli, la creatività', 6:'sulla routine, la salute, il lavoro quotidiano',
+    7:'sui rapporti a due e sui soci', 8:'su ciò che è profondo, condiviso o rimosso',
+    9:'su viaggi, studio e visione larga', 10:'sulla carriera e su come ti vedono',
+    11:'sugli amici, i gruppi e i progetti futuri', 12:'sul riposo, il ritiro e ciò che è nascosto'
+  };
+  const wp = [];
+  wp.push(`La Luna transita oggi nella tua ${moonH}ª casa: l'attenzione emotiva si posa ${HOUSETXT[moonH]}. `
+        + `${luck.parts[2].v >= 60 ? 'Il tono è favorevole, assecondalo.' :
+            luck.parts[2].v >= 40 ? 'Tono neutro: nessuna resistenza particolare.' :
+            'Tono faticoso: proteggi il sonno e riduci gli stimoli.'}`);
+  const wel = pickFor(all, ['Saturno','Nettuno','Urano'], 1);
+  if (wel.length) { const d = describe(wel[0]); wp.push(`${d.label}: ${d.txt}`); }
+  out.push({ h:'Benessere', p:wp });
+
+  const src = all.slice(0, 5).map(a =>
+    `${a.a} ${a.asp.g} ${a.b} (orbita ${a.orbDiff.toFixed(1)}°)`).join(' · ');
+  return { sections: out, src, all };
+}
+
+/* Fascia oraria migliore: si cerca l'ora in cui i benefici in transito
+   toccano meglio l'Ascendente del giorno nel luogo di nascita */
+function bestWindow(dayY, dayM, dayD, tz, lat, lon, natal) {
+  let best = { h:12, sc:-999 };
+  for (let h = 6; h <= 23; h++) {
+    const { jd } = localToJD(dayY, dayM, dayD, h, 0, tz);
+    const a = angles(jd, lat, lon);
+    const tp = { Ascendente:a.asc, MC:a.mc };
+    const t = computeChart(jd, null, null, 'whole');
+    let sc = 0;
+    for (const pl of ['Venere','Giove','Sole','Luna','Mercurio']) {
+      for (const tgt of ['Ascendente','MC']) {
+        const sep = Math.abs(norm180(t.pos[pl] - tp[tgt]));
+        for (const asp of ASPECTS) {
+          const diff = Math.abs(sep - asp.a);
+          if (diff <= asp.orb + 1) {
+            const q = asp.q !== 0 ? asp.q : 1;
+            sc += (1 - diff / (asp.orb + 1)) * q * (BENEFIC[pl] || .3) * 10;
+          }
+        }
+      }
+    }
+    // la Luna in aspetto armonico al Sole natale aggiunge
+    const sep2 = Math.abs(norm180(t.pos.Luna - natal.pos.Sole));
+    for (const asp of ASPECTS) if (Math.abs(sep2 - asp.a) <= asp.orb) sc += asp.q * 3;
+    if (sc > best.sc) best = { h, sc };
+  }
+  return best.h;
+}
+
+/* =======================================================================
+   11. TAROCCHI — 22 arcani maggiori
+        Corrispondenze astrologiche secondo la Golden Dawn.
+        pt = punto della carta natale a cui la carta è agganciata
+        ('pl' = pianeta, 's0'…'s11' = segno)
+   ======================================================================= */
+const ARCANA = [
+{n:0,name:'Il Matto',astro:'Urano',pt:'Urano',el:'air',
+ up:"Un inizio senza garanzie. La strada non è ancora tracciata, e questo è un vantaggio: nessuno si aspetta niente da te, quindi puoi muoverti come vuoi.",
+ rev:"Rovesciato, il salto diventa avventatezza. O ti muovi senza guardare dove metti i piedi, o resti fermo per paura di sembrare ingenuo.",
+ love:"In amore parla di un rapporto che non ha ancora forma, o della voglia di ricominciare da capo.",
+ work:"Sul lavoro indica un progetto nuovo e poco definito, che chiede fiducia più che pianificazione."},
+{n:1,name:'Il Mago',astro:'Mercurio',pt:'Mercurio',el:'air',
+ up:"Hai già tutti gli strumenti sul tavolo. Il Mago non promette aiuti esterni: dice che la capacità di ottenere quello che chiedi sta nelle tue mani e nel modo in cui la esponi.",
+ rev:"Rovesciato parla di talento sprecato o usato per manipolare. Le parole non coincidono con i fatti — le tue, o quelle di chi ti sta intorno.",
+ love:"In amore: attrazione mentale e seduzione verbale. Verifica che sotto ci sia sostanza.",
+ work:"Sul lavoro è il momento di presentare, vendere, negoziare. Hai l'argomento giusto."},
+{n:2,name:'La Papessa',astro:'Luna',pt:'Luna',el:'water',
+ up:"C'è qualcosa che sai già ma che non ti sei ancora detto ad alta voce. La carta chiede silenzio e pazienza: la risposta esiste, ma non è pronta per essere esposta.",
+ rev:"Rovesciata indica segreti che pesano, intuizioni ignorate, o il rifiuto di guardare una situazione che conosci benissimo.",
+ love:"In amore: sentimenti non dichiarati, un rapporto vissuto più nell'immaginazione che nei fatti.",
+ work:"Sul lavoro mancano informazioni, o qualcuno te le sta tenendo nascoste. Non decidere adesso."},
+{n:3,name:"L'Imperatrice",astro:'Venere',pt:'Venere',el:'earth',
+ up:"Abbondanza concreta. Qualcosa che hai seminato sta crescendo da solo e chiede di essere curato, non forzato.",
+ rev:"Rovesciata, la crescita si blocca: dipendenza affettiva, iperprotezione, o creatività che non trova sbocco.",
+ love:"In amore: sensualità, cura reciproca, un rapporto che può crescere in modo tangibile.",
+ work:"Sul lavoro i frutti arrivano, ma non raccogliere prima del tempo."},
+{n:4,name:"L'Imperatore",astro:'Ariete',pt:'s0',el:'fire',
+ up:"Struttura, autorità, confini. La carta chiede di prendere posizione e di reggerla anche quando è scomodo.",
+ rev:"Rovesciato, l'autorità diventa rigidità oppure manca del tutto. Un padre, un capo, una regola che non funziona più.",
+ love:"In amore: bisogno di regole chiare, o un rapporto in cui il potere è sbilanciato.",
+ work:"Sul lavoro è il momento di assumere il comando e mettere per iscritto le condizioni."},
+{n:5,name:'Il Papa',astro:'Toro',pt:'s1',el:'earth',
+ up:"Tradizione, insegnamento, appartenenza. Ti serve qualcuno che questa strada l'abbia già percorsa e sappia dirti come si fa.",
+ rev:"Rovesciato, le regole ereditate ti stanno strette. Conformismo per quieto vivere, o ribellione fine a sé stessa.",
+ love:"In amore: impegno formale, famiglia, aspettative sociali sul rapporto.",
+ work:"Sul lavoro: istituzioni, contratti, mentori. Muoviti dentro le regole, non contro."},
+{n:6,name:'Gli Amanti',astro:'Gemelli',pt:'s2',el:'air',
+ up:"Una scelta che riguarda i valori, non la convenienza. Gli Amanti non parlano solo d'amore: parlano di cosa sei disposto a lasciare per avere qualcos'altro.",
+ rev:"Rovesciata: indecisione che si trascina, o una scelta fatta per compiacere qualcun altro.",
+ love:"In amore: unione reale, oppure il bivio fra due possibilità che non possono coesistere.",
+ work:"Sul lavoro: una società, una collaborazione, o due strade da cui devi sceglierne una."},
+{n:7,name:'Il Carro',astro:'Cancro',pt:'s3',el:'water',
+ up:"Vittoria ottenuta tenendo insieme forze che tirano in direzioni opposte. Vai avanti, ma la guida deve restare tua.",
+ rev:"Rovesciato, il controllo si perde: fretta, aggressività, o un progetto che avanza senza direzione.",
+ love:"In amore: un rapporto che chiede di conciliare due caratteri molto diversi.",
+ work:"Sul lavoro: spinta e risultati, a patto di non passare le redini a nessuno."},
+{n:8,name:'La Forza',astro:'Leone',pt:'s4',el:'fire',
+ up:"Non la forza che spezza: quella che addomestica. Il problema si scioglie con la calma e la costanza, non con lo scontro.",
+ rev:"Rovesciata, l'istinto prende il sopravvento: rabbia, insicurezza, o il tentativo di reprimere qualcosa che andrebbe ascoltato.",
+ love:"In amore: passione da governare con dolcezza, non da soffocare.",
+ work:"Sul lavoro: resisti. Il risultato va a chi non perde la pazienza per primo."},
+{n:9,name:"L'Eremita",astro:'Vergine',pt:'s5',el:'earth',
+ up:"Ti serve distanza. La risposta non sta nel confronto con gli altri ma in un tempo di solitudine scelta.",
+ rev:"Rovesciato, l'isolamento diventa fuga; oppure rifiuti un ritiro di cui avresti bisogno.",
+ love:"In amore: una fase di silenzio o di distanza, utile per capire cosa vuoi davvero.",
+ work:"Sul lavoro: studia e approfondisci senza annunciare niente. È tempo di preparazione."},
+{n:10,name:'La Ruota della Fortuna',astro:'Giove',pt:'Giove',el:'fire',
+ up:"Il ciclo gira e la posizione cambia da sola. Quello che ti sembra fisso è a metà di un movimento più grande di te.",
+ rev:"Rovesciata, il ciclo si inceppa: resistenza al cambiamento, o un ritardo che sembra sfortuna e non lo è.",
+ love:"In amore: una svolta inattesa, un incontro casuale, una fase che si chiude.",
+ work:"Sul lavoro cambiano le condizioni esterne. Adattati invece di puntare i piedi."},
+{n:11,name:'La Giustizia',astro:'Bilancia',pt:'s6',el:'air',
+ up:"Ogni cosa torna in equilibrio. La carta chiede onestà nel misurare la tua parte di responsabilità, non solo quella altrui.",
+ rev:"Rovesciata: squilibrio. Un torto non riconosciuto, una decisione presa con dati parziali, o un giudizio troppo severo verso te stesso.",
+ love:"In amore, dare e ricevere devono pareggiare. Se non pareggiano, la carta lo sta dicendo.",
+ work:"Sul lavoro: contratti, questioni legali, valutazioni. Sii scrupoloso sui dettagli."},
+{n:12,name:"L'Impiccato",astro:'Nettuno',pt:'Nettuno',el:'water',
+ up:"Sospensione volontaria. Questa cosa non si risolve agendo: si risolve cambiando il punto da cui la guardi.",
+ rev:"Rovesciato, l'attesa diventa sacrificio inutile. Stai pagando un prezzo che nessuno ti ha chiesto.",
+ love:"In amore: un rapporto in stallo, o un'attesa che stai sopportando da solo.",
+ work:"Sul lavoro: pausa forzata. Usala per rivedere il piano, non per rimuginare."},
+{n:13,name:'La Morte',astro:'Scorpione',pt:'s7',el:'water',
+ up:"Una fine reale e necessaria. Non è una minaccia: è la constatazione che qualcosa ha finito il suo ciclo e trattenerlo costa più che lasciarlo andare.",
+ rev:"Rovesciata, la fine viene rimandata. Ti aggrappi a una situazione che nei fatti è già chiusa.",
+ love:"In amore: trasformazione profonda del rapporto, o la sua chiusura consapevole.",
+ work:"Sul lavoro un capitolo si chiude. Quello che viene dopo non somiglia a prima."},
+{n:14,name:'La Temperanza',astro:'Sagittario',pt:'s8',el:'fire',
+ up:"Misura e mescolanza. La soluzione non sta in nessuno dei due estremi, ma nella proporzione giusta fra i due.",
+ rev:"Rovesciata: eccessi e impazienza. Vuoi tutto subito, e così si rovina la ricetta.",
+ love:"In amore: armonia costruita giorno per giorno, senza gesti eclatanti.",
+ work:"Sul lavoro: mediare, dosare, integrare competenze diverse. Nessuna scorciatoia."},
+{n:15,name:'Il Diavolo',astro:'Capricorno',pt:'s9',el:'earth',
+ up:"Un legame che ti tiene e che in parte hai scelto. La carta non giudica: chiede di vedere quale vantaggio stai ricavando dalla catena.",
+ rev:"Rovesciato, la catena si allenta. Stai cominciando a vedere il meccanismo, e vederlo è già metà della liberazione.",
+ love:"In amore: attrazione intensa, dipendenza, gelosia. Qualcosa di magnetico ma non libero.",
+ work:"Sul lavoro: denaro, potere, un vincolo che ti lega più di quanto ammetti."},
+{n:16,name:'La Torre',astro:'Marte',pt:'Marte',el:'fire',
+ up:"Un crollo improvviso che porta via una struttura falsa. Fa male e libera, in quest'ordine.",
+ rev:"Rovesciata, il crollo è rimandato ma le crepe restano. Meglio demolire tu che aspettare.",
+ love:"In amore: una rivelazione o una rottura che cambia tutto in fretta.",
+ work:"Sul lavoro un piano salta. Quello che resta in piedi è ciò su cui puoi contare davvero."},
+{n:17,name:'La Stella',astro:'Acquario',pt:'s10',el:'air',
+ up:"Respiro e speranza dopo un periodo duro. Una direzione lontana ma visibile, che vale la pena seguire.",
+ rev:"Rovesciata, la fiducia si è consumata. Non è che la strada non ci sia: è che adesso non riesci a vederla.",
+ love:"In amore: serenità, sincerità, un rapporto che guarisce.",
+ work:"Sul lavoro si chiarisce una prospettiva di lungo periodo. Investi lì."},
+{n:18,name:'La Luna',astro:'Pesci',pt:'s11',el:'water',
+ up:"Terreno incerto. Quello che vedi è in parte proiezione tua: aspetta la luce prima di trarre conclusioni.",
+ rev:"Rovesciata, la nebbia si dirada: un inganno viene a galla, o una paura si rivela infondata.",
+ love:"In amore: dubbi, gelosie, cose non dette. Chiedi invece di immaginare.",
+ work:"Sul lavoro: dati poco chiari o persone poco trasparenti. Metti tutto per iscritto."},
+{n:19,name:'Il Sole',astro:'Sole',pt:'Sole',el:'fire',
+ up:"Chiarezza e riuscita. Le cose sono quello che sembrano, e sembrano buone: è una delle poche carte che si può prendere alla lettera.",
+ rev:"Rovesciato il successo c'è ma è offuscato: ottimismo eccessivo, o un riconoscimento che tarda.",
+ love:"In amore: gioia semplice, trasparenza, un rapporto che sta al sole.",
+ work:"Sul lavoro: visibilità, risultati riconosciuti, un progetto che decolla."},
+{n:20,name:'Il Giudizio',astro:'Plutone',pt:'Plutone',el:'water',
+ up:"Una chiamata a cui è difficile dire di no. Qualcosa del passato torna per essere chiuso davvero, e ti chiede una risposta definitiva.",
+ rev:"Rovesciato, la chiamata viene ignorata. Rimandi un bilancio che prima o poi andrà fatto.",
+ love:"In amore: un ritorno, un chiarimento, o la decisione finale su un rapporto sospeso.",
+ work:"Sul lavoro: una valutazione, un bilancio, una scelta di vocazione più che di stipendio."},
+{n:21,name:'Il Mondo',astro:'Saturno',pt:'Saturno',el:'earth',
+ up:"Completamento. Un ciclo si chiude bene e il territorio si allarga: quello che hai imparato qui ti servirà altrove.",
+ rev:"Rovesciato il traguardo è vicino ma manca l'ultimo passo. Qualcosa resta in sospeso e va finito prima di ripartire.",
+ love:"In amore: un rapporto che raggiunge la sua forma compiuta, o che si chiude avendo dato tutto.",
+ work:"Sul lavoro: obiettivo raggiunto, o un'apertura più ampia di quella che avevi previsto."}
+];
+
+/* Polarità per il verdetto (−2 = no netto, +2 = sì netto) e frase direttiva.
+   pol = carta dritta, polR = carta rovesciata. */
+const CARD_DIR = {
+ 0:{g:'m',pol: 1,polR:-1,dir:"Buttati, ma smetti di fingere di avere un piano.",           dirR:"Fermati. Stai per muoverti senza guardare dove metti i piedi."},
+ 1:{g:'m',pol: 2,polR:-1,dir:"Hai già tutto quello che serve. Usalo adesso.",              dirR:"Le parole non stanno reggendo i fatti. Verifica prima di fidarti."},
+ 2:{g:'f',pol: 0,polR:-1,dir:"Non parlare ancora. Osserva e lascia maturare.",             dirR:"Qualcosa ti viene taciuto — o lo stai tacendo tu."},
+ 3:{g:'f',pol: 2,polR:-1,dir:"Cura quello che hai già seminato. Non forzarlo.",            dirR:"Stai soffocando la cosa a forza di proteggerla."},
+ 4:{g:'m',pol: 1,polR:-1,dir:"Decidi tu. Metti una regola e tienila.",                     dirR:"La struttura è rigida o non c'è. In entrambi i casi va rifatta."},
+ 5:{g:'m',pol: 1,polR:-1,dir:"Chiedi a chi l'ha già fatto. Non improvvisare.",             dirR:"Le regole che stai seguendo non sono più tue."},
+ 6:{g:'mp',pol: 1,polR:-1,dir:"Scegli in base ai valori, non alla convenienza.",            dirR:"Stai scegliendo per accontentare qualcun altro."},
+ 7:{g:'m',pol: 2,polR:-1,dir:"Vai avanti, e tieni tu il volante.",                         dirR:"Stai correndo senza direzione. Rallenta prima di svoltare."},
+ 8:{g:'f',pol: 2,polR:-1,dir:"Insisti con calma. Vince chi non si innervosisce per primo.",dirR:"L'istinto sta guidando al posto tuo."},
+ 9:{g:'m',pol: 0,polR:-1,dir:"Fermati e stai un po' da solo. La risposta non è fuori.",    dirR:"Ti stai isolando per non dover decidere."},
+10:{g:'f',pol: 1,polR:-1,dir:"Le condizioni stanno cambiando da sole. Assecondale.",       dirR:"Stai remando contro un ciclo. Smetti."},
+11:{g:'f',pol: 1,polR:-1,dir:"Guarda i numeri e la tua parte di responsabilità.",          dirR:"Stai giudicando con dati parziali."},
+12:{g:'m',pol:-1,polR:0.5,dir:"Non agire. Cambia il punto da cui guardi e aspetta.",       dirR:"Stai pagando un prezzo che nessuno ti ha chiesto. Smetti di pagarlo."},
+13:{g:'f',pol:-1,polR:-1,dir:"Chiudi. Quella cosa è già finita, stai solo tenendo il conto aperto.", dirR:"Ti stai aggrappando a qualcosa di già morto."},
+14:{g:'f',pol: 1,polR:-1,dir:"Dosa. Né tutto né niente: la misura sta in mezzo.",          dirR:"Stai esagerando. Togli, non aggiungere."},
+15:{g:'m',pol:-2,polR: 1,dir:"Guarda bene cosa ci guadagni a restare legato.",             dirR:"La catena si sta allentando. Continua a tirare."},
+16:{g:'f',pol:-2,polR:0.5,dir:"Qualcosa crolla. Non puntellarlo, lascialo cadere.",        dirR:"Le crepe ci sono già. Demolisci tu, prima che lo faccia il tempo."},
+17:{g:'f',pol: 2,polR:-1,dir:"Fidati della direzione. Vai piano, ma vai.",                 dirR:"Hai perso la fiducia, non la strada."},
+18:{g:'f',pol:-1,polR: 1,dir:"Non decidere al buio. Aspetta che si veda qualcosa.",        dirR:"La nebbia si sta alzando. Adesso guarda meglio."},
+19:{g:'m',pol: 2,polR: 1,dir:"Sì. Fallo, e fatti vedere mentre lo fai.",                   dirR:"Va bene, ma meno di come lo stai raccontando."},
+20:{g:'m',pol: 1,polR:-1,dir:"Rispondi alla chiamata. Chiudi il conto che hai aperto.",    dirR:"Stai rimandando un bilancio che andrà fatto comunque."},
+21:{g:'m',pol: 2,polR: 0,dir:"È compiuto. Prendi il risultato e vai altrove.",             dirR:"Manca l'ultimo passo. Finiscilo prima di ripartire."}
+};
+ARCANA.forEach(c => Object.assign(c, CARD_DIR[c.n]));
+/* Numerazione marsigliese, come nelle illustrazioni: la Forza è XI e la Giustizia VIII.
+   Le corrispondenze astrologiche restano legate alla carta, non al numero:
+   Forza → Leone, Giustizia → Bilancia. */
+ARCANA.forEach(c => c.num = c.n === 8 ? 11 : c.n === 11 ? 8 : c.n);
+
+const ROMAN = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
+const HOUSE_AREA = ['il corpo e l’immagine','le risorse e la sicurezza','la comunicazione e i rapporti brevi',
+  'la casa, la famiglia, le radici','il piacere, la creatività, i figli','la routine, il lavoro quotidiano, la salute',
+  'i rapporti a due e le società','ciò che è profondo o condiviso','i viaggi, lo studio, la visione larga',
+  'la carriera e la reputazione','gli amici, i gruppi, i progetti','il ritiro, il riposo, ciò che è nascosto'];
+
+/* --- illustrazioni: una per arcano, coordinate in un riquadro 140×240 --- */
+const ARCANA_ART = [
+/*0*/`<path d="M24 152 H74 l7 11 H118"/><circle cx="58" cy="88" r="8"/><path d="M58 96 v26 M58 122 l-10 20 M58 122 l11 20 M76 76 L44 128"/><circle cx="78" cy="72" r="6"/><circle cx="94" cy="60" r="13" stroke-dasharray="2 4"/><path d="M36 148 l6-7 6 7"/>`,
+/*1*/`<path d="M34 142 H106 M42 142 v18 M98 142 v18"/><circle cx="50" cy="134" r="5"/><path d="M64 128 l6 11 h-12 z M86 126 v13 M80 132 h12 M98 140 q4-11 8-1"/><circle cx="70" cy="74" r="8"/><path d="M70 82 v32 M70 92 L52 84 M70 92 l16-24"/><circle cx="63" cy="56" r="5"/><circle cx="77" cy="56" r="5"/>`,
+/*2*/`<rect x="28" y="68" width="13" height="94"/><rect x="99" y="68" width="13" height="94"/><path d="M41 84 H99" /><path d="M41 84 v72 H99 V84" stroke-dasharray="3 5"/><path d="M86 100 a18 18 0 1 0 0 36 a24 24 0 1 1 0-36" fill="#e8c46a" stroke="none"/><circle cx="70" cy="74" r="5"/>`,
+/*3*/`<path d="M40 92 q30-28 60 0"/><circle cx="42" cy="90" r="2.5" fill="#e8c46a"/><circle cx="56" cy="79" r="2.5" fill="#e8c46a"/><circle cx="70" cy="75" r="2.5" fill="#e8c46a"/><circle cx="84" cy="79" r="2.5" fill="#e8c46a"/><circle cx="98" cy="90" r="2.5" fill="#e8c46a"/><circle cx="70" cy="120" r="13"/><path d="M70 133 v20 M60 143 h20"/><path d="M36 164 q3-26 9-36 M31 148 l6 5 M33 139 l6 5 M36 130 l6 5"/><path d="M104 164 q-3-26 -9-36 M109 148 l-6 5 M107 139 l-6 5 M104 130 l-6 5"/>`,
+/*4*/`<path d="M46 160 v-38 h48 v38 M46 122 V80 h48 v42 M38 160 v-26 h8 M102 160 v-26 h-8"/><path d="M70 78 V52 M70 52 q-1-13 -12-13 q-9 0 -9 10 q0 9 9 9 M70 52 q1-13 12-13 q9 0 9 10 q0 9 -9 9"/><path d="M112 152 V98"/><circle cx="112" cy="92" r="5"/>`,
+/*5*/`<path d="M70 44 v80 M58 56 h24 M50 72 h40 M42 88 h56"/><circle cx="32" cy="162" r="7"/><path d="M37 157 L82 112 M82 112 l7 7 M74 120 l7 7"/><circle cx="108" cy="162" r="7"/><path d="M103 157 L58 112 M58 112 l-7 7 M66 120 l-7 7"/>`,
+/*6*/`<circle cx="70" cy="60" r="11"/><path d="M70 45 v-6 M70 81 v6 M55 60 h-6 M91 60 h6 M59 49 l-4-4 M81 49 l4-4"/><circle cx="48" cy="106" r="10"/><path d="M48 116 v30 M48 126 l16 8 M48 146 l-7 14 M48 146 l6 14"/><circle cx="92" cy="106" r="10"/><path d="M92 116 v30 M92 126 l-16 8 M92 146 l7 14 M92 146 l-6 14"/>`,
+/*7*/`<rect x="44" y="112" width="52" height="32"/><path d="M42 112 l12-24 h32 l12 24"/><circle cx="60" cy="98" r="2" fill="#e8c46a"/><circle cx="70" cy="94" r="2" fill="#e8c46a"/><circle cx="80" cy="98" r="2" fill="#e8c46a"/><circle cx="56" cy="152" r="9"/><circle cx="84" cy="152" r="9"/><path d="M22 156 l11-20 11 20 z M96 156 l11-20 11 20 z"/>`,
+/*8*/`<circle cx="70" cy="122" r="22"/><path d="M70 100 v-9 M52 108 l-8-6 M88 108 l8-6 M48 122 h-9 M92 122 h9 M52 137 l-8 7 M88 137 l8 7 M70 144 v9"/><path d="M61 117 h5 M74 117 h5 M60 131 q10 9 20 0"/><circle cx="63" cy="70" r="6"/><circle cx="77" cy="70" r="6"/>`,
+/*9*/`<path d="M58 162 q0-58 16-58 q16 0 16 58 z"/><path d="M61 104 a13 13 0 0 1 26 0"/><path d="M104 162 V90"/><rect x="24" y="106" width="22" height="26"/><path d="M35 110 l6 11 h-12 z M35 128 l6-11 h-12 z"/><path d="M35 106 V92 h20"/>`,
+/*10*/`<circle cx="70" cy="112" r="40"/><circle cx="70" cy="112" r="15"/><path d="M70 72 v25 M70 127 v25 M30 112 h25 M85 112 h25 M42 84 l18 18 M98 84 l-18 18 M42 140 l18-18 M98 140 l-18 18"/><path d="M26 62 h8 M106 62 h8 M26 162 h8 M106 162 h8"/>`,
+/*11*/`<path d="M70 156 V76 M60 86 h20 M70 76 l-6-10 h12 z"/><path d="M34 102 h72 M34 102 v9 M106 102 v9"/><path d="M22 111 a12 9 0 0 0 24 0 z M94 111 a12 9 0 0 0 24 0 z"/><path d="M56 156 h28"/>`,
+/*12*/`<path d="M28 56 H112 M38 56 v106 M102 56 v106"/><path d="M62 56 v14"/><path d="M62 70 v62"/><path d="M62 98 L86 84 L86 106"/><circle cx="62" cy="144" r="11"/><circle cx="62" cy="144" r="18" stroke-dasharray="2 4"/><path d="M62 116 L46 130 M62 116 L78 130"/>`,
+/*13*/`<path d="M98 160 V56"/><path d="M98 60 q-44 3 -50 36"/><path d="M22 150 H118"/><circle cx="54" cy="116" r="14"/><path d="M48 114 a3 3 0 1 0 .1 0 M60 114 a3 3 0 1 0 .1 0" fill="#e8c46a"/><path d="M48 128 h12 M50 124 v6 M58 124 v6"/><path d="M30 150 a12 12 0 0 1 22 0"/>`,
+/*14*/`<path d="M70 58 l11 19 H59 z"/><path d="M44 84 q26-16 52 0"/><path d="M30 100 h24 l-4 17 H34 z"/><path d="M86 132 h24 l-4 17 H90 z"/><path d="M52 106 q26 12 42 30" stroke-dasharray="3 5"/><path d="M40 128 v18 M100 156 v6"/>`,
+/*15*/`<path d="M70 60 l7 21 -18-13 h22 l-18 13 z"/><circle cx="70" cy="106" r="19"/><path d="M54 94 l-11-14 M86 94 l11-14"/><path d="M61 102 h6 M75 102 h6 M60 116 q10 9 20 0"/><circle cx="46" cy="136" r="5"/><circle cx="46" cy="148" r="5"/><circle cx="46" cy="160" r="5"/><circle cx="94" cy="136" r="5"/><circle cx="94" cy="148" r="5"/><circle cx="94" cy="160" r="5"/>`,
+/*16*/`<path d="M50 160 V90 h40 v70 z"/><path d="M44 90 l26-18 26 18"/><rect x="62" y="106" width="16" height="18"/><path d="M108 52 l-16 28 h11 l-14 26"/><circle cx="28" cy="118" r="7"/><path d="M28 125 v12 M22 132 l-6 8 M34 132 l6 8"/><circle cx="114" cy="136" r="7"/><path d="M114 143 v12"/>`,
+/*17*/`<path d="M70 54 l6 18 18 6 -18 6 -6 18 -6-18 -18-6 18-6 z" fill="#e8c46a" stroke="none"/><circle cx="34" cy="70" r="3" fill="#e8c46a"/><circle cx="106" cy="70" r="3" fill="#e8c46a"/><circle cx="28" cy="98" r="3" fill="#e8c46a"/><circle cx="112" cy="98" r="3" fill="#e8c46a"/><circle cx="46" cy="50" r="3" fill="#e8c46a"/><circle cx="94" cy="50" r="3" fill="#e8c46a"/><path d="M34 126 h20 l-4 16 H38 z M86 126 h20 l-4 16 H90 z"/><path d="M40 148 q10 8 22 2 M84 148 q10 8 22 2 M30 158 q14 8 28 0 q14-8 28 0 q10 6 20 0"/>`,
+/*18*/`<path d="M80 56 a22 22 0 1 0 0 44 a17 17 0 1 1 0-44"/><path d="M72 70 a2 2 0 1 0 .1 0" fill="#e8c46a"/><path d="M26 162 v-40 l9-12 9 12 v40 z M96 162 v-40 l9-12 9 12 v40 z"/><path d="M70 162 v-44" stroke-dasharray="4 6"/><circle cx="52" cy="102" r="2.5" fill="#e8c46a"/><circle cx="100" cy="110" r="2.5" fill="#e8c46a"/><circle cx="44" cy="118" r="2.5" fill="#e8c46a"/>`,
+/*19*/`<circle cx="70" cy="88" r="23"/><path d="M70 56 v-9 M70 129 v9 M38 88 h-9 M102 88 h9 M47 65 l-7-7 M93 65 l7-7 M47 111 l-7 7 M93 111 l7 7"/><path d="M61 83 h5 M74 83 h5 M60 96 q10 9 20 0"/><path d="M24 152 H116 M24 152 v-10 h92 v10 M46 142 v10 M70 142 v10 M94 142 v10"/>`,
+/*20*/`<path d="M30 56 L94 82 l-6 13 L24 68 z"/><path d="M94 76 l18-8 v22 l-18-8"/><circle cx="42" cy="128" r="7"/><path d="M42 135 v20 M42 140 l-12-13 M42 140 l12-13"/><circle cx="70" cy="136" r="7"/><path d="M70 143 v16 M70 148 l-12-13 M70 148 l12-13"/><circle cx="98" cy="128" r="7"/><path d="M98 135 v20 M98 140 l-12-13 M98 140 l12-13"/>`,
+/*21*/`<ellipse cx="70" cy="110" rx="33" ry="50" stroke-dasharray="7 5"/><circle cx="70" cy="90" r="9"/><path d="M70 99 v26 M70 106 l-15-10 M70 106 l15-10 M70 125 l-10 20 M70 125 l12 18"/><path d="M24 56 l6-8 6 8 z M104 56 l6-8 6 8 z M24 168 l6-8 6 8 z M104 168 l6-8 6 8 z"/>`
+];
+
+
+/* --- stese --- */
+const SPREADS = {
+  one: { n:1, label:'Carta del giorno', pos:['Il cuore della questione'],
+    note:["Una carta sola non racconta una storia: dà un centro di gravità. Tutto quello che succede oggi intorno alla tua domanda ruota attorno a questo."] },
+  three: { n:3, label:'Tre carte', pos:['Situazione','Ostacolo','Consiglio'],
+    note:['Dove ti trovi adesso, al netto di come vorresti che fosse.',
+          'Ciò che si mette di traverso — spesso non è la cosa che stai incolpando.',
+          'Il movimento concreto che le carte indicano.'] },
+  celtic: { n:10, label:'Croce Celtica',
+    pos:['La situazione','Ciò che la attraversa','Il fondamento','Il passato recente','Ciò che puoi raggiungere','Il futuro prossimo','Come ti poni','Ambiente e persone','Speranze e paure','Esito'],
+    note:['Il nucleo della domanda così com’è ora.','La forza che complica o sostiene il nucleo: leggila sempre insieme alla prima.',
+          'La radice inconscia, ciò da cui la situazione è cresciuta.','Ciò che sta uscendo di scena.',
+          'Il migliore esito possibile se le cose vengono gestite bene.','Ciò che si presenta nelle prossime settimane.',
+          'Il tuo atteggiamento, che tu ne sia consapevole o no.','Le persone e il contesto che ti circondano.',
+          'Quello che desideri e quello che temi, che spesso sono la stessa carta.','Dove porta la traiettoria attuale.'] },
+  houses: { n:12, label:'Stesa astrologica',
+    pos:['1ª casa','2ª casa','3ª casa','4ª casa','5ª casa','6ª casa','7ª casa','8ª casa','9ª casa','10ª casa','11ª casa','12ª casa'],
+    note: HOUSE_AREA.map(a => 'Riguarda ' + a + '.') }
+};
+
+/* --- argomento della domanda --- */
+const DOMAINS = [
+  {k:'sport',    lbl:'sportivo', re:/allen|palestr|cors[ae]|corr[eio]|sport|gara|maraton|nuot|bici|pesi\b|workout|training|partita|match|dieta|allenament|riscaldament|recuper/i},
+  {k:'amore',    lbl:'affettivo', re:/amor|relazion|fidanz|partner|ragazz[oa]|marit|mogli|coppia|\bex\b|innamor|sentiment|matrimoni|separaz|tradiment|flirt|cuore|bacia|appuntament|dichiar/i},
+  {k:'lavoro',   lbl:'professionale', re:/lavor|carrier|uffici|capo\b|colleg|aziend|progett|business|impres|assunz|licenz|contratt|stipend|client|soci\b|dimett|promozion|collo?qui/i},
+  {k:'denaro',   lbl:'economico', re:/sold|denar|econom|finanz|invest|debit|mutu|prestit|guadagn|spend|comprar|vender|affitt|risparmi|budget|prezzo/i},
+  {k:'studio',   lbl:'di studio', re:/studi|esam|universit|scuol|concors|cors[oi]\b|impar|tesi\b|lezion|master|laure/i},
+  {k:'viaggio',  lbl:'di spostamento', re:/viagg|partir|trasfer|traslo|vacanz|volo\b|estero|emigr|andarmene|tornare a/i},
+  {k:'salute',   lbl:'del benessere', re:/salut|malatt|corpo|energi|stanc|dorm|sonno|ansia|stress|guarig|terapi|medic|dolor|male\b|peso\b|mangia/i},
+  {k:'famiglia', lbl:'familiare', re:/famigl|madre|padre|genitor|figli|fratel|sorell|mamma|papà|parent|nonn/i},
+  {k:'amicizia', lbl:'di amicizia', re:/amic|gruppo|social|conoscen|festa\b|serata|uscire con/i},
+  {k:'creativo', lbl:'creativo', re:/scriv|dipin|music|disegn|creativ|canzon|romanz|libro\b|quadro|band\b|suona/i}
+];
+/* descrizione del campo, neutra rispetto alla direzione della domanda:
+   [verdetto positivo, neutro, negativo] */
+const TOPIC_ACT = {
+  sport:   ["Il corpo regge e la spinta c'è: se ti muovi, muoviti sul serio invece di razionare.",
+            "Se ti alleni, punta alla continuità e non al record.",
+            "L'energia oggi è in riserva: forzare costa più di quanto rende."],
+  amore:   ["In amore l'iniziativa viene accolta meglio dell'attesa.",
+            "In amore niente si muove da solo, ma niente si rompe: campo neutro.",
+            "In amore quello che decidi oggi lo rifaresti domani. Lascia sedimentare."],
+  lavoro:  ["Sul lavoro la finestra è aperta: presentare, chiedere e firmare oggi pesa più che fra un mese.",
+            "Sul lavoro prepara senza annunciare: esporsi adesso non aggiunge niente.",
+            "Sul lavoro i dati che hai non bastano. Raccogli prima di impegnarti."],
+  denaro:  ["Sui soldi i conti tornano: fai il calcolo una volta e poi muovi la cifra.",
+            "Sui soldi né perdite né guadagni: tenere fermo non ti costa niente.",
+            "Sui soldi i numeri non sono chiari. Muovere adesso è scommettere."],
+  studio:  ["Nello studio sei più pronto di quanto ti senti.",
+            "Nello studio serve un ripasso in più, non materiale nuovo.",
+            "Nello studio manca ancora un pezzo, e lo sai già."],
+  viaggio: ["Sullo spostamento le condizioni ci sono: aspettare la certezza è tempo perso.",
+            "Sullo spostamento tieniti flessibile, qualcosa cambierà in corsa.",
+            "Sullo spostamento cambieresti posto senza cambiare il problema."],
+  salute:  ["Sul corpo la direzione è giusta: continua così.",
+            "Sul corpo non cambiare niente oggi. Osserva.",
+            "Il corpo chiede di essere ascoltato, non spinto."],
+  famiglia:["In famiglia il primo passo, se lo fai tu, viene accolto.",
+            "In famiglia oggi ascoltare rende più che parlare.",
+            "In famiglia il momento è sbagliato per tutti, non solo per te."],
+  amicizia:["Con gli amici il legame regge più di quanto pensi.",
+            "Con gli amici fatti vivo senza aspettative particolari.",
+            "Con gli amici insistere adesso allontana invece di avvicinare."],
+  creativo:["Sul lavoro creativo l'idea è viva e non aspetta.",
+            "Sul lavoro creativo butta giù una versione brutta e lasciala riposare.",
+            "Sul lavoro creativo oggi produrresti qualcosa da rifare."],
+  generale:["Le condizioni generali sono dalla tua parte.",
+            "Nessuna spinta e nessun ostacolo: quello che decidi oggi pesa poco.",
+            "Stai remando controcorrente: agire adesso costa il doppio."]
+};
+/* risposta operativa, usata solo quando la domanda è una scelta.
+   Cinque livelli, allineati uno a uno con i titoli del verdetto. */
+const OPERATIVE = [
+  "Risposta operativa: fallo, e senza rate.",
+  "Risposta operativa: fallo, ma tieni presente la condizione qui sopra.",
+  "Risposta operativa: nessun via libera e nessun divieto. Se lo fai, fallo per una ragione tua.",
+  "Risposta operativa: non adesso.",
+  "Risposta operativa: no. E non riprovare domani sperando in una carta diversa."
+];
+const HEADLINES = ['Sì.', 'Sì, ma a una condizione.', 'Non è una domanda da sì o no.',
+                   'Meglio di no. Non adesso.', 'No.'];
+const REV_W = { m:'rovesciato', f:'rovesciata', mp:'rovesciati', fp:'rovesciate' };
+const revWord = c => REV_W[c.g] || 'rovesciata';
+const CHOICE_RE = /scegl|scelt|decid|decision|dovrei|devo\b|posso\b|meglio|oppure|convien|accett|rifiut|lasci|restar|partir|trasfer|vale la pena|ha senso|è il caso|\bmi (conviene|serve)/i;
+
+/* peso di ciascuna posizione nel calcolo del verdetto */
+const POS_WEIGHT = {
+  one:    [1],
+  three:  [0.8, 0.5, 1.5],
+  celtic: [1, 0.5, 0.4, 0.3, 0.9, 1.1, 0.5, 0.4, 0.3, 1.9],
+  houses: new Array(12).fill(0.4)
+};
+
+function analyseQuestion(q) {
+  const d = DOMAINS.find(x => x.re.test(q));
+  return { domain: d ? d.k : 'generale', label: d ? d.lbl : 'generale', isChoice: CHOICE_RE.test(q) };
+}
+
+/* --- estrazione: mescolata più taglio --- */
+function drawCards(seedStr, count) {
+  const rnd = mulberry32(hashStr(seedStr));
+  const deck = ARCANA.map((c, i) => i);
+  for (let i = deck.length - 1; i > 0; i--) {           // Fisher–Yates
+    const j = Math.floor(rnd() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return deck.slice(0, count).map(i => ({ card: ARCANA[i], rev: rnd() < 0.32 }));
+}
+
+/* --- articoli italiani --- */
+const SIGN_TO = ["all'Ariete","al Toro","ai Gemelli","al Cancro","al Leone","alla Vergine",
+                 "alla Bilancia","allo Scorpione","al Sagittario","al Capricorno","all'Acquario","ai Pesci"];
+const plArt  = k => k === 'Sole' ? 'il Sole' : k === 'Luna' ? 'la Luna' : k;
+const plTo   = k => k === 'Sole' ? 'al Sole' : k === 'Luna' ? 'alla Luna' : 'a ' + k;
+const plWith = k => k === 'Luna' ? 'la tua Luna' : k === 'MC' ? 'il tuo Medio Cielo' : 'il tuo ' + k;
+const ASPN = {0:'una congiunzione', 60:'un sestile', 90:'una quadratura', 120:'un trigono', 180:"un'opposizione"};
+const listIt = a => a.length < 2 ? a[0] : a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1];
+const inSg = s => (s === 'Pesci' || s === 'Gemelli') ? 'nei ' + s : 'in ' + s;
+
+/* --- aggancio alla carta natale --- */
+function cardResonance(card, natal, transit, dayAsp) {
+  const out = { txt:'', score:0 };
+  const vb = /^(Gli|Le) /.test(card.name) ? 'rispondono' : 'risponde';
+  if (card.pt[0] === 's') {                              // carta legata a un segno
+    const si = +card.pt.slice(1);
+    const h = houseOf(si * 30 + 15, natal.cusps);
+    const inSign = BODIES.filter(b => signIdx(natal.pos[b.k]) === si && b.k !== 'Nodo');
+    const trSign = BODIES.filter(b => signIdx(transit.pos[b.k]) === si && b.k !== 'Nodo');
+    out.score = inSign.length * 3 + trSign.length + ([1,4,7,10].includes(h) ? 2 : 0);
+    out.txt = `${card.name} ${vb} ${SIGN_TO[si]}, che nella tua carta occupa la ${h}ª casa: riguarda ${HOUSE_AREA[h-1]}. `;
+    out.txt += inSign.length
+      ? `Lì hai ${listIt(inSign.map(b => plArt(b.k)))} — il tema ti tocca da vicino.`
+      : `Non hai pianeti in questo segno: il tema agisce più come sfondo che come nodo personale.`;
+    if (trSign.length) out.txt += ` Oggi ci ${trSign.length > 1 ? 'transitano' : 'transita'} `
+      + `${listIt(trSign.map(b => plArt(b.k)))}, quindi la carta è accesa proprio adesso.`;
+  } else {                                               // carta legata a un pianeta
+    const pl = card.pt;
+    const nf = fmtPos(natal.pos[pl]), tf = fmtPos(transit.pos[pl]);
+    const h = houseOf(natal.pos[pl], natal.cusps);
+    const rel = dayAsp.filter(a => a.a === pl).slice(0, 2);
+    out.score = ([1,4,7,10].includes(h) ? 3 : 0) + rel.length * 2 + (natal.spd[pl] < 0 ? 1 : 0);
+    out.txt = `${card.name} ${vb} ${plTo(pl)}. Nella tua carta natale ${plArt(pl)} sta ${inSg(nf.sign.n)} ${nf.txt}, `
+      + `${h}ª casa: riguarda ${HOUSE_AREA[h-1]}${natal.spd[pl] < 0 ? ', ed è retrogrado — il tema lavora verso l’interno' : ''}. `;
+    out.txt += `Oggi ${plArt(pl)} transita ${inSg(tf.sign.n)} ${tf.txt}`;
+    out.txt += rel.length
+      ? ` e forma ${listIt(rel.map(a => `${ASPN[a.asp.a]} con ${plWith(a.b)}`))}: la carta è accesa in questo momento.`
+      : `, senza aspetti stretti alla tua carta: il tema è presente ma non urgente.`;
+  }
+  return out;
+}
+
+/* --- lettura completa --- */
+function readTarot(question, spreadKey, natal, transit, birthKey, dayKey, luck, entropy) {
+  const sp = SPREADS[spreadKey];
+  const q = question.trim();
+  const meta = analyseQuestion(q);
+  const seed = `${birthKey}::${dayKey}::${spreadKey}::`
+    + `${q.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim()}::${entropy || ''}`;
+  const drawn = drawCards(seed, sp.n);
+
+  const dayAsp = findAspects(transit.pos, natal.pos,
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'],
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Ascendente','MC'], false);
+
+  const W = POS_WEIGHT[spreadKey];
+  let keyIdx = 0, keyRank = -1;
+  const items = drawn.map((d, i) => {
+    const res = cardResonance(d.card, natal, transit, dayAsp);
+    const pol = d.rev ? d.card.polR : d.card.pol;
+    const dir = d.rev ? d.card.dirR : d.card.dir;
+    const rank = W[i] * (1 + Math.abs(pol)) + res.score * 0.15;
+    if (rank > keyRank) { keyRank = rank; keyIdx = i; }
+    let body = d.rev ? d.card.rev : d.card.up;
+    if (meta.domain === 'amore') body += ' ' + d.card.love;
+    else if (meta.domain === 'lavoro' || meta.domain === 'denaro') body += ' ' + d.card.work;
+    return { ...d, pos: sp.pos[i], note: sp.note[i], body, dir, pol, w: W[i],
+             astro: res.txt, score: res.score };
+  });
+  items[keyIdx].isKey = true;
+
+  /* ---- verdetto: media pesata delle polarità, poi standardizzata ----
+     Il mazzo è di per sé leggermente positivo (media +0,29) e la varianza
+     dipende da quante carte compongono la stesa: senza correzione ogni
+     lettura finirebbe per dire di sì. Le costanti vengono da 4000 estrazioni
+     simulate per ciascuna stesa. */
+  let num = 0, den = 0;
+  items.forEach(it => { num += it.w * it.pol; den += it.w; });
+  const v = num / den;
+  const V_MU = 0.29, V_SIG = { one:1.50, three:0.82, celtic:0.48, houses:0.45 };
+  const z = (v - V_MU) / V_SIG[spreadKey];
+  const lvl = z >= 1.0 ? 0 : z >= 0.30 ? 1 : z > -0.30 ? 2 : z > -1.0 ? 3 : 4;
+  const band = lvl <= 1 ? 0 : lvl >= 3 ? 2 : 1;   // per la frase sull'argomento
+  const isChoice = meta.isChoice && spreadKey !== 'houses';
+
+  const lower = s => s.charAt(0).toLowerCase() + s.slice(1);
+  const nameOf = it => it.card.name + (it.rev ? ' ' + revWord(it.card) : '');
+  const drivers = items.map((it, i) => ({ it, c: W[i] * (1 + Math.abs(it.pol)) }))
+                       .sort((a, b) => b.c - a.c).map(x => x.it);
+
+  let headline, context;
+  if (isChoice) {
+    headline = HEADLINES[lvl];
+    context = `${nameOf(drivers[0])} in «${drivers[0].pos}» comanda la lettura: ${lower(drivers[0].dir)}`;
+  } else {
+    headline = drivers[0].dir;
+    const gg = drivers[0].card.g;
+    context = `A dirlo è ${nameOf(drivers[0])}, uscit${gg === 'f' ? 'a' : gg === 'fp' ? 'e' : gg === 'mp' ? 'i' : 'o'} in «${drivers[0].pos}».`;
+  }
+  if (drivers[1]) context += ` ${nameOf(drivers[1])} in «${drivers[1].pos}» `
+    + `${drivers[1].card.g.length > 1 ? 'aggiungono' : 'aggiunge'}: ${lower(drivers[1].dir)}`;
+
+  const topicLine = (TOPIC_ACT[meta.domain] || TOPIC_ACT.generale)[band];
+  const action = (isChoice ? `<b>${OPERATIVE[lvl]}</b> ` : '') + topicLine;
+
+  /* ---- lettura d'insieme (sotto) ---- */
+  const revN = items.filter(i => i.rev).length;
+  const els = {}; items.forEach(i => els[i.card.el] = (els[i.card.el] || 0) + 1);
+  const domEl = Object.keys(els).sort((a,b) => els[b] - els[a])[0];
+  const ELTXT = {
+    fire:'il Fuoco: la risposta chiede azione e iniziativa, non riflessione',
+    earth:'la Terra: la risposta è concreta e riguarda tempi, soldi, corpi, cose reali',
+    air:"l'Aria: la risposta passa dalle parole e dalle informazioni: capire prima di agire",
+    water:"l'Acqua: la risposta è emotiva e non si lascia ridurre a una decisione razionale"
+  };
+  const synth = [];
+  synth.push(`Argomento riconosciuto: ${meta.label}. Elemento dominante nella stesa: ${ELTXT[domEl]}.`);
+  synth.push(revN === 0 ? 'Nessuna carta rovesciata: la situazione è leggibile e le energie vanno nella direzione che indicano.'
+    : revN === items.length ? 'Tutte le carte sono rovesciate: qualcosa è bloccato alla radice, e il primo passo è ammetterlo.'
+    : `${revN} cart${revN === 1 ? 'a rovesciata' : 'e rovesciate'} su ${items.length}: ci sono resistenze, ma non dominano il quadro.`);
+  synth.push(`La carta che decide è <b>${nameOf(items[keyIdx])}</b>, in «${items[keyIdx].pos}»: pesa per posizione `
+    + `ed è agganciata alla tua carta natale attraverso ${items[keyIdx].card.astro}. Se ricordi una cosa sola, ricorda quella.`);
+  synth.push(`Sfondo astrologico: punteggio del giorno ${luck.total}/100, ${phaseArt(luck.phase)}. `
+    + `Le carte non sanno niente del tuo futuro — ma il modo in cui reagisci a quello che ci leggi dice parecchio su cosa vuoi davvero.`);
+
+  return { items, meta, synth, seed, spread: sp, headline, context, action, v };
+}
+
+/* =======================================================================
+   12. ARCANI IN STILE MUCHA
+        Cornice ad arco, disco radiante, tralci floreali, cartiglio.
+        Riquadro 160 × 280. Il dorso è in pergamena.
+   ======================================================================= */
+const GOLD = '#d9b872', GOLDH = '#f0dcac', IVORY = '#ecdfbe';
+
+const MUCHA_DEFS = `<defs>
+<linearGradient id="mkface" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#16294a"/><stop offset="52%" stop-color="#0c1a34"/><stop offset="100%" stop-color="#070f22"/>
+</linearGradient>
+<radialGradient id="mkhalo" cx="50%" cy="46%" r="56%">
+  <stop offset="0%" stop-color="#25457a" stop-opacity=".9"/>
+  <stop offset="65%" stop-color="#14294c" stop-opacity=".45"/>
+  <stop offset="100%" stop-color="#0c1a34" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="mkparch" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0%" stop-color="#f2e7c9"/><stop offset="45%" stop-color="#e4d3a9"/><stop offset="100%" stop-color="#d2bd8c"/>
+</linearGradient>
+</defs>`;
+
+/* Le illustrazioni stanno nella cartella «carte» accanto a questo file.
+   Se la cartella manca, ogni carta ricade da sola sul disegno vettoriale. */
+const CARD_IMG = {};
+for (let i = 0; i < 22; i++) CARD_IMG[i] = 'carte/' + String(i).padStart(2, '0') + '.webp';
+
+function rosette(x, y, r, col, petals, op) {
+  let s = `<circle cx="${x}" cy="${y}" r="${(r * .34).toFixed(1)}" fill="${col}" fill-opacity="${op || .5}"/>`;
+  for (let i = 0; i < petals; i++) {
+    const a = i * 360 / petals;
+    const px = x + r * .62 * cos(a), py = y - r * .62 * sin(a);
+    s += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(r * .48).toFixed(1)}" ry="${(r * .27).toFixed(1)}" `
+       + `transform="rotate(${(-a).toFixed(0)} ${px.toFixed(1)} ${py.toFixed(1)})" fill="${col}" fill-opacity=".10" `
+       + `stroke="${col}" stroke-opacity="${op || .7}" stroke-width=".8"/>`;
+  }
+  return s;
+}
+
+function leaf(x, y, rot, sc, col) {
+  return `<path d="M0 0 C 5 -2 9.6 -7.6 10.6 -16 C 3.6 -13.4 .6 -7 0 0 Z" `
+    + `transform="translate(${x} ${y}) rotate(${rot}) scale(${sc})" fill="${col}" fill-opacity=".13" `
+    + `stroke="${col}" stroke-opacity=".7" stroke-width="1.2"/>`;
+}
+
+function vine(d) {                     // d = −1 sinistra, +1 destra
+  const x = 80 + d * 45;
+  let s = `<path d="M${x} 175 C ${x - d * 11} 160, ${x + d * 8} 146, ${x - d * 5} 130" `
+    + `fill="none" stroke="${GOLD}" stroke-opacity=".8" stroke-width="1.2"/>`;
+  s += leaf(x - d * 2, 167, d * 42, .58, GOLD);
+  s += leaf(x + d * 2, 152, d * -54, .50, IVORY);
+  s += leaf(x - d * 4, 138, d * 34, .44, GOLD);
+  return s;
+}
+
+function diamond(x, y, r, col) {
+  return `<path d="M${x} ${y - r} L${x + r} ${y} L${x} ${y + r} L${x - r} ${y} Z" `
+    + `fill="${col}" fill-opacity=".22" stroke="${col}" stroke-opacity=".65" stroke-width=".8"/>`;
+}
+
+/* Faccia disegnata: usata solo per gli arcani di cui non esiste ancora
+   l'illustrazione. Riquadro 160 × 240, le stesse proporzioni 2:3 delle carte vere. */
+function cardSVG(card, reversed) {
+  const pet = 5 + (card.n % 4);
+  let s = `<svg viewBox="0 0 160 240" xmlns="http://www.w3.org/2000/svg" role="img">`
+    + `<title>${card.name}${reversed ? ' (' + revWord(card) + ')' : ''} — ${card.astro}</title>`
+    + MUCHA_DEFS;
+
+  s += `<rect x="2.5" y="2.5" width="155" height="235" rx="13" fill="url(#mkface)" stroke="${GOLD}" stroke-width="1.6"/>`;
+  s += `<rect x="9" y="9" width="142" height="222" rx="9" fill="none" stroke="${IVORY}" stroke-opacity=".40"/>`;
+  s += `<rect x="12.5" y="12.5" width="135" height="215" rx="7" fill="none" stroke="${GOLD}" stroke-opacity=".22"/>`;
+  [[21,21],[139,21],[21,219],[139,219]].forEach(p => s += rosette(p[0], p[1], 6, IVORY, 6, .55));
+
+  s += `<path d="M28 176 V74 A52 52 0 0 1 132 74 V176" fill="none" stroke="${GOLD}" stroke-opacity=".8" stroke-width="1.3"/>`;
+  s += `<path d="M33 176 V74 A47 47 0 0 1 127 74 V176" fill="none" stroke="${IVORY}" stroke-opacity=".32" stroke-width=".8"/>`;
+  for (let i = 0; i <= 18; i++) {
+    const a = 180 - i * 10;
+    s += `<circle cx="${(80 + 49.5 * cos(a)).toFixed(1)}" cy="${(74 - 49.5 * sin(a)).toFixed(1)}" r="1.35" fill="${IVORY}" fill-opacity=".58"/>`;
+  }
+
+  s += `<circle cx="80" cy="108" r="45" fill="url(#mkhalo)"/>`;
+  for (let i = 0; i < 48; i++) {
+    const a = i * 7.5;
+    s += `<line x1="${(80 + 40 * cos(a)).toFixed(1)}" y1="${(108 - 40 * sin(a)).toFixed(1)}" `
+       + `x2="${(80 + 43.5 * cos(a)).toFixed(1)}" y2="${(108 - 43.5 * sin(a)).toFixed(1)}" `
+       + `stroke="${GOLD}" stroke-opacity=".38" stroke-width=".7"/>`;
+  }
+  s += `<circle cx="80" cy="108" r="38.5" fill="none" stroke="${GOLD}" stroke-opacity=".62"/>`;
+  s += `<circle cx="80" cy="108" r="35" fill="none" stroke="${IVORY}" stroke-opacity=".38" stroke-dasharray="1 3.4"/>`;
+
+  s += `<g transform="translate(80 108)${reversed ? ' rotate(180)' : ''} scale(.62) translate(-70 -108)" `
+    + `fill="none" stroke="${GOLDH}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">`
+    + ARCANA_ART[card.n] + `</g>`;
+
+  s += vine(-1) + vine(1);
+  s += leaf(66, 172, -34, .65, IVORY) + leaf(94, 172, 34, .65, IVORY);
+  s += rosette(80, 166, 9, GOLDH, pet, .8);
+
+  s += `<path d="M20 180 H140 a7 7 0 0 1 7 7 v22 a7 7 0 0 1 -7 7 H20 a7 7 0 0 1 -7 -7 v-22 a7 7 0 0 1 7 -7 Z" `
+    + `fill="${IVORY}" fill-opacity=".085" stroke="${IVORY}" stroke-opacity=".42"/>`;
+  s += diamond(13, 198, 4, GOLD) + diamond(147, 198, 4, GOLD);
+
+  for (let i = 0; i < 12; i++) {
+    const a = i * 30;
+    s += `<circle cx="${(80 + 20.5 * cos(a)).toFixed(1)}" cy="${(42 - 20.5 * sin(a)).toFixed(1)}" r="1.1" fill="${GOLD}" fill-opacity=".55"/>`;
+  }
+  s += `<circle cx="80" cy="42" r="16.5" fill="#0a1730" stroke="${IVORY}" stroke-opacity=".5"/>`;
+  s += `<circle cx="80" cy="42" r="13.5" fill="none" stroke="${GOLD}" stroke-opacity=".45"/>`;
+  s += `<text x="80" y="48" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" `
+    + `font-size="16" fill="${GOLDH}" letter-spacing="1">${ROMAN[card.num]}</text>`;
+
+  s += `<text x="80" y="199" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" `
+    + `font-size="${card.name.length > 16 ? 13.5 : 17}" fill="${GOLDH}">${card.name}</text>`;
+  s += `<text x="80" y="210" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" `
+    + `font-size="7" letter-spacing="1.8" fill="${IVORY}" fill-opacity=".55">${card.astro.toUpperCase()}</text>`;
+
+  return s + `</svg>`;
+}
+
+/* Faccia della carta: l'illustrazione se esiste, altrimenti il disegno vettoriale */
+function cardFace(card, reversed) {
+  const src = CARD_IMG[card.n];
+  if (src) return `<div class="face${reversed ? ' rot' : ''}">`
+    + `<img src="${src}" data-n="${card.n}" data-rev="${reversed ? 1 : 0}" `
+    + `alt="${card.name}${reversed ? ', rovesciata' : ''}"></div>`;
+  return `<div class="face">${cardSVG(card, reversed)}</div>`;
+}
+
+/* Se la cartella «carte» non c'è, l'immagine fallisce e la carta torna al disegno */
+function armFallback(root) {
+  root.querySelectorAll('img[data-n]').forEach(img => {
+    img.addEventListener('error', () => {
+      const c = ARCANA[+img.dataset.n];
+      img.parentNode.innerHTML = cardSVG(c, img.dataset.rev === '1');
+    }, { once:true });
+  });
+}
+
+/* dorso in pergamena */
+function cardBack() {
+  const S = '#8a6a35', S2 = '#6d5228';
+  let s = `<svg viewBox="0 0 160 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` + MUCHA_DEFS;
+  s += `<rect x="2.5" y="2.5" width="155" height="235" rx="13" fill="url(#mkparch)" stroke="${S2}" stroke-width="1.6"/>`;
+  s += `<rect x="10" y="10" width="140" height="220" rx="9" fill="none" stroke="${S}" stroke-opacity=".6"/>`;
+  s += `<rect x="14" y="14" width="132" height="212" rx="7" fill="none" stroke="${S}" stroke-opacity=".3"/>`;
+  [[23,23],[137,23],[23,217],[137,217]].forEach(p => s += rosette(p[0], p[1], 6.5, S, 6, .6));
+  s += `<circle cx="80" cy="120" r="52" fill="none" stroke="${S}" stroke-opacity=".35" stroke-dasharray="1 4"/>`;
+  s += `<circle cx="80" cy="120" r="45" fill="none" stroke="${S}" stroke-opacity=".55"/>`;
+  for (let i = 0; i < 12; i++) {
+    const a = i * 30, px = 80 + 35 * cos(a), py = 120 - 35 * sin(a);
+    s += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="11" ry="5" `
+       + `transform="rotate(${(-a).toFixed(0)} ${px.toFixed(1)} ${py.toFixed(1)})" `
+       + `fill="${S}" fill-opacity=".10" stroke="${S}" stroke-opacity=".55" stroke-width=".9"/>`;
+  }
+  s += `<circle cx="80" cy="120" r="24" fill="none" stroke="${S}" stroke-opacity=".75"/>`;
+  s += `<circle cx="80" cy="120" r="27.5" fill="none" stroke="${S}" stroke-opacity=".4"/>`;
+  s += rosette(80, 120, 16, S2, 8, .9);
+  [[80,60],[80,180],[26,120],[134,120]].forEach(p => s += diamond(p[0], p[1], 5, S2));
+  s += `<text x="80" y="127" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" `
+    + `font-size="24" fill="${S2}" fill-opacity=".95">A</text>`;
+  return s + `</svg>`;
+}
+
+/* =======================================================================
+   13. DISPOSIZIONE DELLE STESE
+   ======================================================================= */
+function cardBlock(it, style) {
+  return `<div class="tcard ${it.isKey ? 'key' : ''}" ${style ? `style="${style}"` : ''}>`
+    + `<div class="cap">${it.pos}</div>`
+    + `<div class="flipbox"><div class="flipin">`
+    + `<div class="back">${cardBack()}</div>`
+    + cardFace(it.card, it.rev)
+    + `</div></div>`
+    + (it.rev ? `<div class="rev">${revWord(it.card)}</div>` : '')
+    + (it.isKey ? `<div class="keytag">la carta che decide</div>` : '')
+    + `</div>`;
+}
+
+const CELTIC_XY = [
+  [176,262,0],[176,262,90],[176,84,0],[42,262,0],[176,440,0],[310,262,0],
+  [546,528,0],[546,352,0],[546,176,0],[546,0,0]
+];
+const CELTIC_ORDER = [0,1,4,3,2,5,6,7,8,9];
+
+function layoutSpread(read) {
+  const it = read.items;
+  if (read.spread === SPREADS.celtic) {
+    let h = '<div class="celtic">';
+    it.forEach((c, i) => {
+      const xy = CELTIC_XY[CELTIC_ORDER.indexOf(i)];
+      h += cardBlock(c, `left:${xy[0]}px;top:${xy[1]}px;${xy[2] ? `transform:rotate(${xy[2]}deg);z-index:5;` : ''}`);
+    });
+    return h + '</div>';
+  }
+  if (read.spread === SPREADS.houses) {
+    let h = '<div class="houses"><div class="hcenter"><b>La tua ruota</b>'
+      + '<span>Una carta per ogni casa, disposta come nella carta natale: la 1ª a sinistra, poi in senso antiorario.</span></div>';
+    it.forEach((c, i) => {
+      const th = 180 + i * 30;
+      h += cardBlock(c, `left:${(50 + 38 * cos(th)).toFixed(2)}%;top:${(50 - 38 * sin(th)).toFixed(2)}%`);
+    });
+    return h + '</div>';
+  }
+  return '<div class="trow">' + it.map(c => cardBlock(c)).join('') + '</div>';
+}
+
+function renderTarot(read, question) {
+  const q = question.replace(/[<>]/g, '');
+  const cls = read.v >= 0.35 ? 'v-yes' : read.v <= -0.35 ? 'v-no' : 'v-mid';
+
+  $('tverdict').classList.remove('shown');
+  $('tverdict').innerHTML = `<div class="verdict ${cls}">`
+    + `<p class="qecho">«${q}»</p><h3>${read.headline}</h3>`
+    + `<p class="ctx">${read.context}</p><p class="act">${read.action}</p></div>`;
+
+  $('tspread').innerHTML = layoutSpread(read);
+
+  let h = `<p class="lbl">Lettura estesa</p>`
+    + `<p class="hint" style="margin:-6px 0 4px">${read.spread.label} · mazzo mescolato e tagliato `
+    + `da te. Gli agganci astrologici qui sotto vengono dalla tua carta natale.</p>`;
+  read.items.forEach((it, i) => {
+    h += `<div class="tread" data-i="${i}"><div class="pos">${it.pos}${it.isKey ? ' · la carta che decide' : ''}</div>`
+      + `<div class="name"><span class="n">${ROMAN[it.card.num]}</span>${it.card.name}`
+      + (it.rev ? `<span class="or">${revWord(it.card)}</span>` : '') + `</div>`
+      + `<p class="dir">${it.dir}</p>`
+      + `<p style="color:var(--dimmer);font-size:13px">${it.note}</p>`
+      + `<p>${it.body}</p><div class="astro">${it.astro}</div></div>`;
+  });
+  h += `<div class="tread"><div class="pos">Lettura d'insieme</div>`
+    + read.synth.map(s => `<p>${s}</p>`).join('') + `</div>`;
+  $('treading').innerHTML = h;
+  $('tarotout').style.display = 'block';
+
+  armFallback($('tspread'));
+  LB.items = read.items;
+  document.querySelectorAll('#tspread .tcard').forEach((el, i) => {
+    el.querySelector('.face').addEventListener('click', () => openLB(i));
+  });
+  revealSpread(read);
+}
+
+/* =======================================================================
+   14. INGRANDIMENTO A SCHERMO INTERO
+   ======================================================================= */
+const LB = { items:[], i:0 };
+
+function paintLB() {
+  const it = LB.items[LB.i];
+  if (!it) return;
+  const box = document.getElementById('lbimg');
+  const src = CARD_IMG[it.card.n];
+  box.innerHTML = src
+    ? `<img class="${it.rev ? 'rot' : ''}" src="${src}" data-n="${it.card.n}" `
+      + `data-rev="${it.rev ? 1 : 0}" alt="${it.card.name}">`
+    : cardSVG(it.card, it.rev);
+  armFallback(box);
+  document.getElementById('lbcap').innerHTML =
+    `<b>${it.card.name}${it.rev ? ` <span style="font-family:var(--sans);font-size:13px;color:var(--red);letter-spacing:.12em">${revWord(it.card).toUpperCase()}</span>` : ''}</b>`
+    + `<span>${ROMAN[it.card.num]} · ${it.card.astro} · ${it.pos}</span>`
+    + `<p>${it.dir}</p>`;
+  document.getElementById('lbcount').textContent = `${LB.i + 1} / ${LB.items.length}`;
+}
+function openLB(i) { LB.i = i; paintLB(); document.getElementById('lightbox').classList.add('on'); }
+function closeLB() { document.getElementById('lightbox').classList.remove('on'); }
+function stepLB(d) { if (!LB.items.length) return; LB.i = (LB.i + d + LB.items.length) % LB.items.length; paintLB(); }
+
+/* =======================================================================
+   15. INTERFACCIA
+   ======================================================================= */
+const $ = id => document.getElementById(id);
+const OPT = { transits:true, aspects:true, houses:true, equal:false };
+let STATE = null;
+
+const AREA_OF = {
+  Sole:'visibilità e riconoscimenti', Luna:'umore e vita domestica',
+  Mercurio:'comunicazione e contatti', Venere:'affetti e piaceri',
+  Marte:'iniziativa ed energia', Giove:'opportunità ed espansione',
+  Saturno:'impegni e responsabilità', Urano:'imprevisti e cambi di rotta',
+  Nettuno:'immaginazione e confini sfumati', Plutone:'trasformazioni profonde'
+};
+const BAR_META = [
+  { i:'☉', c:'linear-gradient(90deg,#e9b45c,#f0dcac)' },
+  { i:'♀', c:'linear-gradient(90deg,#c2568a,#e87ba4)' },
+  { i:'☽', c:'linear-gradient(90deg,#3f7fc4,#8fc7f5)' },
+  { i:'⟳', c:'linear-gradient(90deg,#2f9e6e,#4fd18b)' }
+];
+
+(function () {
+  const dl = $('cities');
+  Object.keys(CITIES).sort((a,b) => a.localeCompare(b,'it')).forEach(n => {
+    const o = document.createElement('option'); o.value = n; dl.appendChild(o);
+  });
+  const n = new Date();
+  const iso = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  $('tdate').value = iso; $('tdate2').value = iso;
+})();
+
+function resolvePlace(v) {
+  v = (v || '').trim();
+  if (CITIES[v]) return { ...CITIES[v], name:v };
+  const key = Object.keys(CITIES).find(k => k.toLowerCase() === v.toLowerCase());
+  if (key) return { ...CITIES[key], name:key };
+  const m = v.match(/^\s*(-?\d+(?:[.,]\d+)?)\s*[,;]\s*(-?\d+(?:[.,]\d+)?)\s*$/);
+  if (m) {
+    const la = parseFloat(m[1].replace(',','.')), lo = parseFloat(m[2].replace(',','.'));
+    if (Math.abs(la) <= 90 && Math.abs(lo) <= 180)
+      return { lat:la, lon:lo, tz:Intl.DateTimeFormat().resolvedOptions().timeZone, name:`${la}°, ${lo}°` };
+  }
+  return null;
+}
+
+/* --- navigazione a schede --- */
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + name));
+  document.querySelectorAll('.navbtn').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  scrollTo({ top:0, behavior:'smooth' });
+}
+document.querySelectorAll('.navbtn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+$('profBtn').addEventListener('click', () => showTab('profilo'));
+$('menuBtn').addEventListener('click', () => $('sheet').classList.add('on'));
+$('sheetClose').addEventListener('click', () => $('sheet').classList.remove('on'));
+$('sheet').addEventListener('click', e => { if (e.target === $('sheet')) $('sheet').classList.remove('on'); });
+$('tdate2').addEventListener('change', () => { $('tdate').value = $('tdate2').value; calc(); });
+$('housemode').addEventListener('change', () => {
+  OPT.equal = $('housemode').value === 'equal';
+  document.querySelector('.chip[data-t="equal"]').classList.toggle('on', OPT.equal);
+  if (STATE) render();
+});
+
+$('bcity').addEventListener('input', () => {
+  const p = resolvePlace($('bcity').value);
+  $('coordhint').textContent = p ? `${p.lat.toFixed(4)}° , ${p.lon.toFixed(4)}° — ${p.tz}`
+    : 'Città non trovata. Puoi anche scrivere le coordinate: "45.46, 9.19".';
+});
+document.querySelectorAll('.chip').forEach(el => {
+  el.addEventListener('click', () => {
+    const t = el.dataset.t; OPT[t] = !OPT[t];
+    el.classList.toggle('on', OPT[t]);
+    if (t === 'equal') $('housemode').value = OPT.equal ? 'equal' : 'whole';
+    if (STATE) render();
+  });
+});
+$('go').addEventListener('click', () => { if (calc()) showTab('sintesi'); });
+['bdate','btime','tdate'].forEach(id => $(id).addEventListener('change', () => { if (STATE) calc(); }));
+
+function calc() {
+  const err = $('err'); err.style.display = 'none';
+  const place = resolvePlace($('bcity').value);
+  if (!place) { err.textContent = 'Luogo di nascita non riconosciuto.'; err.style.display = 'block'; return false; }
+  const bd = $('bdate').value, bt = $('btime').value || '12:00', td = $('tdate').value;
+  if (!bd || !td) { err.textContent = 'Compila la data di nascita e il giorno da leggere.'; err.style.display = 'block'; return false; }
+  const [by,bm,bdy] = bd.split('-').map(Number);
+  const [bh,bmi] = bt.split(':').map(Number);
+  if (by < 1800 || by > 2050) { err.textContent = 'Le effemeridi coprono gli anni dal 1800 al 2050.'; err.style.display = 'block'; return false; }
+
+  const B = localToJD(by, bm, bdy, bh, bmi, place.tz);
+  const [ty,tm,tdy] = td.split('-').map(Number);
+  const nowLocalTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const T = localToJD(ty, tm, tdy, 12, 0, nowLocalTz);
+
+  STATE = { place, B, T, by, bm, bdy, bh, bmi, ty, tm, tdy, bd, bt, td, nowLocalTz };
+  stopPlay(); $('wTime').value = 0;
+  render();
+  $('tarotout').style.display = 'none';
+  return true;
+}
+
+function idCards(natal) {
+  const sun = fmtPos(natal.pos.Sole), moon = fmtPos(natal.pos.Luna),
+        asc = fmtPos(natal.ang.asc), mc = fmtPos(natal.ang.mc);
+  return [
+    ['Segno solare', sun, 'quello che vuoi'], ['Ascendente', asc, 'come ti mostri'],
+    ['Segno lunare', moon, 'come senti'],     ['Medio Cielo', mc, 'la vocazione']
+  ].map(([k,f,s]) =>
+    `<div class="idbox"><div class="k">${k}</div><div class="v"><i>${f.sign.g}</i>${f.sign.n}</div>`
+    + `<div class="s">${f.txt} · ${s}</div></div>`).join('');
+}
+
+function render() {
+  const S = STATE;
+  const mode = OPT.equal ? 'equal' : 'whole';
+  const natal   = computeChart(S.B.jd, S.place.lat, S.place.lon, mode);
+  const transit = computeChart(S.T.jd, S.place.lat, S.place.lon, mode);
+  natal.pos.Ascendente = natal.ang.asc;
+  natal.pos.MC = natal.ang.mc;
+  S.natal = natal; S.transit = transit;
+
+  const asc = fmtPos(natal.ang.asc), sun = fmtPos(natal.pos.Sole);
+  $('idrow').innerHTML = $('idrow2').innerHTML = idCards(natal);
+
+  /* ---- fortuna ---- */
+  const birthKey = `${S.bd}T${S.bt}@${S.place.name}`;
+  const luck = luckReport(transit, natal, birthKey, S.td);
+  S.luck = luck; S.birthKey = birthKey;
+
+  const R = 56, C = 2 * Math.PI * R, dash = C * luck.total / 100;
+  const gc = luck.total >= 68 ? '#4fd18b' : luck.total >= 45 ? '#e9b45c' : '#e57b7b';
+  $('ring').innerHTML =
+    `<svg viewBox="0 0 132 132" style="transform:rotate(-90deg)">
+      <circle cx="66" cy="66" r="${R}" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="9"/>
+      <circle cx="66" cy="66" r="${R}" fill="none" stroke="${gc}" stroke-width="9" stroke-linecap="round"
+        stroke-dasharray="${dash.toFixed(1)} ${(C-dash).toFixed(1)}"/></svg>
+     <div class="mid"><b style="color:${gc}">${luck.total}</b><span>su 100</span></div>`;
+
+  $('bars').innerHTML = luck.parts.map((p, i) =>
+    `<div class="bar"><div class="top"><span class="nm"><i>${BAR_META[i].i}</i>${p.n}</span>
+       <span class="vl"><b>${p.v}</b>/100</span></div>
+     <div class="track"><div class="fill" style="width:${p.v}%;background:${BAR_META[i].c}"></div></div>
+     <div class="desc">${p.d}</div></div>`).join('');
+
+  /* ---- aspetti del giorno ---- */
+  const movers = ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Urano','Nettuno','Plutone'];
+  const dayAsp = findAspects(transit.pos, natal.pos, movers,
+    ['Sole','Luna','Mercurio','Venere','Marte','Giove','Saturno','Ascendente','MC'], false);
+
+  const harm = dayAsp.filter(a => a.asp.q === 1 || (a.asp.q === 0 && BENEFIC[a.a] > 0));
+  const tens = dayAsp.filter(a => a.asp.q === -1 || (a.asp.q === 0 && BENEFIC[a.a] < 0));
+  const uniq = (list, n) => { const seen = new Set(), out = [];
+    for (const a of list) { if (!seen.has(a.a)) { seen.add(a.a); out.push(a); } if (out.length === n) break; } return out; };
+
+  $('agree').innerHTML = uniq(harm, 3).map(a => `<li>Spinta su ${AREA_OF[a.a]}</li>`).join('')
+    || '<li style="color:var(--dimmer)">Nessuna spinta netta oggi</li>';
+  $('disagree').innerHTML = uniq(tens, 3).map(a => `<li>Attrito su ${AREA_OF[a.a]}</li>`).join('')
+    || '<li style="color:var(--dimmer)">Nessun attrito rilevante oggi</li>';
+
+  const glyphOf = k => (BODIES.find(b => b.k === k) || { g:'·' }).g;
+  $('todaylist').innerHTML = dayAsp.slice(0, 5).map(a => {
+    const d = describe(a);
+    return `<li><span class="bul">${glyphOf(a.a)}</span><span>${d.label}: ${d.txt}.</span></li>`;
+  }).join('') || '<li><span class="bul">·</span><span>Nessun transito entro orbita stretta: giornata astrologicamente silenziosa.</span></li>';
+
+  const moonH = houseOf(transit.pos.Luna, natal.cusps);
+  $('reasons').innerHTML = [
+    `${luck.parts[0].n} a ${luck.parts[0].v}/100, calcolato sui transiti al tuo Sole natale`,
+    `${luck.parts[1].n} a ${luck.parts[1].v}/100, dai transiti a Luna e Venere`,
+    `${harm.length} aspett${harm.length === 1 ? 'o armonico' : 'i armonici'} e ${tens.length} di tensione entro orbita`,
+    `La Luna transita nella tua ${moonH}ª casa: l'attenzione emotiva riguarda ${HOUSE_AREA[moonH-1]}`,
+    `Fase lunare: ${phaseName(luck.phase)}, a ${luck.phase.toFixed(0)}° dal Sole`
+  ].map(t => `<li><span class="bul">✦</span><span>${t}</span></li>`).join('');
+
+  /* ---- responso in cima ---- */
+  const base = luck.total >= 68 ? 'Giornata aperta: quello che avvii oggi trova poca resistenza.'
+    : luck.total >= 45 ? 'Giornata mista: aperture su alcuni fronti, attrito su altri.'
+    : 'Giornata in salita: conviene consolidare invece di iniziare.';
+  const lead = dayAsp[0] ? ' ' + describe(dayAsp[0]).txt.charAt(0).toUpperCase() + describe(dayAsp[0]).txt.slice(1) + '.' : '';
+  $('responso').textContent = base + lead;
+
+  const dfmt = new Intl.DateTimeFormat('it-IT', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  const tMoon = fmtPos(transit.pos.Luna);
+  $('dayline').textContent = `${sun.sign.n} · Ascendente ${asc.sign.n} · `
+    + `${dfmt.format(new Date(S.ty, S.tm - 1, S.tdy))} · Luna ${inSg(tMoon.sign.n)}`;
+
+  /* ---- ruota, tabella, aspetti ---- */
+  WHEEL = { natal, mode, lat:S.place.lat, lon:S.place.lon, baseJd:S.T.jd };
+  paintWheel();
+
+  let rows = `<tr><th></th><th>Pianeta</th><th>Segno</th><th>Grado</th><th>Casa</th><th>Oggi</th></tr>`;
+  for (const b of BODIES) {
+    const f = fmtPos(natal.pos[b.k]), t = fmtPos(transit.pos[b.k]);
+    rows += `<tr><td class="gl">${b.g}</td><td>${b.k}${natal.spd[b.k] < 0 ? ' <span class="rx">℞</span>' : ''}</td>`
+      + `<td class="el-${f.sign.el}">${f.sign.g} ${f.sign.n}</td><td class="num2">${f.txt}</td>`
+      + `<td class="num2">${houseOf(natal.pos[b.k], natal.cusps)}ª</td>`
+      + `<td class="num2">${t.sign.g} ${t.txt}${transit.spd[b.k] < 0 ? ' <span class="rx">℞</span>' : ''}</td></tr>`;
+  }
+  const mc = fmtPos(natal.ang.mc);
+  rows += `<tr><td class="gl" style="font-size:11px">AC</td><td>Ascendente</td><td class="el-${asc.sign.el}">${asc.sign.g} ${asc.sign.n}</td><td class="num2">${asc.txt}</td><td class="num2">1ª</td><td class="num2">—</td></tr>`;
+  rows += `<tr><td class="gl" style="font-size:11px">MC</td><td>Medio Cielo</td><td class="el-${mc.sign.el}">${mc.sign.g} ${mc.sign.n}</td><td class="num2">${mc.txt}</td><td class="num2">10ª</td><td class="num2">—</td></tr>`;
+  $('ptable').innerHTML = rows;
+
+  $('asplist').innerHTML = dayAsp.length ? dayAsp.slice(0, 16).map(a => {
+    const nm = k => { const b = BODIES.find(x => x.k === k);
+      return b ? `<span class="g">${b.g}</span> ${k}` : (k === 'MC' ? 'Medio Cielo' : 'Ascendente'); };
+    const cl = a.asp.q === 1 ? 'harm' : a.asp.q === -1 ? 'tens' : '';
+    return `<div>${nm(a.a)} <span class="${cl}">${a.asp.g}</span> ${nm(a.b)} `
+      + `<span style="color:var(--dimmer);font-size:11.5px">(${a.orbDiff.toFixed(1)}°)</span></div>`;
+  }).join('') : '<div style="color:var(--dimmer)">Nessun aspetto entro orbita oggi.</div>';
+
+  /* ---- oroscopo ---- */
+  const horo = buildHoroscope(natal, transit, luck, S);
+  const tidy = t => { t = t.trim().replace(/\s+/g,' ');
+    t = t.charAt(0).toUpperCase() + t.slice(1); return /[.!?]$/.test(t) ? t : t + '.'; };
+  $('horo').innerHTML = horo.sections.map(s =>
+    `<p class="lbl" style="margin:18px 0 8px">${s.h}</p>`
+    + s.p.map(t => `<p style="margin:0 0 10px;line-height:1.72;font-size:14.5px;color:#d3ddf0">${tidy(t)}</p>`).join('')
+  ).join('').replace('margin:18px 0 8px', 'margin:0 0 8px')
+  + `<p class="hint" style="margin-top:16px">Transiti usati: ${horo.src || 'nessun aspetto stretto'}.</p>`;
+
+  /* ---- numeri ---- */
+  const seed = hashStr(birthKey + '#' + S.td + '#' + Math.round(natal.pos.Sole * 100) + Math.round(natal.pos.Luna * 100));
+  const rnd = mulberry32(seed), set = new Set();
+  set.add(Math.floor(natal.pos.Sole % 90) + 1);
+  set.add(Math.floor(natal.pos.Luna % 90) + 1);
+  while (set.size < 6) set.add(Math.floor(rnd() * 90) + 1);
+  $('nums').innerHTML = [...set].sort((a,b) => a - b).map(n => `<div class="num">${n}</div>`).join('');
+  const guide = (Math.floor(natal.pos.Sole) + Math.floor(natal.ang.asc) + S.ty + S.tm + S.tdy) % 9 + 1;
+  $('numsalt').innerHTML = `<div class="num alt">${guide}</div>`
+    + `<div style="align-self:center;color:var(--dimmer);font-size:12.5px;max-width:250px;line-height:1.55">`
+    + `Somma del grado solare, del grado dell'Ascendente e della data.</div>`;
+
+  const bh = bestWindow(S.ty, S.tm, S.tdy, S.nowLocalTz, S.place.lat, S.place.lon, natal);
+  $('besttime').innerHTML = `Fra le <b style="font-family:var(--serif);font-size:22px;color:var(--gold-hi)">`
+    + `${String(bh).padStart(2,'0')}:00</b> e le <b style="font-family:var(--serif);font-size:22px;color:var(--gold-hi)">`
+    + `${String((bh+2)%24).padStart(2,'0')}:00</b>.<br><span style="color:var(--dimmer);font-size:13px">`
+    + `In quella fascia i pianeti benefici in transito formano gli angoli migliori con l'Ascendente `
+    + `del giorno calcolato per ${S.place.name}.</span>`;
+
+  const off = S.B.offsetMin;
+  const offTxt = (off >= 0 ? '+' : '−') + String(Math.floor(Math.abs(off)/60)).padStart(2,'0') + ':' + String(Math.abs(off)%60).padStart(2,'0');
+  $('foot').innerHTML = `Istante calcolato: ${S.bd.split('-').reverse().join('/')} ore ${S.bt} a ${S.place.name} · `
+    + `fuso ${S.place.tz} (UTC${offTxt}) · UT ${S.B.utc.toISOString().slice(11,16)} · giorno giuliano ${S.B.jd.toFixed(4)}`;
+  $('foot2').innerHTML =
+    `Posizioni planetarie da elementi orbitali JPL (Standish) e serie lunare ELP2000 abbreviata. `
+    + `Precisione verificata contro VSOP87: sotto 1′ d'arco per Sole e Luna, entro 10′ per Saturno, `
+    + `Ascendente entro 0,4′. Case: ${OPT.equal ? 'uguali' : 'segni interi'}. Nodo lunare medio.<br>`
+    + `I testi nascono dai transiti reali di questa carta e dalle corrispondenze Golden Dawn dei 22 arcani. `
+    + `Nessun modello linguistico, nessun dato inviato altrove: tutto viene calcolato in questa pagina.<br>`
+    + `Né l'astrologia né i tarocchi hanno validità predittiva dimostrata: prendili come uno specchio, non come una previsione.`;
+}
+
+/* =======================================================================
+   17. RUOTA INTERATTIVA — cursore del tempo, segni, case, aspetti
+   ======================================================================= */
+let WHEEL = null, PLAYING = 0;
+
+const jdToDate = jd => new Date((jd - 2440587.5) * 86400000);
+const FMT_DT = new Intl.DateTimeFormat('it-IT',
+  { weekday:'short', day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+function fmtDur(h) {
+  if (h === 0) return '';
+  const g = Math.floor(h / 24), r = h % 24;
+  const gg = g ? `${g} giorn${g === 1 ? 'o' : 'i'}` : '';
+  const rr = r ? `${r} or${r === 1 ? 'a' : 'e'}` : '';
+  return [gg, rr].filter(Boolean).join(' e ');
+}
+
+function paintWheel() {
+  if (!WHEEL) return;
+  const h = +$('wTime').value;
+  const jd = WHEEL.baseJd + h / 24;
+  WHEEL.transit = computeChart(jd, WHEEL.lat, WHEEL.lon, WHEEL.mode);
+  WHEEL.jd = jd; WHEEL.off = h;
+  $('wheelbox').innerHTML = drawWheel(WHEEL.natal, WHEEL.transit, OPT);
+  LAST_INFO = '\u0000';
+  $('wWhen').textContent = FMT_DT.format(jdToDate(jd));
+  $('wDelta').textContent = h === 0 ? 'il giorno che stai leggendo'
+    : (h > 0 ? 'fra ' : '') + fmtDur(Math.abs(h)) + (h > 0 ? '' : ' fa');
+}
+
+function stopPlay() {
+  if (PLAYING) { cancelAnimationFrame(PLAYING); PLAYING = 0; }
+  $('wPlay').classList.remove('on');
+}
+function togglePlay() {
+  if (PLAYING) return stopPlay();
+  $('wPlay').classList.add('on');
+  let last = performance.now(), acc = 0;
+  const step = now => {
+    const dt = Math.min(80, now - last); last = now;
+    acc += dt * 0.055;                       // circa 55 ore al secondo
+    if (acc >= 1) {
+      let v = +$('wTime').value + Math.floor(acc);
+      acc %= 1;
+      if (v > 360) v = -360;
+      $('wTime').value = v;
+      paintWheel();
+    }
+    PLAYING = requestAnimationFrame(step);
+  };
+  PLAYING = requestAnimationFrame(step);
+}
+
+/* --- pannello informativo --- */
+const IDLE_INFO = '<span class="idle">Passa sopra uno spicchio dello zodiaco, una casa '
+  + 'o una linea al centro per sapere cosa sono.</span>';
+
+function planetsIn(chart, test) {
+  return BODIES.filter(b => test(chart.pos[b.k])).map(b => `${b.g} ${b.k}`);
+}
+
+let LAST_INFO = '';
+function wheelInfo(el) {
+  const key = el ? (el.dataset.s ?? '') + '|' + (el.dataset.h ?? '') + '|'
+    + (el.dataset.a ?? '') + (el.dataset.b ?? '') + (el.dataset.n ?? '') : '';
+  if (key === LAST_INFO) return;                 // niente ridisegni inutili
+  LAST_INFO = key;
+  if (!WHEEL || !el) { $('winfo').innerHTML = IDLE_INFO; return; }
+  const N = WHEEL.natal, T = WHEEL.transit;
+
+  if (el.dataset.s !== undefined) {
+    const i = +el.dataset.s, sg = SIGNS[i];
+    const h = houseOf(i * 30 + 15, N.cusps);
+    const nat = planetsIn(N, l => signIdx(l) === i);
+    const tr = planetsIn(T, l => signIdx(l) === i);
+    $('winfo').innerHTML = `<div class="wi-h"><i>${sg.g}</i>${sg.n}</div>`
+      + `<div class="wi-s">${ELNAME[sg.el]} · governato da ${sg.ru} · nella tua ${h}ª casa</div>`
+      + `<div style="margin-top:7px">Riguarda ${HOUSE_AREA[h-1]}. `
+      + (nat.length ? `Alla nascita ci avevi <em>${nat.join(', ')}</em>. ` : 'Alla nascita era vuoto. ')
+      + (tr.length ? `Ora ci transita <em>${tr.join(', ')}</em>.` : 'Ora non ci transita nessuno.')
+      + `</div>`;
+    return;
+  }
+
+  if (el.dataset.h !== undefined) {
+    const h = +el.dataset.h;
+    const cusp = fmtPos(N.cusps[h-1]);
+    const nat = planetsIn(N, l => houseOf(l, N.cusps) === h);
+    const tr = planetsIn(T, l => houseOf(l, N.cusps) === h);
+    $('winfo').innerHTML = `<div class="wi-h">${h}ª casa</div>`
+      + `<div class="wi-s">comincia a ${cusp.sign.g} ${cusp.sign.n} ${cusp.txt}</div>`
+      + `<div style="margin-top:7px">Riguarda ${HOUSE_AREA[h-1]}. `
+      + (nat.length ? `Ci hai <em>${nat.join(', ')}</em>. ` : 'Non ci hai pianeti natali. ')
+      + (tr.length ? `In questo momento ci passa <em>${tr.join(', ')}</em>.` : 'In questo momento è deserta.')
+      + `</div>`;
+    return;
+  }
+
+  if (el.dataset.n !== undefined) {
+    const q = +el.dataset.q;
+    const qual = q === 1 ? '<em style="color:var(--green)">armonico</em>: le due funzioni collaborano'
+      : q === -1 ? '<em style="color:var(--red)">di tensione</em>: le due funzioni si ostacolano'
+      : '<em>di fusione</em>: le due funzioni si sovrappongono e agiscono insieme';
+    const ga = (BODIES.find(b => b.k === el.dataset.a) || {g:''}).g;
+    const gb = (BODIES.find(b => b.k === el.dataset.b) || {g:''}).g;
+    $('winfo').innerHTML = `<div class="wi-h">${ga} ${el.dataset.a} ${el.dataset.g} ${gb} ${el.dataset.b}</div>`
+      + `<div class="wi-s">${el.dataset.n} · orbita ${el.dataset.o}° · aspetto natale</div>`
+      + `<div style="margin-top:7px">È un aspetto ${qual}. `
+      + `Fa parte della tua carta di nascita: non passa, ti accompagna sempre.</div>`;
+  }
+}
+
+function bindWheel() {
+  const box = $('wheelbox');
+  const pick = e => e.target.closest && e.target.closest('[data-s],[data-h],[data-n]');
+  box.addEventListener('pointermove', e => { const el = pick(e); if (el) wheelInfo(el); });
+  box.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') wheelInfo(null); });
+  box.addEventListener('click', e => {
+    const el = pick(e);
+    box.querySelectorAll('.hot').forEach(x => x.classList.remove('hot'));
+    if (el) { el.classList.add('hot'); wheelInfo(el); } else wheelInfo(null);
+  });
+  $('wTime').addEventListener('input', () => { stopPlay(); paintWheel(); });
+  $('wPlay').addEventListener('click', togglePlay);
+  $('wNow').addEventListener('click', () => { stopPlay(); $('wTime').value = 0; paintWheel(); });
+  wheelInfo(null);
+}
+
+/* =======================================================================
+   16. IL RITO — raccoglimento, mescolata, taglio, distribuzione
+        La mescolata usa entropia fresca a ogni giro e il taglio scelto
+        entra davvero nel seme: due consulti non danno le stesse carte.
+   ======================================================================= */
+let CEREMONY = localStorage_get('cerimonia', 'full');
+let SOUND_ON = localStorage_get('suono', '0') === '1';
+
+function localStorage_get(k, d) { try { return localStorage.getItem('astroracle.' + k) ?? d; } catch (e) { return d; } }
+function localStorage_set(k, v) { try { localStorage.setItem('astroracle.' + k, v); } catch (e) {} }
+
+/* --- suono sintetizzato, nessun file --- */
+let AC = null;
+function actx() {
+  if (!AC) { const C = window.AudioContext || window.webkitAudioContext; if (C) AC = new C(); }
+  if (AC && AC.state === 'suspended') AC.resume();
+  return AC;
+}
+function tone(freq, dur, delay, gain, type) {
+  if (!SOUND_ON) return;
+  const a = actx(); if (!a) return;
+  const t = a.currentTime + (delay || 0);
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = type || 'sine'; o.frequency.value = freq;
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(gain || .07, t + .02);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g).connect(a.destination); o.start(t); o.stop(t + dur + .05);
+}
+function swish(dur, delay, gain) {
+  if (!SOUND_ON) return;
+  const a = actx(); if (!a) return;
+  const t = a.currentTime + (delay || 0);
+  const n = Math.floor(a.sampleRate * dur);
+  const buf = a.createBuffer(1, n, a.sampleRate), ch = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / n);
+  const src = a.createBufferSource(); src.buffer = buf;
+  const f = a.createBiquadFilter(); f.type = 'bandpass';
+  f.frequency.setValueAtTime(700, t); f.frequency.exponentialRampToValueAtTime(2600, t + dur);
+  f.Q.value = 1.4;
+  const g = a.createGain(); g.gain.setValueAtTime(gain || .05, t);
+  g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  src.connect(f).connect(g).connect(a.destination); src.start(t);
+}
+const CHIME = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+
+/* --- attese interrompibili --- */
+const SKIPPERS = new Set();
+let SKIPPED = false;
+function wait(ms) {
+  return new Promise(res => {
+    if (SKIPPED) return res();
+    const done = () => { clearTimeout(t); SKIPPERS.delete(done); res(); };
+    const t = setTimeout(done, ms);
+    SKIPPERS.add(done);
+  });
+}
+function skipAll() { SKIPPED = true; [...SKIPPERS].forEach(f => f()); }
+
+const rand32 = () => {
+  try { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0]; }
+  catch (e) { return Math.floor(Math.random() * 4294967296); }
+};
+
+/* --- sigillo del raccoglimento --- */
+function sigilSVG() {
+  let g = '';
+  for (let i = 0; i < 12; i++) {
+    const a = 90 - i * 30;
+    g += `<text x="${(100 + 78 * cos(a)).toFixed(1)}" y="${(100 - 78 * sin(a) + 6).toFixed(1)}" `
+       + `text-anchor="middle" font-size="15" fill="#d9b872" fill-opacity=".75">${SIGNS[i].g}</text>`;
+  }
+  let ticks = '';
+  for (let i = 0; i < 72; i++) {
+    const a = i * 5, r1 = i % 6 === 0 ? 58 : 62;
+    ticks += `<line x1="${(100 + r1 * cos(a)).toFixed(1)}" y1="${(100 - r1 * sin(a)).toFixed(1)}" `
+      + `x2="${(100 + 65 * cos(a)).toFixed(1)}" y2="${(100 - 65 * sin(a)).toFixed(1)}" `
+      + `stroke="#ecdfbe" stroke-opacity=".3" stroke-width=".8"/>`;
+  }
+  return `<svg class="sigil" viewBox="0 0 200 200">
+    <g class="spin"><circle cx="100" cy="100" r="90" fill="none" stroke="#d9b872" stroke-opacity=".25" stroke-dasharray="1 5"/>
+    <circle cx="100" cy="100" r="66" fill="none" stroke="#d9b872" stroke-opacity=".4"/>${ticks}${g}</g>
+    <circle class="prog" cx="100" cy="100" r="46" fill="none" stroke="#f0dcac" stroke-width="2.5"
+      stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 100 100)"/>
+    <circle cx="100" cy="100" r="46" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="2.5"/>
+  </svg>`;
+}
+
+/* --- il rito. Restituisce { seed, cut } --- */
+async function ritual(question, spreadKey) {
+  SKIPPED = false;
+  const stage = $('rtStage'), say = $('rtSay'), qq = $('rtQ');
+  const shuffleSeed = rand32();
+  let cut = -1;
+
+  if (CEREMONY === 'none') return { seed: shuffleSeed, cut: rand32() % 3 };
+
+  const short = CEREMONY === 'short';
+  $('ritual').classList.add('on');
+  qq.textContent = '«' + question + '»';
+  actx();
+
+  /* 1 — raccoglimento */
+  if (!short) {
+    say.textContent = 'Concentrati sulla domanda';
+    stage.innerHTML = sigilSVG();
+    tone(196, 2.4, 0, .05, 'sine'); tone(293.66, 2.4, .05, .035, 'sine');
+    await wait(3800);
+  }
+
+  /* 2 — mescolata */
+  if (!SKIPPED) {
+    say.textContent = 'Mescolo il mazzo';
+    const back = cardBack();
+    stage.innerHTML = Array.from({ length:22 },
+      (_, i) => `<div class="rcard" data-i="${i}">${back}</div>`).join('');
+    const cards = [...stage.querySelectorAll('.rcard')];
+    const W = stage.clientWidth || 520;
+    const SP = Math.min(132, W * .27), SX = Math.min(96, W * .20);
+    const place = (el, x, y, rot, sc) =>
+      el.style.transform = `translate(${x}px,${y}px) rotate(${rot}deg) scale(${sc || 1})`;
+    cards.forEach(c => place(c, 0, 0, 0));
+    await wait(60);
+
+    const fan = () => cards.forEach((c, i) => {
+      const t = (i - 10.5) / 10.5;
+      place(c, t * SP, Math.abs(t) * 26 - 8, t * 26);
+    });
+    const split = () => cards.forEach((c, i) => {
+      const s = i < 11 ? -1 : 1, k = i < 11 ? i : i - 11;
+      place(c, s * SX + s * k * 1.5, k * 3 - 16, s * 4);
+    });
+    const stack = (jit) => cards.forEach((c, i) =>
+      place(c, (Math.random() - .5) * jit, (Math.random() - .5) * jit - 4, (Math.random() - .5) * jit * .5));
+
+    fan();  swish(.7, 0, .05); await wait(short ? 700 : 1000);
+    split(); swish(.5, 0, .04); await wait(short ? 500 : 750);
+    stack(9); swish(.45, 0, .06); await wait(short ? 420 : 620);
+    fan();  swish(.6, 0, .045); await wait(short ? 520 : 800);
+    stack(4); swish(.5, 0, .05); await wait(short ? 480 : 700);
+  }
+
+  /* 3 — taglio: la pila scelta entra nel seme */
+  if (!SKIPPED) {
+    say.innerHTML = 'Taglia il mazzo <span class="rt-sub">scegli una delle tre pile</span>';
+    const back = cardBack();
+    const PG = Math.min(118, (stage.clientWidth || 520) * .30);
+    stage.innerHTML = [0,1,2].map(p =>
+      `<div class="pile" data-p="${p}" style="--px:${((p-1)*PG).toFixed(0)}px;transform:translateX(var(--px))">`
+      + `<div class="pshadow"></div>${back}</div>`).join('');
+    cut = await new Promise(res => {
+      const pick = v => { if (cut < 0) { cut = v; res(v); } };
+      stage.querySelectorAll('.pile').forEach(el => {
+        el.addEventListener('click', () => {
+          el.classList.add('taken');
+          tone(392, .5, 0, .08, 'triangle'); tone(587.33, .6, .04, .05, 'sine');
+          pick(+el.dataset.p);
+        });
+      });
+      SKIPPERS.add(() => pick(rand32() % 3));
+    });
+    say.textContent = 'Il mazzo è tagliato';
+    await wait(620);
+  }
+  if (cut < 0) cut = rand32() % 3;
+
+  /* 4 — distribuzione */
+  if (!SKIPPED) {
+    say.textContent = 'Dispongo le carte';
+    await wait(500);
+  }
+  $('ritual').classList.remove('on');
+  stage.innerHTML = '';
+  return { seed: shuffleSeed, cut };
+}
+
+/* --- rivelazione progressiva della stesa --- */
+function revealSpread(read) {
+  const cards = [...document.querySelectorAll('#tspread .tcard')];
+  const deal = 380, flip = CEREMONY === 'none' ? 90 : CEREMONY === 'short' ? 380 : 620;
+  cards.forEach((el, i) => {
+    el.classList.add('dealing');
+    setTimeout(() => el.classList.add('landed'), 60 + i * (CEREMONY === 'none' ? 40 : 170));
+  });
+  const base = 60 + cards.length * (CEREMONY === 'none' ? 40 : 170) + deal;
+  cards.forEach((el, i) => {
+    setTimeout(() => {
+      el.querySelector('.flipbox').classList.add('up');
+      el.classList.add('shine');
+      tone(CHIME[i % CHIME.length] * (i > 5 ? 2 : 1), .9, 0, .055, 'sine');
+      setTimeout(() => el.classList.remove('shine'), 900);
+      const blk = document.querySelector(`#treading .tread[data-i="${i}"]`);
+      if (blk) blk.classList.add('shown');
+    }, base + i * flip);
+  });
+  const end = base + cards.length * flip + 260;
+  setTimeout(() => {
+    $('tverdict').classList.add('shown');
+    tone(130.81, 2.2, 0, .05, 'sine'); tone(196, 2.2, .06, .04, 'sine'); tone(261.63, 2.4, .12, .03, 'sine');
+    document.querySelectorAll('#treading .tread:not(.shown)').forEach(b => b.classList.add('shown'));
+  }, end);
+  return end;
+}
+
+/* --- tarocchi --- */
+const SPREAD_HINT = {
+  one:   'Una carta. Diretta, per una domanda semplice o per la giornata.',
+  three: 'Tre carte. Il taglio migliore per una domanda concreta.',
+  celtic:'Dieci carte. Lettura lunga, per una questione complessa o che dura da tempo.',
+  houses:'Dodici carte sulle case della tua carta natale: una panoramica, non una risposta secca.'
+};
+function updSpreadHint() { $('spreadhint').textContent = SPREAD_HINT[$('spread').value]; }
+$('spread').addEventListener('change', () => { updSpreadHint(); $('tarotout').style.display = 'none'; });
+updSpreadHint();
+
+let DRAWING = false;
+async function doDraw() {
+  if (DRAWING) return;
+  const qe = $('qerr'); qe.style.display = 'none';
+  if (!STATE || !STATE.natal) { qe.textContent = 'Calcola prima la tua carta natale, nella scheda Profilo.'; qe.style.display = 'block'; return; }
+  const sk = $('spread').value;
+  let q = $('question').value.trim();
+  if (!q && sk !== 'houses') { qe.textContent = "Scrivi una domanda: senza, non c'è niente su cui leggere."; qe.style.display = 'block'; return; }
+  if (!q) q = 'Uno sguardo generale sul momento che sto attraversando';
+  if (q.length < 8) { qe.textContent = 'La domanda è troppo breve per dire qualcosa di utile.'; qe.style.display = 'block'; return; }
+  DRAWING = true;
+  $('draw').disabled = true;
+  try {
+    const { seed, cut } = await ritual(q, sk);
+    const read = readTarot(q, sk, STATE.natal, STATE.transit, STATE.birthKey, STATE.td, STATE.luck, seed + ':' + cut);
+    renderTarot(read, q);
+    $('tarotout').scrollIntoView({ behavior:'smooth', block:'start' });
+  } finally {
+    DRAWING = false; $('draw').disabled = false;
+    $('ritual').classList.remove('on');
+  }
+}
+$('draw').addEventListener('click', doDraw);
+$('question').addEventListener('keydown', e => { if (e.key === 'Enter') doDraw(); });
+$('question').addEventListener('input', () => { $('tarotout').style.display = 'none'; });
+
+/* --- cielo stellato --- */
+(function () {
+  const cv = $('stars');
+  if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext('2d');
+  let stars = [];
+  function init() {
+    cv.width = innerWidth; cv.height = innerHeight;
+    const n = Math.round(innerWidth * innerHeight / 6200);
+    stars = Array.from({ length:n }, () => ({
+      x: Math.random()*cv.width, y: Math.random()*cv.height,
+      r: Math.random()*1.2 + .2, a: Math.random()*6.28, s: Math.random()*.011 + .002,
+      w: Math.random() < .12
+    }));
+  }
+  function loop() {
+    ctx.clearRect(0,0,cv.width,cv.height);
+    for (const st of stars) {
+      st.a += st.s;
+      const o = .18 + .55 * (Math.sin(st.a) * .5 + .5);
+      ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.2832);
+      ctx.fillStyle = st.w ? `rgba(240,220,172,${o.toFixed(3)})` : `rgba(214,228,255,${o.toFixed(3)})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(loop);
+  }
+  addEventListener('resize', init); init(); loop();
+})();
+
+bindWheel();
+$('rtSkip').addEventListener('click', skipAll);
+$('soundBtn').addEventListener('click', () => {
+  SOUND_ON = !SOUND_ON; localStorage_set('suono', SOUND_ON ? '1' : '0');
+  $('soundBtn').classList.toggle('on', SOUND_ON);
+  $('soundBtn').title = SOUND_ON ? 'Suono acceso' : 'Suono spento';
+  if (SOUND_ON) { actx(); tone(659.25, .5, 0, .06, 'sine'); }
+});
+$('soundBtn').classList.toggle('on', SOUND_ON);
+$('ceremony').value = CEREMONY;
+$('ceremony').addEventListener('change', () => {
+  CEREMONY = $('ceremony').value; localStorage_set('cerimonia', CEREMONY);
+});
+
+$('lbClose').addEventListener('click', closeLB);
+$('lbPrev').addEventListener('click', () => stepLB(-1));
+$('lbNext').addEventListener('click', () => stepLB(1));
+$('lightbox').addEventListener('click', e => { if (e.target === $('lightbox')) closeLB(); });
+addEventListener('keydown', e => {
+  if (!$('lightbox').classList.contains('on')) return;
+  if (e.key === 'Escape') closeLB();
+  if (e.key === 'ArrowLeft') stepLB(-1);
+  if (e.key === 'ArrowRight') stepLB(1);
+});
+
+$('bcity').dispatchEvent(new Event('input'));
+calc();
+</script>
+</body>
+</html>
