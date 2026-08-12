@@ -1,0 +1,39 @@
+name: Raccogli oroscopi
+ 
+on:
+  schedule:
+    - cron: '30 5 * * *'      # ogni giorno alle 5:30 UTC, cioè 7:30 in Italia d'estate
+  workflow_dispatch:           # e a mano, dal pulsante "Run workflow"
+ 
+permissions:
+  contents: write              # serve per riscrivere dati/oroscopi.json nel deposito
+ 
+jobs:
+  raccogli:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+ 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+ 
+      - name: Interroga le fonti
+        env:
+          API_NINJAS_KEY: ${{ secrets.API_NINJAS_KEY }}
+          FONTE2_KEY: ${{ secrets.FONTE2_KEY }}
+          FONTE3_KEY: ${{ secrets.FONTE3_KEY }}
+        run: node scripts/raccogli.mjs
+ 
+      - name: Salva se è cambiato qualcosa
+        run: |
+          if [ -n "$(git status --porcelain dati/)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add dati/
+            git commit -m "Oroscopi del $(date +%F)"
+            git push
+          else
+            echo "Niente di nuovo, non committo."
+          fi
+ 
