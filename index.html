@@ -478,6 +478,20 @@
     background:rgba(217,184,114,.12);color:var(--gold-hi);font-family:inherit;font-size:12px;cursor:pointer}
   .navbtn{max-width:120px}
 
+  .fonte{padding:12px 0}
+  .fonte+.fonte{border-top:1px solid rgba(255,255,255,.05)}
+  .fonte .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+  .fonte .nm{font-size:14px}
+  .fonte .nm small{color:var(--dimmer);font-size:11px;margin-left:7px}
+  .fonte .vl{font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .fonte details{margin-top:8px}
+  .fonte summary{cursor:pointer;font-size:11.5px;color:var(--blue-soft);list-style:none}
+  .fonte summary::-webkit-details-marker{display:none}
+  .fonte details p{margin:8px 0 0;font-size:13.5px;line-height:1.6;color:#c8d3e8;font-style:italic}
+  .accordo{margin-top:16px;padding:13px 15px;border-radius:14px;border:1px solid var(--edge);
+    background:rgba(4,10,22,.4);font-size:14.5px;line-height:1.6}
+  .accordo b{color:var(--gold-hi)}
+
   .foot{margin:26px 0 10px;font-size:11.5px;color:var(--dimmer);line-height:1.75;text-align:center}
   .locked{opacity:.45;pointer-events:none}
 </style>
@@ -548,6 +562,11 @@
       <div class="disagree"><p class="lbl">Dove si contraddicono</p><ul id="disagree"></ul></div>
     </div>
 
+    <div class="panel" id="fontiPanel" style="display:none">
+      <p class="lbl">Concordanza con le fonti esterne</p>
+      <div id="fontiBody"></div>
+    </div>
+
     <div class="panel">
       <p class="lbl">Perché siamo arrivati a questo risultato</p>
       <ul class="reasons" id="reasons"></ul>
@@ -586,7 +605,8 @@
         <div class="chip on" data-t="transits">Transiti di oggi</div>
         <div class="chip on" data-t="aspects">Aspetti</div>
         <div class="chip on" data-t="houses">Case</div>
-        <div class="chip" data-t="equal">Case uguali</div>
+        <div class="chip on" data-t="figure">Figure</div>
+          <div class="chip" data-t="equal">Case uguali</div>
       </div>
       <div id="wheelbox"></div>
       <div class="scrub">
@@ -1228,10 +1248,12 @@ WORLD.replace(/\s*\n\s*/g, '').split(';').forEach(r => {
 /* =======================================================================
    8. RUOTA ZODIACALE (SVG)
    ======================================================================= */
-const CX = 280, CY = 280;
-const R_OUT = 268, R_TR = 246, R_TRIN = 231, R_SIGN_O = 230, R_SIGN_I = 196,
-      R_GLYPH = 213, R_NAT = 168, R_NATTICK = 190, R_HOUSE_IN = 108,
-      R_HNUM = 124, R_ASP = 104;
+const CX = 310, CY = 310;
+const R_OUT = 298, R_TR = 276, R_TRIN = 258, R_SIGN_O = 254, R_SIGN_I = 194,
+      R_GLYPH = 203, R_NAT = 166, R_NATTICK = 188, R_HOUSE_IN = 106,
+      R_HNUM = 122, R_ASP = 102;
+/* proporzioni larghezza/altezza delle dodici figure ritagliate dalla carta */
+const ZOD_AR = [0.449,0.339,0.548,0.415,0.463,0.531,0.450,0.336,0.514,0.549,0.529,0.317];
 
 function pt(lon, r, ascLon) {
   const th = (180 + (lon - ascLon)) * DEG;
@@ -1264,7 +1286,7 @@ const ELCOL = { fire:'#e8785a', earth:'#6fae7d', air:'#68a8d8', water:'#9a7ad0' 
 
 function drawWheel(natal, transit, opt) {
   const asc = natal.ang.asc;
-  let s = `<svg class="wheel" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg">`;
+  let s = `<svg class="wheel" viewBox="0 0 620 620" xmlns="http://www.w3.org/2000/svg">`;
   s += `<defs><radialGradient id="core"><stop offset="0%" stop-color="#1a1430"/><stop offset="100%" stop-color="#0d0a1c"/></radialGradient></defs>`;
 
   // cerchi base
@@ -1286,7 +1308,18 @@ function drawWheel(natal, transit, opt) {
        + `fill="${c}" fill-opacity="${i % 2 ? .13 : .07}" stroke="rgba(255,255,255,.10)" `
        + `stroke-width=".7" class="sg" data-s="${i}"/>`;
     const [gx,gy] = pt(a0 + 15, R_GLYPH, asc);
-    s += `<text x="${gx.toFixed(1)}" y="${(gy+7).toFixed(1)}" text-anchor="middle" font-size="20" fill="${c}">${SIGNS[i].g}</text>`;
+    s += `<text x="${gx.toFixed(1)}" y="${(gy+5).toFixed(1)}" text-anchor="middle" font-size="15" `
+       + `fill="${c}" fill-opacity=".9" pointer-events="none">${SIGNS[i].g}</text>`;
+    if (OPT.figure) {
+      const th = 180 + (a0 + 15 - asc);
+      const [fx,fy] = pt(a0 + 15, (R_SIGN_I + R_SIGN_O) / 2 + 4, asc);
+      const fh = (R_SIGN_O - R_SIGN_I) * 0.82, fw = fh * ZOD_AR[i];
+      s += `<image href="zodiaco/${String(i).padStart(2,'0')}.webp" `
+         + `x="${(fx - fw/2).toFixed(1)}" y="${(fy - fh/2).toFixed(1)}" `
+         + `width="${fw.toFixed(1)}" height="${fh.toFixed(1)}" `
+         + `transform="rotate(${(-(th + 90)).toFixed(1)} ${fx.toFixed(1)} ${fy.toFixed(1)})" `
+         + `pointer-events="none"/>`;
+    }
   }
 
   // tacche di grado
@@ -1740,6 +1773,59 @@ ARCANA.forEach(c => Object.assign(c, CARD_DIR[c.n]));
    Forza → Leone, Giustizia → Bilancia. */
 ARCANA.forEach(c => c.num = c.n === 8 ? 11 : c.n === 11 ? 8 : c.n);
 
+/* Significati per ambito: corpo (sport e salute) e beni (denaro e spostamenti).
+   Amore e lavoro erano già dentro ogni carta; senza questi due, le domande
+   su allenamento, salute, soldi o viaggi ricadevano sul testo generico. */
+const CARD_CORPO = {
+0:'Sul corpo: voglia di provare qualcosa di nuovo, senza preparazione. Scalda bene o te ne accorgi dopo.',
+1:"Sul corpo: hai già la tecnica e gli strumenti, il problema non è l'attrezzatura.",
+2:'Sul corpo: ascolta i segnali prima di aggiungere carico, il corpo sa già cosa vuole dirti.',
+3:'Sul corpo: nutrimento e recupero contano più di una seduta in più.',
+4:"Sul corpo: serve un programma e il rispetto del programma, non l'improvvisazione.",
+5:'Sul corpo: fatti seguire da chi ne sa. Un istruttore vale dieci video.',
+6:'Sul corpo: scegli una disciplina e restaci, invece di alternarne tre.',
+7:"Sul corpo: spinta e progressione, purché il ritmo lo decida tu e non l'orgoglio.",
+8:"Sul corpo: costanza tranquilla. Vince la continuità, non l'intensità di un giorno.",
+9:'Sul corpo: una seduta da solo e in silenzio ti rende più di un allenamento in gruppo.',
+10:'Sul corpo: la forma va e viene a cicli, quella di oggi non è quella definitiva.',
+11:'Sul corpo: guarda i numeri veri — sonno, carico, recupero — non le sensazioni.',
+12:"Sul corpo: fermati. Il recupero è parte dell'allenamento, non una pausa da esso.",
+13:'Sul corpo: il programma che segui ha finito il suo ciclo. Cambialo invece di insistere.',
+14:'Sul corpo: dosa. Metà del carico fatta bene rende più del doppio fatto male.',
+15:"Sul corpo: c'è un'abitudine che ti tiene — cibo, fumo, sedentarietà — e lo sai già.",
+16:'Sul corpo: qualcosa cede, se continui a caricare su una base che non regge.',
+17:'Sul corpo: recupero e guarigione in corso. Vai piano, ma non fermarti.',
+18:'Sul corpo: sintomi poco chiari. Non interpretarli da solo, fatti guardare.',
+19:'Sul corpo: energia piena e disponibile. È il giorno per spingere.',
+20:'Sul corpo: è il momento di riprendere quello che avevi lasciato a metà.',
+21:"Sul corpo: un ciclo è compiuto. Alza l'obiettivo o cambia disciplina."
+};
+const CARD_MONDO = {
+0:'Sui beni e gli spostamenti: partire senza piano è possibile, ma tieniti un margine.',
+1:'Sui beni: sai trattare. Chiedi quello che vuoi, non quello che pensi ti daranno.',
+2:'Sui beni: mancano informazioni. Non firmare e non prenotare adesso.',
+3:'Sui beni: quello che hai investito sta maturando. Non raccogliere in anticipo.',
+4:'Sui beni: metti per iscritto cifre e scadenze. La parola data non basta.',
+5:'Sui beni: passa dai canali ufficiali. Qui le scorciatoie costano più di quanto risparmiano.',
+6:'Sui beni: due opzioni si escludono. Scegli in base a cosa vale, non a cosa costa meno.',
+7:'Sui beni: muoviti, ma tieni tu il controllo della trattativa.',
+8:'Sui beni: tratta con calma. Chi ha fretta paga di più.',
+9:'Sui beni: rifai i conti da solo, prima di sentire pareri.',
+10:'Sui beni: le condizioni cambiano da sole. Aspetta un giro prima di muovere.',
+11:'Sui beni: contratti, tasse, cifre. Controlla riga per riga.',
+12:'Sui beni: capitale fermo. Non è perso, è solo sospeso.',
+13:"Sui beni: chiudi quella spesa o quell'impegno. Trascinarlo costa più che finirlo.",
+14:'Sui beni: rate, proporzioni, mezze misure. Non tutto e non niente.',
+15:'Sui beni: un debito o un vincolo ti lega più di quanto ammetti.',
+16:'Sui beni: una spesa imprevista o un piano che salta. Tieni una riserva.',
+17:'Sui beni: prospettiva lunga. Quello che semini adesso rende fra molto tempo.',
+18:'Sui beni: i numeri che ti hanno dato non sono chiari. Chiedine altri.',
+19:'Sui beni: le condizioni sono buone, e sono quelle che sembrano.',
+20:'Sui beni: fai il bilancio che rimandi da mesi.',
+21:"Sui beni: l'operazione si chiude bene. Prendi il risultato e vai oltre."
+};
+ARCANA.forEach(c => { c.corpo = CARD_CORPO[c.n]; c.mondo = CARD_MONDO[c.n]; });
+
 const ROMAN = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI'];
 const HOUSE_AREA = ['il corpo e l’immagine','le risorse e la sicurezza','la comunicazione e i rapporti brevi',
   'la casa, la famiglia, le radici','il piacere, la creatività, i figli','la routine, il lavoro quotidiano, la salute',
@@ -1866,9 +1952,29 @@ const POS_WEIGHT = {
   houses: new Array(12).fill(0.4)
 };
 
+/* a quale famiglia di significati attinge ciascun ambito */
+const DOMAIN_FIELD = {
+  sport:'corpo', salute:'corpo',
+  amore:'love', famiglia:'love', amicizia:'love',
+  lavoro:'work', studio:'work', creativo:'work',
+  denaro:'mondo', viaggio:'mondo'
+};
 function analyseQuestion(q) {
-  const d = DOMAINS.find(x => x.re.test(q));
-  return { domain: d ? d.k : 'generale', label: d ? d.lbl : 'generale', isChoice: CHOICE_RE.test(q) };
+  let d = null, hit = null;
+  for (const x of DOMAINS) {
+    const m = x.re.exec(q);
+    if (!m) continue;
+    d = x;
+    let i = m.index, j = i + m[0].length;              // allargo alla parola intera
+    while (i > 0 && /[\p{L}\p{N}']/u.test(q[i-1])) i--;
+    while (j < q.length && /[\p{L}\p{N}']/u.test(q[j])) j++;
+    hit = q.slice(i, j);
+    break;
+  }
+  const c = CHOICE_RE.exec(q);
+  return { domain: d ? d.k : 'generale', label: d ? d.lbl : 'generale',
+           field: d ? DOMAIN_FIELD[d.k] : null, hit,
+           isChoice: !!c, choiceHit: c ? c[0] : null };
 }
 
 /* --- estrazione: mescolata più taglio --- */
@@ -1946,8 +2052,7 @@ function readTarot(question, spreadKey, natal, transit, birthKey, dayKey, luck, 
     const rank = W[i] * (1 + Math.abs(pol)) + res.score * 0.15;
     if (rank > keyRank) { keyRank = rank; keyIdx = i; }
     let body = d.rev ? d.card.rev : d.card.up;
-    if (meta.domain === 'amore') body += ' ' + d.card.love;
-    else if (meta.domain === 'lavoro' || meta.domain === 'denaro') body += ' ' + d.card.work;
+    if (meta.field && d.card[meta.field]) body += ' ' + d.card[meta.field];
     return { ...d, pos: sp.pos[i], note: sp.note[i], body, dir, pol, w: W[i],
              astro: res.txt, score: res.score };
   });
@@ -1998,7 +2103,12 @@ function readTarot(question, spreadKey, natal, transit, birthKey, dayKey, luck, 
     water:"l'Acqua: la risposta è emotiva e non si lascia ridurre a una decisione razionale"
   };
   const synth = [];
-  synth.push(`Argomento riconosciuto: ${meta.label}. Elemento dominante nella stesa: ${ELTXT[domEl]}.`);
+  synth.push(meta.hit
+    ? `Ho letto la domanda come <b>${meta.label}</b>, per via della parola «${meta.hit}»: i significati `
+      + `qui sopra sono quelli di quell'ambito, non generici. Elemento dominante nella stesa: ${ELTXT[domEl]}.`
+    : `<b>Non ho riconosciuto un ambito preciso</b> nella domanda, quindi la lettura resta sul generale. `
+      + `Per una risposta più mirata nomina la cosa di cui parli — il lavoro, una persona, il corpo, i soldi, `
+      + `un viaggio, lo studio. Elemento dominante nella stesa: ${ELTXT[domEl]}.`);
   synth.push(revN === 0 ? 'Nessuna carta rovesciata: la situazione è leggibile e le energie vanno nella direzione che indicano.'
     : revN === items.length ? 'Tutte le carte sono rovesciate: qualcosa è bloccato alla radice, e il primo passo è ammetterlo.'
     : `${revN} cart${revN === 1 ? 'a rovesciata' : 'e rovesciate'} su ${items.length}: ci sono resistenze, ma non dominano il quadro.`);
@@ -2279,7 +2389,7 @@ function stepLB(d) { if (!LB.items.length) return; LB.i = (LB.i + d + LB.items.l
    15. INTERFACCIA
    ======================================================================= */
 const $ = id => document.getElementById(id);
-const OPT = { transits:true, aspects:true, houses:true, equal:false };
+const OPT = { transits:true, aspects:true, houses:true, equal:false, figure:true };
 let STATE = null;
 
 const AREA_OF = {
@@ -2510,6 +2620,8 @@ function render() {
   $('numsalt').innerHTML = `<div class="num alt">${guide}</div>`
     + `<div style="align-self:center;color:var(--dimmer);font-size:12.5px;max-width:250px;line-height:1.55">`
     + `Somma del grado solare, del grado dell'Ascendente e della data.</div>`;
+
+  renderFonti();
 
   const bh = bestWindow(S.ty, S.tm, S.tdy, S.nowLocalTz, S.place.lat, S.place.lon, natal);
   $('besttime').innerHTML = `Fra le <b style="font-family:var(--serif);font-size:22px;color:var(--gold-hi)">`
@@ -3383,6 +3495,58 @@ function revealSpread(read) {
   return end;
 }
 
+/* =======================================================================
+   Fonti esterne: file raccolto ogni mattina da GitHub Actions e servito
+   dalla stessa origine. Se manca, il pannello resta invisibile.
+   ======================================================================= */
+let FONTI = null;
+
+async function caricaFonti() {
+  try {
+    const r = await fetch('dati/oroscopi.json', { cache: 'no-cache' });
+    if (!r.ok) return;
+    const j = await r.json();
+    if (j && Array.isArray(j.fonti) && j.fonti.length) { FONTI = j; renderFonti(); }
+  } catch (e) { /* nessun file: si prosegue senza */ }
+}
+
+function renderFonti() {
+  if (!FONTI || !STATE || !STATE.natal) return;
+  const segno = SIGNS[signIdx(STATE.natal.pos.Sole)].n.toLowerCase();
+  const righe = [];
+  for (const f of FONTI.fonti) {
+    const d = f.segni && f.segni[segno];
+    if (!d) continue;
+    righe.push({ nome: f.nome, lingua: f.lingua, testo: d.testo, tono: d.tono });
+  }
+  if (!righe.length) return;
+
+  const pct = t => Math.round((t + 1) / 2 * 100);
+  const col = t => t > 0.15 ? 'var(--green)' : t < -0.15 ? 'var(--red)' : 'var(--amber)';
+  const media = righe.reduce((a, r) => a + r.tono, 0) / righe.length;
+  const esterno = pct(media), nostro = STATE.luck.total;
+  const scarto = Math.abs(esterno - nostro);
+  const concordi = righe.filter(r => Math.abs(pct(r.tono) - nostro) <= 25).length;
+
+  $('fontiBody').innerHTML = righe.map(r =>
+    `<div class="fonte"><div class="top">
+       <span class="nm">${r.nome}<small>${r.lingua === 'en' ? 'in inglese' : r.lingua}</small></span>
+       <span class="vl">${pct(r.tono)}/100</span></div>
+     <div class="track"><div class="fill" style="width:${pct(r.tono)}%;background:${col(r.tono)}"></div></div>
+     <details><summary>Leggi il testo originale</summary><p>«${r.testo.replace(/[<>]/g,'')}»</p></details>
+     </div>`).join('')
+    + `<div class="accordo">Le fonti esterne stanno in media a <b>${esterno}/100</b>, il calcolo sui tuoi `
+    + `transiti dice <b>${nostro}/100</b>: ${scarto <= 15 ? 'sono d’accordo' : scarto <= 30
+        ? 'si somigliano ma non coincidono' : '<b>si contraddicono</b>'}. `
+    + `${concordi} font${concordi === 1 ? 'e concorda' : 'i concordano'} su ${righe.length}.</div>`
+    + `<p class="hint" style="margin-top:12px">Sono oroscopi generici prodotti da servizi automatici, `
+    + `non testi di astrologi noti: quelli sono coperti dal diritto d’autore e non si possono riusare. `
+    + `Il punteggio di ciascuna fonte viene da un semplice conteggio di parole incoraggianti e parole `
+    + `caute nel testo inglese — è un indicatore grezzo, non un’analisi del significato. `
+    + `Aggiornate il ${new Date(FONTI.aggiornato).toLocaleDateString('it-IT')}.</p>`;
+  $('fontiPanel').style.display = 'block';
+}
+
 /* --- tarocchi --- */
 const SPREAD_HINT = {
   one:   'Una carta. Diretta, per una domanda semplice o per la giornata.',
@@ -3482,6 +3646,7 @@ addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') stepLB(1);
 });
 
+caricaFonti();
 $('bcity').dispatchEvent(new Event('input'));
 calc();
 </script>
