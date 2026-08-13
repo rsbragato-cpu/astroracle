@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-12T16:11:47.325Z",
- "giorno": "2026-08-12",
+ "aggiornato": "2026-08-13T06:52:31.557Z",
+ "giorno": "2026-08-13",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -12,11 +12,11 @@
      "tono": 0
     },
     "toro": {
-     "testo": "Today, Taurus, you have the chance to rediscover the pure joy of life that you once felt as a child. While you tend to be serious, it's important to embrace and cherish these moments of happiness. You may find yourself in a state of true flow, and there may not be a specific reason for it—so don’t overthink it. This uplift in your spirit could enhance your creativity and deepen your connections with others. Savor every second!",
+     "testo": "Today, Taurus, you have the chance to rediscover the pure joy of life that you once felt as a child. While you tend to be serious, it's important to embrace and cherish these moments of happiness. You may find yourself in a state of true flow, and there may not be a specific reason for it—so just enjoy it without overthinking. This uplifted mood could also enhance your creativity and strengthen your connections with others. Savor every second!",
      "tono": 1
     },
     "gemelli": {
-     "testo": "Today, Gemini, you may find yourself deeply engaged in group projects, possibly involving your whole community, which could demand a significant portion of your time. Be prepared for intriguing news and lively discussions to come your way. Your surroundings are likely to be buzzing with activity, leading you to dash around town, connect with others, and tackle various errands. Additionally, you might notice some positive personal growth as a result of these experiences.",
+     "testo": "Today, Gemini, you may find yourself deeply engaged in group projects, possibly involving your whole community, which could demand a significant portion of your time. Be prepared for intriguing news and lively discussions to come your way. Your surroundings are likely to be buzzing with activity, leading you to dash around town, connecting with others and ticking off your to-do list. Additionally, you might notice some positive personal growth as a result of these experiences.",
      "tono": 1
     },
     "cancro": {
@@ -24,7 +24,7 @@
      "tono": 0.333
     },
     "leone": {
-     "testo": "With a wave of success and fortune on your side, you're likely feeling invigorated and ready to push forward with your ambitions. Your vibrant energy and excitement are at a peak, Leo. You may find yourself contemplating new adventures, whether that be through travel or furthering your education. It's wise to reflect deeply on these possibilities. Make sure to strategize thoroughly and wait for the perfect moment to take action.",
+     "testo": "With a wave of success and fortune on your side, you're likely feeling invigorated and ready to push forward with your ambitions. Your vibrant energy and passion are at an all-time high, Leo. You may find yourself contemplating new adventures, whether that be through travel or furthering your education. It's wise to reflect deeply on these possibilities. Make sure to strategize thoroughly and wait for the perfect moment to take action.",
      "tono": 1
     },
     "vergine": {
@@ -32,27 +32,27 @@
      "tono": -1
     },
     "bilancia": {
-     "testo": "Today is an excellent opportunity for you, Libra, to embark on new ventures alongside others. Engaging in social gatherings or group activities may spark exciting ideas for projects that ignite your passion and motivation. It's a perfect time to establish both short-term and long-term objectives. While some individuals may lose interest and step back, there's no need for concern. Those who resonate with your vision will swiftly come forward to fill the gaps.",
-     "tono": 0.5
+     "testo": "Today is an excellent opportunity for you, Libra, to embark on new ventures alongside others. Engaging in social gatherings or group activities may spark innovative ideas for projects that ignite your passion and excitement. It's a perfect time to establish both short-term and long-term objectives. While some individuals may lose interest and bow out, there's no need for concern. Those who resonate with your vision will swiftly fill the gaps.",
+     "tono": 0.333
     },
     "scorpione": {
-     "testo": "Today, Scorpio, you may find yourself in the spotlight due to various activities. Your hard work is likely to earn you the recognition you truly deserve. With your energy and enthusiasm at a peak, you're probably eager to take on even more. This heightened motivation might lead you to contemplate changes in your job. However, it's wise to pause before making any hasty decisions. Take the time to reflect carefully.",
+     "testo": "Today, Scorpio, you may find yourself in the spotlight due to various activities. Your hard work is likely to be recognized, bringing you the appreciation you truly deserve. With your energy and enthusiasm at a peak, you're probably eager to take on even more. This heightened motivation might lead you to contemplate changes in your job. However, it's wise to pause before making any hasty decisions. Take the time to reflect carefully.",
      "tono": 0
     },
     "sagittario": {
-     "testo": "Sagittarius, expect some shifts in your professional landscape. Inspiration from distant places could ignite your imagination. Your intellectual and artistic pursuits may evolve, broadening your perspectives and unveiling fresh possibilities. You might find yourself contemplating travel, possibly to deepen your understanding of these new interests. Additionally, the prospect of formal education in emerging fields is on the horizon.",
+     "testo": "Sagittarius, expect some shifts in your professional landscape. Inspiration from distant places could ignite your imagination. Your intellectual and artistic pursuits may evolve, broadening your perspectives and unveiling fresh possibilities. You might find yourself contemplating travel as a way to deepen your understanding of these themes. Additionally, the prospect of pursuing formal education in new areas is on the horizon.",
      "tono": 1
     },
     "capricorno": {
-     "testo": "You might find yourself receiving an unexpected financial boost today, whether it's a bonus, a settlement, or a generous gift. This extra cash could be just what you need to initiate some changes around your home, whether that means tackling repairs, embarking on a remodel, or refreshing your decor. While the idea of these projects may feel overwhelming, rest assured that you'll have both the motivation and the resources to see them through. Dive in and make it happen!",
-     "tono": 1
+     "testo": "You might find yourself receiving an unexpected financial boost today, whether it's a bonus, a settlement, or a generous gift. This extra cash could be the perfect opportunity to invest in your living space, whether that means making necessary repairs, remodeling, or refreshing your decor. While the idea of such changes may feel overwhelming, rest assured that you'll have both the motivation and the resources to tackle it. Embrace the challenge!",
+     "tono": 0.333
     },
     "acquario": {
      "testo": "Aquarius, brace yourself for significant transformations within your community. The majority of these changes are favorable. Expect to hear the buzz from various sources today—whether it's through local news outlets, chats with neighbors, or casual street conversations. The atmosphere in your area is likely to be charged with enthusiasm, and you might find yourself swept up in the excitement. Stay alert for some unexpected developments!",
      "tono": 1
     },
     "pesci": {
-     "testo": "Today, Pisces, you may find yourself drawn to volunteer opportunities or lending a hand to a friend in need. This experience could unveil a hidden talent within you, potentially opening doors to new income streams. You'll likely feel a sense of pride in your contributions, motivating you to explore this newfound ability further. Embrace this journey, as it promises not only financial rewards but also a boost in your self-confidence. Dive in!",
+     "testo": "Today, Pisces, you may find yourself drawn to volunteer opportunities or lending a hand to a friend in need. This experience could unveil a hidden talent within you, potentially opening doors to new income streams. You'll likely feel a sense of pride in your contributions, motivating you to explore this newfound ability further. Embracing this path could not only enhance your financial situation but also boost your self-confidence. Embrace the journey!",
      "tono": 1
     }
    }
