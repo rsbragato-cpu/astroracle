@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-14T06:50:12.303Z",
- "giorno": "2026-08-14",
+ "aggiornato": "2026-08-15T05:47:06.468Z",
+ "giorno": "2026-08-15",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Aries, your energy and self-assurance are at an all-time high! While this is fantastic, it also means you might be more prone to risky situations and mishaps. You may feel a surge of aggression, particularly if someone challenges you. Be mindful, as emotional frustrations could spill over into physical actions, leading to reckless driving or unnecessary conflicts with those who don’t warrant your ire.",
-     "tono": 0
+     "testo": "Aries, it's time to carve out some leisure time for yourself. Anticipating enjoyable activities can significantly ease the burdens of challenging moments. You'll be surprised at your resilience when you have a goal to aim for. This shift in perspective can uplift your spirits, so seize the opportunity to take charge and set up your own rewards. Treat yourself to something delightful as a token of appreciation for your daily efforts.",
+     "tono": 0.333
     },
     "toro": {
-     "testo": "Embrace joy within yourself and in your connections, Taurus. It's time to let go of the urge to critique those around you. If you focus too much on their flaws, you might wake up one day to find your social circle has dwindled. By fixating on the negatives, you risk pushing away those who care about you. Be mindful not to project an air of superiority; it's not your role to judge or control others.",
+     "testo": "Taurus, remember that everyone has their own unique way of living, and it's important not to pass judgment simply because their choices differ from your own. While you may lean towards traditional values, others may have a different perspective on relationships, careers, and lifestyles. This diversity might be challenging for you to grasp and could even feel unsettling, but it's essential to approach others with compassion rather than criticism. Instead of focusing on their differences, channel that energy into maintaining your own path.",
      "tono": 0
     },
     "gemelli": {
-     "testo": "Gemini, you might be overflowing with enthusiasm and a desire to embrace your inner free spirit. However, your emotions could create obstacles that hinder these aspirations. It may feel as though something is anchoring you, preventing you from moving with ease. This tension could lead to erratic behavior, leaving you feeling exasperated and disheartened. Take a deep breath and remember to approach your day gradually, one step at a time.",
-     "tono": -0.333
+     "testo": "Today, Gemini, you might find yourself surrounded by friends in need of guidance or a comforting presence. You're naturally equipped to offer the support and compassion they seek. However, be mindful not to deplete your own energy in the process. Remember, genuine friendship involves mutual sharing of challenges. If you exhaust yourself, you may find it difficult to assist anyone effectively.",
+     "tono": 0.333
     },
     "cancro": {
-     "testo": "Cancer, you might find yourself feeling a little downcast today, as a heavy sense of reality keeps you from soaring. In an attempt to assert your independence, you may find yourself acting out. It's time to release the notion that being grounded is a negative trait. Embrace the stability of solid ground beneath you; it's the key to achieving balance and reaching your aspirations.",
-     "tono": -1
+     "testo": "Today, Cancer, tackling your tasks should come easily to you. If you find yourself feeling a bit sluggish at times, don’t worry; you’re likely to experience a burst of energy that will reignite your motivation and help you finish your projects. Once you wrap up your work, consider planning some enjoyable activities, like hanging out with friends or attending an event that piques your interest. You’ve earned it!",
+     "tono": 0
     },
     "leone": {
-     "testo": "Today, Leo, you’ll find that your productivity soars as your energy levels are high. There's no need to struggle to make your opinions known; your voice will resonate clearly. Focus on the finer points and don’t let any minor discomforts deter you. With a positive mindset, you’re likely to see everything fall into place effortlessly. Success will come naturally, requiring little extra effort on your part.",
-     "tono": 0.5
+     "testo": "Today, Leo, you might feel a bit stifled by the limitations around you. Your free-spirited nature thrives when you can carve your own path, and it's true that your greatest successes come from following your unique vision. However, rules are a part of life that we all must navigate. Focus on completing your responsibilities first, and once that's done, you'll likely discover a greater sense of freedom to express yourself without repercussions. Remember to practice patience and stay committed to your tasks.",
+     "tono": 0
     },
     "vergine": {
-     "testo": "Success is a personal journey, and everyone has their own benchmarks. Don't let feelings of inadequacy creep in if your achievements today appear minor next to those of others. Constantly comparing yourself can cloud your sense of progress. Remember, there will always be someone who seems to be doing more. Embrace and take pride in your efforts today, no matter how small they may seem.",
+     "testo": "Today, you’re likely to be in high spirits and radiate positivity. Spread this uplifting vibe to those around you who may be struggling. Your cheerful demeanor can significantly influence your friends, loved ones, and even your children. Those in your community and extended family may sense your joyful energy, often without you noticing. If you encounter someone who is feeling down or upset, offer them your support and encouragement. Remember, in the end, everything will fall into place.",
      "tono": 1
     },
     "bilancia": {
-     "testo": "Libra, it might seem like you're in the midst of a conflict, and you could feel like you're in the crosshairs. Without a strong support system, this time could prove challenging. On an emotional level, today may not be your strongest. Rather than fully experiencing your emotions, you might find yourself analyzing them with a logical approach. It may appear as though you're addressing your feelings, but in reality, you could be attempting to rationalize them away.",
+     "testo": "Libra, remember to value your remarkable ability to find solutions. If you're feeling short on resources or information, take a moment to reflect. Consider your network—who can you reach out to? What tools or knowledge do you have at your disposal? Instead of stressing over the missing elements, compile a list of potential contacts and take action. Have faith in your capabilities.",
      "tono": 0
     },
     "scorpione": {
-     "testo": "Scorpio, the thought of taking risks might feel daunting, as you may worry about potential conflicts or failures. You might find yourself trying to blend into the background to escape attention. While these protective strategies can be helpful temporarily, letting fear or guilt dictate your actions won't lead you to your desired destination. To reach your goals, embrace a mindset of confidence, love, and trust in yourself.",
-     "tono": 0
+     "testo": "Don't let the melancholy weigh you down, Scorpio. Although some days may feel slow, keeping yourself occupied will help time fly by. Focus on wrapping up any outstanding tasks and consider making arrangements for a fun evening. With a glimmer of hope on the horizon, not only will the days seem to move quicker, but you'll also find comfort in knowing that you're nearing completion.",
+     "tono": 1
     },
     "sagittario": {
-     "testo": "Sagittarius, now is the perfect moment to embrace some outdoor physical activity that invigorates you. You don’t need to aim for becoming the top athlete at a tennis club; even a leisurely stroll around the neighborhood each morning can significantly enhance your physical and mental vitality. Pay attention to the mental clarity that accompanies your movement—it’s a wonderful bonus!",
-     "tono": 1
-    },
-    "capricorno": {
-     "testo": "Capricorn, it seems you might be facing some challenges that require you to validate your choices and actions. Luckily, an emotional uplift is on the horizon, empowering you to embrace your true self, no matter the opinions of others. Remember, the most significant challenges often come from within, as you tend to be your own harshest judge. Make a conscious effort to show yourself some compassion.",
+     "testo": "Embrace your uniqueness, Sagittarius! It's all too simple to slip into a monotonous routine—having your meals and sleep at the same hours, sticking to the same wardrobe, and approaching your tasks in a predictable manner. Before long, you might find yourself feeling stuck. The key to escaping this cycle is to make a conscious choice to shake things up. Experiment with a fresh hairstyle, explore vibrant colors you haven't worn before, or if you're feeling particularly adventurous, think about a career change. Broaden your perspectives!",
      "tono": 0
     },
+    "capricorno": {
+     "testo": "Capricorn, embrace your unique lifestyle today and don't let self-doubt creep in. You made choices for meaningful reasons, and that's something to be proud of. Even if you're contemplating a shift, there's no reason to feel awkward about your current path. Each person forges their own journey, whether it aligns with the mainstream or not. Both paths are perfectly valid.",
+     "tono": -1
+    },
     "acquario": {
-     "testo": "Today, Aquarius, you find yourself brimming with newfound confidence, allowing you to express your thoughts more freely than usual. Your emotional clarity is strong, helping you maintain a balanced view. In situations where you might typically hold back to avoid conflict, you're now ready to voice your true feelings. While some may wish for you to maintain harmony, remember that your priority is to advocate for your own needs.",
-     "tono": 0.333
+     "testo": "Today, Aquarius, you may find your determination heightened, providing you with the energy to tackle your tasks with vigor. It's a perfect time to wrap up any lingering projects and consider what challenges you want to take on next. Embrace any complex or ambitious endeavors without hesitation; you have the capability to manage it all, and the sense of accomplishment will be rewarding. Seize every opportunity that comes your way. Have a wonderful day!",
+     "tono": 1
     },
     "pesci": {
-     "testo": "Pisces, just when you think you've found your emotional footing and tranquility, something may disrupt your peace. You might find yourself questioning the very idea of stability, yearning instead for adventure, spontaneity, and thrill. This tug-of-war within can create some inner turmoil. Remember, there's no need to dissect every detail. Trust that clarity will reveal itself in due time.",
-     "tono": 1
+     "testo": "Pisces, are you sensing the subtle influence of today's calm planetary alignments? Don't worry; this phase is fleeting. Focus on taking things slowly and consider making some enjoyable plans for tonight. Whether it's gathering with friends or enjoying a movie at home, keeping yourself engaged and productive will lift your spirits. Soon enough, you'll find your mood brightening.",
+     "tono": -1
     }
    }
   }
