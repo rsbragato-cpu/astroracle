@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-17T05:56:14.031Z",
- "giorno": "2026-08-17",
+ "aggiornato": "2026-08-18T05:51:36.552Z",
+ "giorno": "2026-08-18",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Hello, Aries! Today is shaping up to be a fantastic day for you. The celestial influences are shining brightly, particularly in the realm of communication and social interactions. Embrace this uplifting energy! If you can, gather with friends and family for a delightful get-together. Whether it's hosting a game night or a dinner party, or even connecting virtually, make the most of this opportunity. A potluck could add a fun twist! Remember, you put in a lot of effort every day, so take some time to relax and enjoy yourself today.",
-     "tono": 1
+     "testo": "Aries, remember that creativity can manifest in various forms. It's not solely about painting, singing, playing an instrument, or performing. The way you organize your living space or office can be a form of art, just like your choice of clothing and hairstyle. Everything you do reflects your personal flair. Embrace your unique artistic nature and revel in this talent today.",
+     "tono": 0
     },
     "toro": {
-     "testo": "Taurus, today is an excellent opportunity to connect with your loved ones and embark on an adventure together. The celestial alignments are encouraging you to make the most of this time with those who matter most. If there's a destination you've been eager to explore, seize the day and make it happen! Gather your family and set off for a delightful outing to discover something new.",
+     "testo": "Today, Taurus, you might discover a surge of physical vitality and strength. It's an ideal time to tackle demanding tasks that require your energy. Why not seize the moment? Dive into some outdoor chores or organize those neglected closets, cupboards, and drawers. Think about giving away items you no longer need or even selling them online for a little extra cash.",
      "tono": 1
     },
     "gemelli": {
-     "testo": "Gemini, why not tap into your philosophical musings and turn them into creative writing? You might find it to be a delightful experience. Even if you haven't ventured into this realm before, today is the perfect opportunity to give it a shot. Whether it's poetry or a short story, let your imagination flow. If that feels overwhelming, consider starting a journal instead. It can serve as a wonderful space to gather your thoughts and reflections.",
+     "testo": "Today is the perfect day for you to dive into activities, Gemini! You'll find that tasks demanding your concentration or creativity are favored. Your vitality and physical energy will drive you towards something dynamic. If you've been feeling a bit sluggish or unwell, this surge of energy could be just what you need to turn things around. Think about engaging in artistic endeavors that require some muscle, like crafting a wooden piece or carving. Create something meaningful for someone special!",
      "tono": 1
     },
     "cancro": {
-     "testo": "Today, Cancer, you may find that solitude is calling your name. While you often find yourself in the company of others, it's essential to carve out moments for yourself. Being alone with your thoughts and emotions is vital for your well-being, especially given your sensitive disposition. Amidst the hustle and bustle, prioritize some quiet time to nurture this important aspect of your inner self.",
-     "tono": 0
+     "testo": "Today, Cancer, your energetic nature is likely to shine through. While you often dive deep into mental tasks, you also have a passion for staying active and engaging in hands-on work. If you tackle a project like tidying up your space, you'll find yourself moving swiftly and efficiently when you set your mind to it. This is an excellent day for productivity, and you'll likely take great pleasure in your achievements, relishing the sense of fulfillment that follows.",
+     "tono": 1
     },
     "leone": {
-     "testo": "Today, Leo, you might feel a strong urge to follow your own path, even if it goes against the wishes of others. Your sense of independence is vital, yet finding a middle ground could help you steer clear of any disagreements. Think about balancing your time between your loved ones and your personal space. Share with them the reasons you crave some solitude; if you approach it with charm and a light-hearted touch, they'll likely be very understanding.",
+     "testo": "Today marks a turning point for you, Leo, especially if you've been grappling with fatigue or illness. Emotional ups and downs can take a toll on your energy levels. Remember, your feelings significantly influence your physical well-being. Prioritize nurturing both your emotions and your health. If there are unresolved issues, now is the perfect time to address them, as they are closely intertwined.",
      "tono": 1
     },
     "vergine": {
-     "testo": "Virgo, today is calling you to embrace a sense of adventure or perhaps make a visit if you can. Reflect on when you last dedicated a day to something like this—it might have been quite a while! This outing will not only bring you joy, but those around you will also be excited to share in the experience. Whether you choose to bring a friend along or venture out solo, take this chance to connect with others or explore a new place.",
+     "testo": "Today is likely to be a bustling day for you, Virgo, and that might be just what you need. This energy can be beneficial, especially if you have some unfinished tasks on your plate. You thrive on being dynamic, engaged, and efficient. In fact, prolonged periods of inactivity might leave you feeling uneasy or jittery. If you notice yourself getting restless, it’s a sign to seek out an activity that keeps you moving.",
      "tono": 1
     },
     "bilancia": {
-     "testo": "Today, Libra, your ability to think deeply and communicate effectively is heightened. These are already your strong suits, and with this extra energy, it's essential to find a way to express yourself. Writing in a journal could be a great outlet, as could engaging in conversation. If you have any concerns or challenges, gather those involved and share your perspectives. This is an ideal day for finding solutions to any issues.",
-     "tono": 1
+     "testo": "Today, Libra, you may find your resolve to defend your choices is particularly strong, making it hard for others to influence you. This newfound confidence is likely to shine through, especially if you've recently tackled a challenge. While people may usually attempt to sway your decisions, today is different. The universe is aligning in your favor, empowering you with a fresh sense of strength. Trust your instincts and let your heart guide you.",
+     "tono": 0.2
     },
     "scorpione": {
-     "testo": "Today, Scorpio, you may find yourself in a situation where you feel pressured to take on a task that doesn't sit well with you. Whether it's a commitment you've made or someone reminding you of a favor owed, it's important to voice your discomfort. The cosmic vibes today empower you to communicate clearly and ensure your feelings are heard. It might be wiser to postpone your obligations rather than harboring any lingering resentment.",
+     "testo": "Today, Scorpio, you might find yourself craving some action. While it's natural to enjoy peaceful pursuits like reading, art, or simply lounging around, too much inactivity can take a toll on your health. Embrace the outdoors, get moving, and soak up some sunshine—these elements are essential for your vitality. Don't shy away from the impulse to engage in something active; you’re likely to find it quite enjoyable!",
      "tono": 0
     },
     "sagittario": {
-     "testo": "Today, Sagittarius, keep an eye out for someone in your inner circle who may be struggling but is too proud to reach out for assistance. Don’t let their hesitation hold you back. If you notice an opportunity to lend a hand, seize it! Take the initiative without waiting for them to ask. Your willingness to step in will not only be valued, but it will also bring you a sense of fulfillment knowing you’ve made a positive impact.",
+     "testo": "Sagittarius, today is brimming with vibrant energy just waiting to be channeled into various pursuits. Tackle any outstanding tasks, think about sprucing up your space, or venture out to enjoy the pleasant weather. No matter what you decide, ensure it's something that keeps you moving. You'll want to find an outlet for all that enthusiasm, as low-key activities won't satisfy your need for action today.",
      "tono": 1
     },
     "capricorno": {
-     "testo": "Capricorn, when did you last pick up a pen and paper? In our digital age, these timeless tools have taken a backseat. Just as a stroll offers more than just a breath of fresh air, the tactile experience of writing can be incredibly calming and restorative, often more than we acknowledge. The simple act of gliding your hand across the page can be quite pleasurable, tapping into emotions and thoughts that typing simply can't reach. Give it a go!",
-     "tono": 0
-    },
-    "acquario": {
-     "testo": "Aquarius, today you may find your ability to empathize and connect with others heightened. Your communication skills are on point, so seize this opportunity to discuss any challenges or concerns with the significant people in your life. Whether it's a visit or a phone call, reach out to resolve any misunderstandings. Above all, don't hold back—let your loved ones know just how much they mean to you.",
+     "testo": "Today is a fantastic opportunity for you to tap into your innate creativity, Capricorn. The arts are likely to hold significant importance for you, and you may discover that nothing brings you greater joy than engaging in creative pursuits. Think about channeling this energy into activities like painting, sculpting, or crafting. You'll find that the most fulfilling way to express yourself is through artistic endeavors that emphasize generosity and sharing.",
      "tono": 1
     },
+    "acquario": {
+     "testo": "Aquarius, if you're feeling drained, it might be time to take a moment for yourself. Close your eyes and immerse yourself in some calming tunes. You put in a lot of effort day in and day out, so give your body and mind a well-deserved break. Just a few minutes of relaxation can be rejuvenating. If you feel the urge to be productive, use this peaceful time to strategize your next steps.",
+     "tono": 0
+    },
     "pesci": {
-     "testo": "Today, Pisces, you might find your thoughts racing at lightning speed. It could be a challenge to hit the brakes, so it's essential to discover a way to articulate your swirling ideas. The celestial influences are favoring communication, making it a great time to share your thoughts. Consider discussing your concepts with someone whose perspective you trust or jotting down your ideas in writing. Even a simple doodle can serve as a creative outlet for your busy mind.",
-     "tono": 0.333
+     "testo": "Today, Pisces, you might experience some intense emotions. This isn't unusual for you, as you often feel things on a profound level. However, articulating these feelings can be a challenge. Although your creativity runs deep, pinpointing the perfect outlet can be tricky. Consider browsing an online bookstore for inspiring craft or art books; they could ignite your imagination and help you find new ways to express yourself.",
+     "tono": -1
     }
    }
   }
