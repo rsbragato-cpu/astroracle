@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-29T11:42:34.203Z",
- "giorno": "2026-08-29",
+ "aggiornato": "2026-08-30T10:33:03.627Z",
+ "giorno": "2026-08-30",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -24,8 +24,8 @@
      "tono": 0.333
     },
     "leone": {
-     "testo": "Today, Leo, you may sense a bit of unease in the atmosphere, stirring a desire to kick off new ventures. The energy surrounding you is abundant and invigorating, but it's essential to ensure your motivations are pure. Avoid acting out of guilt, fear, or remorse. Stay aligned with your true intentions, and you'll pave the way for the most rewarding outcomes.",
-     "tono": 0
+     "testo": "Today, Leo, you may feel a sense of unease and a strong desire to kick off new ventures. The energy surrounding you is abundant, but it's essential to ensure that your motivations are pure. Avoid acting out of guilt, fear, or regret. Stay aligned with your true intentions, and you'll pave the way for the most rewarding outcomes.",
+     "tono": 0.2
     },
     "vergine": {
      "testo": "Today, Virgo, you may find yourself more attuned to your feelings, yet navigating your next steps could prove challenging. There's a hint of tension in your surroundings that could stir your emotions, complicating your ability to assess your circumstances clearly. Take a moment to breathe and center yourself before committing to any significant choices.",
@@ -36,7 +36,7 @@
      "tono": 1
     },
     "scorpione": {
-     "testo": "Today is likely to bring a positive vibe for you, Scorpio, but be prepared for a few irritations that might test your patience. It’s best to accept these minor annoyances with a smile, as there may be little you can do to change the circumstances. Focus on holding your ground and remember that your self-assurance shouldn't waver just because someone else disagrees with your approach.",
+     "testo": "Today is likely to bring a positive vibe for you, Scorpio, but be prepared for a few irritations that might test your patience. It’s best to accept these minor annoyances with a smile, as there may be little you can do to change them. Focus on standing your ground and remember that your self-assurance shouldn't waver just because someone else disagrees with your approach.",
      "tono": 1
     },
     "sagittario": {
@@ -48,11 +48,11 @@
      "tono": 0
     },
     "acquario": {
-     "testo": "Aquarius, your determination is at an all-time high today. When you set your sights on a goal, it's nearly impossible for anyone to deter you. While some may label you as unmotivated or seeking shortcuts, this time feels different. You’re energized and eager to take action. Just be mindful that someone’s heightened feelings could pose a potential obstacle.",
+     "testo": "Aquarius, your determination is at an all-time high today. When you set your sights on a goal, it's nearly impossible for anyone to deter you. While some may label you as unmotivated or seeking shortcuts, this time is different. You’re energized and eager to take action. The only potential obstacle could be the heightened feelings of someone close to you.",
      "tono": -1
     },
     "pesci": {
-     "testo": "Take a deep breath today, Pisces, and tread lightly before pointing fingers at someone without having the complete picture. It's important to manage your emotions. Reacting impulsively could lead to a loss of respect that might be hard to regain. Remember, today is unpredictable. If you have disagreements to resolve, aim to do so in a discreet manner.",
+     "testo": "Take a deep breath today, Pisces, and tread lightly before pointing fingers at anyone without having the complete picture. It's important to manage your emotions. Acting out in anger could lead to a permanent loss of respect from others. Remember, today is unpredictable. If you need to resolve any disagreements, aim to do so discreetly.",
      "tono": -1
     }
    }
