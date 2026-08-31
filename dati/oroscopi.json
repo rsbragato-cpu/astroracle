@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-30T10:33:03.627Z",
- "giorno": "2026-08-30",
+ "aggiornato": "2026-08-31T11:41:31.041Z",
+ "giorno": "2026-08-31",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, Aries, you might find yourself channeling your inner warrior rather than your sensitive side. This shift could lead to some tension in your aspirations and desires. It's important to tread lightly and avoid being overly confrontational with those who genuinely want to support you. Remember, the risk lies in potentially hurting those who are nearest and dearest to you. Stay mindful.",
-     "tono": -0.5
-    },
-    "toro": {
-     "testo": "Today, Taurus, you might notice that someone or something is operating in a way that contrasts sharply with your own approach. This feeling is intensified by a powerful drive for acknowledgment that’s stirring within you. There’s certainly a troublesome element in the mix that requires some attention. Focus on addressing the fundamental issues before diving into the specifics of the situation at hand.",
+     "testo": "Today, Aries, you might sense a bit of emotional confinement that could be hard to overcome. Use this moment to unwind and recharge. By allowing your body the rest it craves, you'll find greater joy in the experiences that come your way. While the thrill of seeking out new adventures is exhilarating, remember that overexerting yourself can leave you too drained to truly savor them.",
      "tono": 0
     },
+    "toro": {
+     "testo": "Taurus, you might struggle to get grounded in the morning. Consider indulging in a little extra sleep. Enjoy a hearty breakfast and take some time to unwind. By the time evening rolls around, you'll feel revitalized and eager to explore. However, you may sense some emotional constraints that could hinder your self-expression. It’s a good idea to channel this energy inward for now.",
+     "tono": 0.333
+    },
     "gemelli": {
-     "testo": "Today, Gemini, tune into your body and heed its signals—if it tells you to pause, listen. An intense energy is urging you to take decisive action, but remember to be mindful of those around you. Above all, prioritize your own well-being. Avoid fleeting pleasures that could jeopardize your health.",
+     "testo": "Start your day by focusing on self-care, Gemini. In your eagerness to engage with the world around you, you might overlook your own needs. Take some time in the early afternoon to pause and reflect. Tune into your inner feelings and gather insights that can help you map out your future. Remember to stay adaptable in your strategies.",
      "tono": 0
     },
     "cancro": {
-     "testo": "Today, Cancer, your emotional state is likely to be quite positive. However, when it comes to making decisions, you might find yourself feeling a bit uncertain. Every choice appears appealing, and you may feel the urge to experience it all. The wisest approach is to sample a bit of everything. There are plenty of opportunities available—why not explore them all to discover what truly resonates with you?",
-     "tono": 0.333
+     "testo": "Today, immerse yourself in water, Cancer, and rekindle your bond with this vital element. Just as the waves softly reshape the coastline, your words and actions are subtly transforming your surroundings. Remember, your inner resilience is more powerful than you realize. Even if external circumstances feel overwhelming, don’t allow them to overshadow your true self.",
+     "tono": 0
     },
     "leone": {
-     "testo": "Today, Leo, you may feel a sense of unease and a strong desire to kick off new ventures. The energy surrounding you is abundant, but it's essential to ensure that your motivations are pure. Avoid acting out of guilt, fear, or regret. Stay aligned with your true intentions, and you'll pave the way for the most rewarding outcomes.",
-     "tono": 0.2
+     "testo": "Today, Leo, your emotional state is likely to be quite positive, particularly in the morning hours. This is an excellent opportunity for you to step up and take the reins on projects that need strong leadership. Remember, you are just as capable as anyone else around you. Embrace your role as a leader, and you'll discover that others will naturally rally behind you. You possess the qualities necessary to guide and inspire.",
+     "tono": 1
     },
     "vergine": {
-     "testo": "Today, Virgo, you may find yourself more attuned to your feelings, yet navigating your next steps could prove challenging. There's a hint of tension in your surroundings that could stir your emotions, complicating your ability to assess your circumstances clearly. Take a moment to breathe and center yourself before committing to any significant choices.",
+     "testo": "Today might bring some frustration for you, Virgo, particularly in the morning when the egos of those around you are running high. It may feel challenging to connect with individuals who are unwilling to consider viewpoints other than their own. However, as the afternoon rolls in, the atmosphere should lighten up. You'll notice that others begin to appreciate your perspective. Stay assured in your beliefs, even if those around you seem to waver.",
      "tono": -1
     },
     "bilancia": {
-     "testo": "Libra, while you have a clear path in mind, today might present some unexpected hurdles due to details you've missed. Pay attention to those in your circle and consider the impact of your choices on them. You may not have to alter your course entirely, but a few adjustments could be necessary to ensure harmony.",
+     "testo": "This morning, Libra, you might find that others perceive you as a dramatic force of nature. It's an excellent opportunity to let your feelings flow and clear out any emotional buildup. Make sure to express what’s been weighing on you. As the afternoon rolls in, consider taking a step back and embracing a quieter pace. Focus on your inner self, find your balance, and strategize your next steps.",
      "tono": 1
     },
     "scorpione": {
-     "testo": "Today is likely to bring a positive vibe for you, Scorpio, but be prepared for a few irritations that might test your patience. It’s best to accept these minor annoyances with a smile, as there may be little you can do to change them. Focus on standing your ground and remember that your self-assurance shouldn't waver just because someone else disagrees with your approach.",
-     "tono": 1
+     "testo": "Today, Scorpio, you might find your spirits a bit low, particularly in the morning. It may feel like everyone around you is enjoying themselves while you’re left out. Remember, having a good time is largely about your perspective. Avoid falling into a negative mindset. As the late afternoon rolls in, take the opportunity to center your emotions. Approach situations from a place of steadiness rather than envy.",
+     "tono": 0.333
     },
     "sagittario": {
-     "testo": "Today, Sagittarius, your assertive energy is at an all-time high. While this drive can help you accomplish tasks and push through projects, be mindful of how your actions may affect those around you. It's important to respect others' feelings, so try to remain calm if someone else is in the limelight for a bit.",
-     "tono": 1
+     "testo": "Today could bring some tension, Sagittarius, particularly in the early hours. While your spirits are high, there's a compelling urge for you to adopt a more pragmatic perspective. You definitely want to keep the excitement alive, but be aware that if you ignore the practical aspects of your circumstances, someone might dampen your enthusiasm.",
+     "tono": -1
     },
     "capricorno": {
-     "testo": "Today, Capricorn, you may find yourself naturally inclined to involve everyone in your activities. You might be busy ensuring that everyone feels supported and valued. Your caring nature is shining through, so embrace this opportunity to share your warmth. Just remember to keep an eye on your own needs and avoid overextending yourself in the process.",
-     "tono": 0
+     "testo": "Capricorn, you might feel a bit foggy in your thoughts today, making it challenging to stay centered. It seems like you're attempting to chart your course by the stars, but the clouds have rolled in, obscuring your view. The silver lining is that the clouds are expected to part later on, leading to a tranquil evening ahead.",
+     "tono": -1
     },
     "acquario": {
-     "testo": "Aquarius, your determination is at an all-time high today. When you set your sights on a goal, it's nearly impossible for anyone to deter you. While some may label you as unmotivated or seeking shortcuts, this time is different. You’re energized and eager to take action. The only potential obstacle could be the heightened feelings of someone close to you.",
-     "tono": -1
+     "testo": "This morning's compliments might lift your spirits, Aquarius, making you feel invincible. However, it's wise to keep your feet on the ground and not let the accolades inflate your ego. Embrace humility even in the face of such admiration. As the day progresses into evening, remember that mere words won't suffice. It's crucial to back up your intentions with concrete actions, so be sure to have a strategy in place.",
+     "tono": 0
     },
     "pesci": {
-     "testo": "Take a deep breath today, Pisces, and tread lightly before pointing fingers at anyone without having the complete picture. It's important to manage your emotions. Acting out in anger could lead to a permanent loss of respect from others. Remember, today is unpredictable. If you need to resolve any disagreements, aim to do so discreetly.",
-     "tono": -1
+     "testo": "As the day unfolds, Pisces, you can expect a positive shift in your circumstances. The secret lies in maintaining a relaxed attitude and not fixating on how things will turn out. The future holds its mysteries, and it's wise not to rely on outcomes that are uncertain. You might encounter some tension with a strong-willed individual in the morning, but rest assured, this will likely smooth over by the evening.",
+     "tono": 0.2
     }
    }
   }
