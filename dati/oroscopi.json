@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-08-31T11:41:31.041Z",
- "giorno": "2026-08-31",
+ "aggiornato": "2026-09-01T10:15:32.803Z",
+ "giorno": "2026-09-01",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,43 +8,43 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, Aries, you might sense a bit of emotional confinement that could be hard to overcome. Use this moment to unwind and recharge. By allowing your body the rest it craves, you'll find greater joy in the experiences that come your way. While the thrill of seeking out new adventures is exhilarating, remember that overexerting yourself can leave you too drained to truly savor them.",
-     "tono": 0
+     "testo": "Today, Aries, you might sense a bit of emotional confinement that could be hard to overcome. Use this moment to unwind and recharge. By allowing your body the rest it craves, you'll find greater joy in the experiences that come your way. While the thrill of seeking out new and exciting adventures is enticing, remember that overexerting yourself can leave you too drained to truly savor them.",
+     "tono": 0.333
     },
     "toro": {
      "testo": "Taurus, you might struggle to get grounded in the morning. Consider indulging in a little extra sleep. Enjoy a hearty breakfast and take some time to unwind. By the time evening rolls around, you'll feel revitalized and eager to explore. However, you may sense some emotional constraints that could hinder your self-expression. It’s a good idea to channel this energy inward for now.",
      "tono": 0.333
     },
     "gemelli": {
-     "testo": "Start your day by focusing on self-care, Gemini. In your eagerness to engage with the world around you, you might overlook your own needs. Take some time in the early afternoon to pause and reflect. Tune into your inner feelings and gather insights that can help you map out your future. Remember to stay adaptable in your strategies.",
+     "testo": "Start your day by focusing on self-care, Gemini. In your eagerness to engage with the world around you, don’t overlook your own needs. Take some time in the early afternoon to reflect and meditate. Tune into your inner feelings and use those insights to map out your future. Remember to stay adaptable in your strategy.",
      "tono": 0
     },
     "cancro": {
-     "testo": "Today, immerse yourself in water, Cancer, and rekindle your bond with this vital element. Just as the waves softly reshape the coastline, your words and actions are subtly transforming your surroundings. Remember, your inner resilience is more powerful than you realize. Even if external circumstances feel overwhelming, don’t allow them to overshadow your true self.",
+     "testo": "Today, immerse yourself in water, Cancer, and rekindle your bond with this vital element. Just as the waves softly reshape the coastline, your words and actions are subtly transforming your surroundings. Remember, your inner resilience is more powerful than you realize. Even if the events around you feel overwhelming, don’t allow them to overshadow your true self.",
      "tono": 0
     },
     "leone": {
-     "testo": "Today, Leo, your emotional state is likely to be quite positive, particularly in the morning hours. This is an excellent opportunity for you to step up and take the reins on projects that need strong leadership. Remember, you are just as capable as anyone else around you. Embrace your role as a leader, and you'll discover that others will naturally rally behind you. You possess the qualities necessary to guide and inspire.",
+     "testo": "Today, Leo, your emotional state is likely to be quite positive, particularly in the morning hours. It's an excellent opportunity for you to step up and take the reins on projects that need strong leadership. Remember, you are not lesser than those around you; embrace your rightful place as a leader. When you carry yourself with confidence, you'll notice that others will naturally rally behind you. You possess the qualities necessary to guide and inspire.",
      "tono": 1
     },
     "vergine": {
-     "testo": "Today might bring some frustration for you, Virgo, particularly in the morning when the egos of those around you are running high. It may feel challenging to connect with individuals who are unwilling to consider viewpoints other than their own. However, as the afternoon rolls in, the atmosphere should lighten up. You'll notice that others begin to appreciate your perspective. Stay assured in your beliefs, even if those around you seem to waver.",
+     "testo": "Today might bring some frustration for you, Virgo, particularly in the morning when the egos of those around you feel inflated. It may be challenging to connect with individuals who are unwilling to consider viewpoints other than their own. However, as the afternoon rolls in, the atmosphere should lighten up. You'll notice that others begin to appreciate your perspective. Stay assured in your beliefs, even if those around you seem to waver.",
      "tono": -1
     },
     "bilancia": {
-     "testo": "This morning, Libra, you might find that others perceive you as a dramatic force of nature. It's an excellent opportunity to let your feelings flow and clear out any emotional buildup. Make sure to express what’s been weighing on you. As the afternoon rolls in, consider taking a step back and embracing a quieter pace. Focus on your inner self, find your balance, and strategize your next steps.",
+     "testo": "This morning, Libra, you might find that others perceive you as a dramatic force of nature. It's an excellent opportunity to let your feelings flow and clear out any emotional buildup. Make sure to express what’s been weighing on you. As the afternoon rolls in, consider taking a step back and embracing a quieter pace. Focus on your inner self, find your balance, and strategize on your priorities.",
      "tono": 1
     },
     "scorpione": {
-     "testo": "Today, Scorpio, you might find your spirits a bit low, particularly in the morning. It may feel like everyone around you is enjoying themselves while you’re left out. Remember, having a good time is largely about your perspective. Avoid falling into a negative mindset. As the late afternoon rolls in, take the opportunity to center your emotions. Approach situations from a place of steadiness rather than envy.",
+     "testo": "Today, Scorpio, you might find your spirits a bit low, particularly in the morning. It may feel like everyone around you is enjoying themselves while you're left out. Remember, having a good time is largely about your perspective. Avoid falling into a negative mindset. As the late afternoon rolls in, take the opportunity to center your emotions. Approach situations from a place of stability rather than envy.",
      "tono": 0.333
     },
     "sagittario": {
-     "testo": "Today could bring some tension, Sagittarius, particularly in the early hours. While your spirits are high, there's a compelling urge for you to adopt a more pragmatic perspective. You definitely want to keep the excitement alive, but be aware that if you ignore the practical aspects of your circumstances, someone might dampen your enthusiasm.",
+     "testo": "Today could bring some tension, Sagittarius, particularly in the early hours. While your spirits are high, there's a compelling urge for you to adopt a more pragmatic perspective. You definitely want to keep the excitement alive, but be cautious—if you ignore the practicalities at play, someone might dampen your vibrant enthusiasm.",
      "tono": -1
     },
     "capricorno": {
-     "testo": "Capricorn, you might feel a bit foggy in your thoughts today, making it challenging to stay centered. It seems like you're attempting to chart your course by the stars, but the clouds have rolled in, obscuring your view. The silver lining is that the clouds are expected to part later on, leading to a tranquil evening ahead.",
+     "testo": "Capricorn, you might feel a bit foggy in your thoughts today, making it challenging to stay centered. It seems like you're attempting to chart your course, but the overcast skies have obscured your guiding stars. The silver lining is that the clouds are expected to part later on, leading to a tranquil evening ahead.",
      "tono": -1
     },
     "acquario": {
