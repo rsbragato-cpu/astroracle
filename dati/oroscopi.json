@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-09-06T09:32:04.266Z",
- "giorno": "2026-09-06",
+ "aggiornato": "2026-09-07T10:31:53.551Z",
+ "giorno": "2026-09-07",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Aries, you might find yourself engaged in intriguing conversations with friends that touch on potential global events or perhaps some tantalizing rumors about acquaintances. Have fun with these exchanges, but remember to approach them with a discerning ear; not everything shared is grounded in reality—some of it may simply stem from someone's vivid imagination. Additionally, brief outings nearby could lead to insights about forthcoming shifts in your neighborhood. Be prepared for surprises!",
+     "testo": "Today, your thoughts are likely racing at lightning speed. You may find yourself flooded with a torrent of new ideas and insights, which could lead to a bit of mental overwhelm. If possible, jot everything down; you'll appreciate having a reference for later. Afterward, consider taking a stroll or engaging in some form of exercise. This surge of mental activity might generate extra nervous energy that you'll want to release.",
      "tono": 0
     },
     "toro": {
-     "testo": "Today, Taurus, you could find yourself receiving recognition at work, as the stars suggest your creativity is soaring and can significantly enhance your professional performance. There's a chance for a promotion or a salary boost on the horizon. However, remember to resist the temptation to gloss over any challenges you face in front of your superiors. Honesty is the best policy and will serve you well in the future.",
-     "tono": 0
-    },
-    "gemelli": {
-     "testo": "Your thoughts are racing today, brimming with a whirlwind of creative and original ideas. They may come at you so quickly that it feels impossible to bring them to life right away. Be sure to jot them down for future reference. While you might not have the opportunity to dive into them just yet, there will be a time for that later. Consider enriching your mind by attending a lecture or seminar, enrolling in an online course, or planning to meet up with friends for a small group activity, if you can.",
+     "testo": "Today, you might find yourself troubled by the emotional state of a loved one or dear friend who appears to be downcast. While you may feel reluctant to reach out and inquire about their well-being, fearing you might overstep, it's important to do so. The situation may not be as dire as it appears, and your support will be valued. Later this evening, prioritize some well-deserved relaxation; you've been putting in a lot of effort lately.",
      "tono": 1
     },
+    "gemelli": {
+     "testo": "A relative might be feeling down and may not be ready to discuss their feelings. Their somber mood could affect the entire household, so it could be wise to gently inquire about their well-being. Remember, emotions can be infectious! However, avoid pushing them to open up, as that could backfire. Additionally, you may experience several phone calls that disrupt your workflow, which could be quite frustrating. Don’t hesitate to let those calls go to voicemail.",
+     "tono": -1
+    },
     "cancro": {
-     "testo": "Today, Cancer, you might experience unusual dreams and striking premonitions. Your intuitive and psychic abilities are heightened, making it possible for you to think of someone just before they reach out to you. However, be cautious of becoming overly anxious or paranoid. If any messages you receive feel unsettling, take a moment to verify the facts. You may discover that the reality is much more positive than you initially believed.",
+     "testo": "Today, be cautious of potential misunderstandings circulating within your family or community that could lead to unnecessary drama. As a Cancer, it's wise to verify any gossip or rumors before taking them at face value; they may just be exaggerated tales. Additionally, steer clear of making travel plans right now, as you may encounter unexpected delays or complications.",
      "tono": -0.333
     },
     "leone": {
-     "testo": "Today, you may find yourself in a cheerful and sociable mood, radiating warmth to those around you. Expect to engage in social gatherings or receive invites for upcoming celebrations. This is a wonderful opportunity to enjoy yourself and possibly forge new friendships. Remember to boost your immune system with plenty of vitamin C, as there may be colds and other illnesses circulating, and you might be more vulnerable to them right now.",
-     "tono": 1
+     "testo": "Beware of misleading financial information that may be presented by someone with a vested interest in your trust. This could be a banker, creditor, investment advisor, or even someone close to you like a friend or family member. Leo, it's essential to dig deeper and verify the facts rather than taking their word for it. Take the time to investigate the situation thoroughly before making any financial decisions.",
+     "tono": 0
     },
     "vergine": {
-     "testo": "Today, Virgo, your interactions with colleagues are likely to be positive, which could greatly benefit your professional life. However, remember to look beyond the surface; not everything is as it appears. There may be someone harboring unresolved issues with you, making them less than reliable. Be cautious about forming close bonds with anyone who seems to be feeling unwell, as your immune system is currently vulnerable, and you might be at risk of picking up a bug.",
+     "testo": "A person in your inner circle might not be completely forthcoming. They could be withholding the truth or concealing something to spare your feelings. Listen to your intuition, Virgo. If you hear something significant that feels off, take the time to investigate before taking it at face value. This isn't a malicious lie—it's more of a well-intentioned shield. However, trying to protect someone from the truth can occasionally lead to unintended consequences!",
      "tono": 0
     },
     "bilancia": {
-     "testo": "Today, Libra, you might stumble upon intriguing new information that sparks your interest in a fresh pursuit. This revelation could transport your thoughts to distant lands and eras. Additionally, you may find yourself engaging with new acquaintances who are well-educated and possibly from abroad, sharing captivating tales that pique your curiosity. Whatever unfolds, expect a day filled with stimulating ideas and an invigorated thirst for knowledge!",
-     "tono": 0
-    },
-    "scorpione": {
-     "testo": "Tonight, Scorpio, you may experience vivid dreams that spark your creativity. These visions could inspire you to enhance your living space or embark on artistic endeavors. With a surge of energy, you might feel compelled to dive headfirst into your projects. However, remember to take breaks and pace yourself; overexertion could lead to exhaustion or even illness.",
+     "testo": "Today, Libra, you might find yourself feeling a bit drained and lacking motivation, making the comfort of your bed seem more appealing than venturing out. This is quite unlike your usual vibrant self, and while the urge to push through and socialize may be strong, resist that temptation. Prioritize some well-deserved rest now, so when the time comes to step out, you'll be recharged and ready to shine.",
      "tono": 1
     },
+    "scorpione": {
+     "testo": "You might notice that a romantic partner or a dear friend appears to be distant lately, leaving you feeling anxious and uncertain about their interest in maintaining your connection. It's important not to let these feelings of insecurity overwhelm you. Remember, this individual is facing their own challenges and will soon seek out a caring and understanding presence—someone like you!",
+     "tono": -1
+    },
     "sagittario": {
-     "testo": "Today, Sagittarius, you might receive a delightful message from a business or romantic partner. This could spark a wave of excitement for both of you, enhancing your connection or boosting your collaborative efforts. It's important to be transparent with your partner; share your worries instead of hiding them. Open communication is key. Rest assured, everything will turn out just fine!",
+     "testo": "Your professional aspirations could be derailed by whispers, speculation, and workplace maneuvering. There’s someone with ulterior motives who may not be concerned about how their actions impact others. If you catch wind of these shenanigans, Sagittarius, take proactive steps to address them before they escalate. This will help safeguard both your career and that of your coworkers.",
      "tono": 0
     },
     "capricorno": {
-     "testo": "Capricorn, today presents a prime opportunity to discuss a salary increase or explore alternative income avenues. Your bosses are likely to be in a generous frame of mind, making them more open to your requests. It's also a favorable moment to research potential investments, but hold off on making any financial commitments just yet. Be cautious, as the information you come across may not be entirely accurate. Give it about a week before making any final decisions.",
-     "tono": 0.5
+     "testo": "You might have been dreaming about a journey or heading back to school for quite a while, Capricorn. However, an unexpected message or call could throw a wrench in your plans, leaving you feeling a bit disheartened. Take a moment to assess the situation closely; you may discover that the setback isn't as significant as it seems. With a little effort, you can navigate this challenge without giving up on your aspirations.",
+     "tono": -1
     },
     "acquario": {
-     "testo": "Aquarius, your romantic and sensual side is shining brightly today, attracting the attention of those around you, including unfamiliar faces. With your passion at its peak, it's the perfect opportunity to organize a special evening with someone you care about. Additionally, your creative energy is flowing, making it an ideal time to immerse yourself in an artistic endeavor. Embrace it!",
+     "testo": "Unexpectedly troubling news regarding your finances might disrupt your typically calm demeanor, Aquarius. Before you jump to conclusions, take a moment to investigate the situation thoroughly. It’s possible that a technical glitch or a mix-up with someone else's account is at play. Take proactive measures to correct any errors. While it may feel frustrating, you'll ultimately find that the reality is more favorable than it initially appeared.",
      "tono": 1
     },
     "pesci": {
-     "testo": "You may feel an intense urge to break away from the hustle and bustle of everyday life with a partner, Pisces. Today is perfect for such an adventure! If a getaway isn't feasible, consider creating a cozy, intimate atmosphere at home with your loved one. Additionally, don't overlook your other sensual desires—treat yourself to some delectable food, a fine drink, or a plush chair or bed. Embrace these feelings; everyone deserves a little pampering from time to time!",
-     "tono": 0
+     "testo": "A challenging scenario may present itself today. Your instinct might be to shield your loved ones from the harsh reality. You may feel inclined to bend the truth or simply sidestep the issue altogether. Resist this urge, Pisces. While your intention to safeguard those dear to you is commendable, it could lead to complications. Remember, you can't shield everyone from every hardship. Most individuals appreciate being informed about the truth.",
+     "tono": -1
     }
    }
   }
