@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-09-08T09:52:36.911Z",
- "giorno": "2026-09-08",
+ "aggiornato": "2026-09-09T09:55:31.690Z",
+ "giorno": "2026-09-09",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, Aries, the stars align favorably for your love life. You might discover that romance finds you in the most unexpected moments. There's a vibrant creative energy bubbling within you, and channeling it into an artistic project could bring you great satisfaction. Be prepared for a compelling yet unpredictable impulse that urges you to take action—embrace it wholeheartedly!",
+     "testo": "Expect a flurry of messages and calls today! Whether you're in the mood to chat or your neighbors have some updates to share, you'll likely find yourself at the center of attention. With plenty of energy at your disposal, you can manage the buzz, but be mindful if things start to feel overwhelming. Embrace the chaos and savor these interactions; you can reflect on their significance later.",
      "tono": 1
     },
     "toro": {
-     "testo": "Today, Taurus, you may need to embrace a bit of uncertainty, as not everything will be within your control. While it’s tempting to arrange everything just so, this approach might not serve you well today. Instead, consider allowing some things to unfold naturally, as this could lead to better outcomes.",
-     "tono": -1
+     "testo": "Today, you might find yourself a little restless, making it a perfect time to get active or explore a new sport or game that piques your interest. This is a fantastic idea! If you can, invite some friends to join in on the fun. However, remember to listen to your body and avoid overexerting yourself. Pushing too hard can lead to fatigue or injury, which won't benefit your fitness journey. Focus on exercising within your comfort zone and aim to make it a regular part of your routine.",
+     "tono": -0.333
     },
     "gemelli": {
-     "testo": "Today is looking bright for you, Gemini, particularly in matters of the heart. You'll discover a whimsical and adventurous vibe when you engage with those around you. Embrace this bold energy and channel it into whatever pursuits you desire. Consider adding a spark of thrill to your evening with someone who holds a special place in your life.",
-     "tono": 1
+     "testo": "A thrilling message may come your way, revealing a chance for advancement that deserves your attention. Normally, you'd jump at the opportunity, Gemini, but today you might feel a bit more reserved. You've been yearning for acknowledgment for some time, so don't hold back too much. Avoid letting your doubts overshadow your potential. Gather as much information as possible about the situation before making a well-considered choice.",
+     "tono": 0
     },
     "cancro": {
-     "testo": "Today, Cancer, embrace your individuality and show those around you that you are no longer easily swayed. Focus on what brings you joy and make it all about you. Trust your instincts to guide you in the right direction. Be wary of anyone who tries to lead you astray. True success lies in inviting others into your unique perspective rather than being drawn into theirs.",
-     "tono": 1
+     "testo": "A friend may approach you for a loan, and you might feel uncertain about lending them the cash. Trust your gut; they may not be the best at managing finances. While you may feel inclined to join in on group activities, be cautious not to let others exploit your generosity. You're open to helping those in genuine need, but it's important to discern who truly requires your support and who does not.",
+     "tono": -0.333
     },
     "leone": {
-     "testo": "Today, Leo, the stars are shining brightly on your love life, but be prepared for a few surprises along the way. You might experience moments where your romantic interests seem to vanish just as quickly as they appear. This unpredictability is part of the adventure of love. It's essential to maintain a healthy balance; don't lose yourself in someone else to the point where you feel pain if their attention drifts elsewhere.",
-     "tono": 0.333
+     "testo": "Today, you might find yourself filled with an intense surge of energy that could make you feel like a workaholic. It seems chores have accumulated at home, begging for your attention. You may feel the urge to tackle them all at once, but remember, there's no need to rush. Focus on the most urgent tasks first, then take some time to unwind. The remaining chores can hold off for now. Don't hesitate to enlist the help of your family members.",
+     "tono": 1
     },
     "vergine": {
-     "testo": "Today, Virgo, you may sense an emptiness within you that feels challenging to address. It's important to recognize that you hold the key to healing this void. Relying on others to fill this space may lead to letdowns. Instead, treat yourself with kindness and consider indulging a bit to boost your spirits.",
+     "testo": "Today might feel a bit frustrating for you, Virgo. A sense of wanderlust could be stirring within, as you find yourself drawn to far-off places and exotic destinations. However, external factors may hinder your ability to escape. Additionally, you might encounter some tension in your relationship. Avoid getting caught up in any disputes. Instead, tap into your calm demeanor to find your center, and then apply your sensible approach to address any challenges that arise.",
      "tono": -1
     },
     "bilancia": {
-     "testo": "Libra, matters of the heart are reaching a peak today, and you might find yourself feeling quite feisty. Your emotions in this realm may fluctuate, and you could feel like you're on the verge of a major outburst. Be cautious not to jeopardize something beautiful by craving more than what is truly necessary.",
-     "tono": -1
+     "testo": "Libra, it seems like this week has kept you on your toes, and today you might be feeling a bit off balance. Maybe you indulged in some delicious food last night or burned the midnight oil, or perhaps a combination of both. While it’s not in your nature to take it easy, today is an ideal opportunity to snuggle up with a captivating book. You might feel the urge to get moving, but remember to keep it moderate. After all, even the best things can become overwhelming!",
+     "tono": 1
     },
     "scorpione": {
-     "testo": "Today, Scorpio, don’t count on others to be particularly attuned to matters of love and aesthetics. Everyone seems to be wrapped up in their own thoughts, making it challenging for you to connect. While you might attempt to persuade them to see things your way, it could prove to be a tough battle and, ultimately, not worth your time.",
+     "testo": "Today, you may find yourself facing a hefty to-do list at home. With some family members conveniently out of the picture, it might feel like the weight of the chores is solely on your shoulders. Remember, there's no need to take on more than you can handle—focus on what you can accomplish and let the rest go for now. Additionally, financial worries may be creeping into your thoughts, but it's best to set those concerns aside for today. You'll have a clearer perspective to tackle them tomorrow.",
      "tono": 0
     },
     "sagittario": {
-     "testo": "You may encounter individuals who attempt to sway your perspective, Sagittarius. Remember, differing opinions do not diminish your worth. Instead of doubting yourself, channel your energy into your creative pursuits today. Your remarkable artistic abilities, paired with your sharp intellect, can create a powerful combination that will lead to extraordinary achievements.",
-     "tono": 1
+     "testo": "Overindulgence might lead to some discomfort today, possibly leaving you feeling the need to retreat into the comfort of your bed. This unease could make you irritable with loved ones, but keep in mind that they aren't responsible for your choices. Take a moment to relax, recharge, and allow yourself the rest you need. Before you know it, you'll be ready to rejoin the world.",
+     "tono": 0
     },
     "capricorno": {
-     "testo": "Embrace the spirit of adventure that today brings! Don't let the trivial matters bog you down; instead, focus on the larger perspective and appreciate the value of expansive thinking. There's a vast world waiting for you to discover, Capricorn, so take the plunge. Stay open-minded, as you might encounter some unexpected twists along the way!",
+     "testo": "Your straightforward nature is something you value in your relationships, but today you might find yourself being a touch too candid. Try not to take things to heart too quickly, and be mindful of your tendency to speak too directly. By softening your honesty with a bit of tact, you can convey your thoughts without causing unnecessary hurt. This approach fosters mutually beneficial outcomes for everyone involved.",
      "tono": 0
     },
     "acquario": {
-     "testo": "Today, you may encounter surprising individuals and situations just when your spirit craves some excitement. Embrace the opportunity to embark on a journey to an unfamiliar place, Aquarius. Remember, it's wiser to look back on the experiences you've embraced rather than those you've missed out on. Keep this in mind as you navigate your day. Adventure awaits; all you have to do is seek it out!",
-     "tono": 1
+     "testo": "Your home may resemble a bustling hub today, with family members coming and going, packages arriving, and phones constantly ringing. Amidst this chaos, you might find yourself yearning for some quiet time to unwind with a good book or your favorite show. It's natural to feel a bit annoyed by the commotion. However, remember to maintain your usual courteous demeanor. If you can, enlist a family member to help manage your incoming calls. While you may feel a bit overwhelmed, it's important to avoid hurting anyone's feelings.",
+     "tono": -0.333
     },
     "pesci": {
-     "testo": "Today, Pisces, it's crucial to avoid being overly possessive, particularly regarding your relationships with others. The connections you share with those around you are significant, and to nurture them, it's essential to allow others the freedom to live their lives as they choose. Remember, no one truly belongs to you.",
-     "tono": -1
+     "testo": "Today may find you bustling about when all you really crave is the comfort of home. Responsibilities towards loved ones are likely to arise, and despite feeling a bit worn out, your desire to lend a hand will prevail. The ideal strategy for the day is to tackle your tasks swiftly, allowing you to unwind in solitude for the remainder of the day. You can indeed strike a balance!",
+     "tono": 0
     }
    }
   }
