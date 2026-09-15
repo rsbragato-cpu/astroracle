@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-09-14T10:48:51.904Z",
- "giorno": "2026-09-14",
+ "aggiornato": "2026-09-15T10:12:14.000Z",
+ "giorno": "2026-09-15",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -16,15 +16,15 @@
      "tono": 1
     },
     "gemelli": {
-     "testo": "Reach out to a friend today, Gemini, whether through a call or a heartfelt letter. You might find your thoughts feeling a bit stagnant, and connecting with others could be just the remedy you need. Remember to take things slowly and extend patience to those around you, as tensions may be running high and people could be more irritable than usual. As you navigate through deeper emotions, ensure you’re well-prepared—think of it as putting on your life jacket before diving in.",
-     "tono": 0
+     "testo": "Reach out to a friend today, Gemini. You might find your thoughts feeling a bit stagnant, and connecting with others could be just the remedy you need. Remember to take things slowly and extend patience to those around you, as tensions may be running high and people could be more irritable than usual. Proceed with caution as you navigate deeper emotions—ensure you’re equipped with your metaphorical life jacket.",
+     "tono": -1
     },
     "cancro": {
      "testo": "Today is a day of smooth sailing for you, Cancer, so take advantage of the bright moments that come your way. Your intuition is heightened, allowing you to easily sense the emotions of those around you. Your caring nature is sought after, as others may be looking for a compassionate ear. Just remember to prioritize your own well-being and reserve some energy for yourself amidst the support you offer.",
      "tono": 1
     },
     "leone": {
-     "testo": "Today, Leo, you might find yourself feeling exasperated by the uncertainty of those around you. Remember, you have the power to move forward despite their hesitation. There's no need to hold back while waiting for others to decide; take the initiative and pursue your own path. Trust that they will follow when the time is right. Your primary focus should be on your own journey, not on carrying the weight of others' choices.",
+     "testo": "Today, Leo, you might find yourself feeling exasperated by the uncertainty of those around you. Remember, you have the power to move forward despite their hesitation. There's no need to hold back while waiting for others to decide; take the initiative and pursue your own path. Trust that they will follow when the time is right. Your primary focus should be on your own journey, not on managing the feelings of others.",
      "tono": -1
     },
     "vergine": {
@@ -36,23 +36,23 @@
      "tono": 0
     },
     "scorpione": {
-     "testo": "Today, Scorpio, your intuition is sharper than ever, and your focus is spot on. While others may struggle, you stand out as a beacon of support. Your remarkable clarity of thought will serve you well throughout the day. You'll express your emotions with ease, and you'll likely find that people are more open to your ideas than they typically are.",
+     "testo": "Today, Scorpio, your intuition is sharper than ever, and your focus is spot on. While others may struggle, you stand out as a beacon of support. Your remarkable clarity of thought will serve you well today. You'll express your emotions with ease, and you'll likely find that others are more open to your ideas than they typically are.",
      "tono": 0.5
     },
     "sagittario": {
-     "testo": "Today, Sagittarius, you may sense a heavier atmosphere that doesn't quite sit well with your vibrant spirit. What’s with all the seriousness around you? Regardless of whether you uncover the reason, remember that it’s likely not a reflection of your actions. It seems that pent-up feelings are ready to erupt, similar to a volcano releasing its built-up magma.",
-     "tono": 0
+     "testo": "Today, Sagittarius, you may sense a heavier atmosphere that doesn't quite sit well with you. What’s with all the seriousness around? Regardless of whether you uncover the reason, remember that it’s likely not your fault. Feelings that have been simmering beneath the surface are poised to erupt, much like a volcano releasing its pent-up energy.",
+     "tono": 1
     },
     "capricorno": {
-     "testo": "Absolutely, Capricorn, go ahead and indulge in that extra cookie! Savor it without any guilt—there's no need for that. Today is all about releasing any feelings of regret. Share your feelings, but try not to linger on them. Your emotional awareness is heightened, so remember to protect your energy. You may sense the strong vibes from those around you, so tread carefully. Offer your support, but don’t carry their burdens; it's their responsibility to handle their own issues.",
+     "testo": "Absolutely, Capricorn, go ahead and indulge in that extra cookie! Savor it without any guilt—there's no need for that. Today is all about releasing regret. Share your feelings, but try not to linger on them. Your emotional awareness is heightened, so remember to protect your energy. You may sense the strong vibes from those around you, so tread carefully. Offer your compassion, but don’t carry their burdens; it's their responsibility to handle their own mess.",
      "tono": 1
     },
     "acquario": {
-     "testo": "Aquarius, today might be one of those days where the couch calls your name. Embrace it! There's no need to rush out if you'd rather relax at home with a great film this evening. When friends check in on you, be truthful about your feelings. They can sense what's really going on, so there's no point in putting on a facade. Use this day to express your true emotions.",
+     "testo": "Aquarius, today might be one of those days where the couch calls your name. Embrace it! There's no need to rush out if you'd rather relax at home with a great film this evening. When friends check in on you, be truthful about your feelings. They can sense when something's off, so there's no point in putting on a facade. Use today as an opportunity to express your true emotions.",
      "tono": 1
     },
     "pesci": {
-     "testo": "At last, the universe is aligning with your perspective, Pisces. Embrace your true self and don’t hesitate to express your thoughts candidly. Your clarity of thought is sharp and concentrated. Harness your insightful intellect to tackle any mental challenges. Your passionate spirit holds great strength, so choose your actions thoughtfully. Today could be a turning point where others come to understand that you’re not as unconventional as they once believed.",
+     "testo": "At last, the universe is aligning with your perspective, Pisces. Embrace your true self and don’t hesitate to express your thoughts candidly. Your clarity of thought is sharp and concentrated. Harness your insightful intellect to tackle any mental challenges that come your way. Your passionate disposition holds great strength, so choose your actions thoughtfully. Today could be a turning point where others come to understand that you’re not as unconventional as they once believed.",
      "tono": 1
     }
    }
