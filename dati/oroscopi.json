@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-09-30T11:14:35.647Z",
- "giorno": "2026-09-30",
+ "aggiornato": "2026-10-01T11:42:20.682Z",
+ "giorno": "2026-10-01",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, Aries, you might find yourself amidst a cozy get-together with friends, family, and neighbors in your area. This could be a wonderful opportunity to reconnect with some old pals you haven't seen in ages. Additionally, an ex-flame may reach out to you. Are you still feeling a spark? If so, it could be worth exploring that connection again! If your feelings have changed, consider the possibility of friendship instead. Take some time to reflect on your options!",
+     "testo": "Today, Aries, stand firm in your convictions and refuse to accept defeat. Embrace your true self and let your beliefs guide you. Others may try to sway you with their opinions on how things ought to be, but don’t let that derail your path. Exude confidence and don’t shy away from going all out—there’s no limit to what you can achieve today. Remember, \"the more the merrier\" is your guiding principle!",
      "tono": 1
     },
     "toro": {
-     "testo": "Taurus, if you've recently approached your boss about a salary increase, the cosmic vibes suggest that good news is on the horizon. Your hard work has caught their attention, and they may be concerned about your future plans. While new opportunities could arise, now isn't the moment to rush into any decisions. Take a step back and reflect on your options thoughtfully.",
-     "tono": 0.333
-    },
-    "gemelli": {
-     "testo": "Today, Gemini, you might find yourself surprised by an unexpected letter or package arriving at your doorstep. It could be a delightful gift from a romantic partner, possibly even more extravagant than you anticipated. Additionally, you may receive other messages, with at least one pertaining to your professional life. Keep an eye out for a party invitation as well, as you'll likely feel inclined to go, and your significant other will want to accompany you.",
-     "tono": 0
-    },
-    "cancro": {
-     "testo": "Joy fills your home, Cancer! Financial blessings are flowing in, whether through bonuses, overtime pay, or thoughtful gifts. You might be thinking about using some of this windfall to enhance or renovate your living space. If you're feeling uncertain about your choices, it could be helpful to seek advice from a decorator. Your family is experiencing a wonderful sense of unity, with everyone connecting on a deep, intuitive level.",
-     "tono": 0
-    },
-    "leone": {
-     "testo": "Hey Leo, if you're flying solo, today could be the day you experience love at first glance! You might have felt a bit disheartened by the absence of intriguing prospects lately, but keep your eyes peeled—someone who feels just right could enter your life today. And guess what? The feelings are likely to be reciprocated! For those already in a relationship, get ready for a delightful rekindling of that enchanting romance with your partner.",
+     "testo": "Today, Taurus, embrace your role as a trailblazer in your thinking. Your ideas carry a brave and noble spirit, so make sure to harness this potential. You might be astonished by how innovative you can become when you focus your energy. Consider taking a solitary stroll to reflect on the significant changes you wish to pursue in your life. Allow yourself the freedom to explore daring strategies for bringing this vision to life.",
      "tono": 1
     },
+    "gemelli": {
+     "testo": "Embrace a bold and assertive approach today, Gemini. Make it clear that you won't easily back down. Your thoughts and perspectives hold significant weight, and it's essential that the key people in your life acknowledge them. Trust in the influence of your words, as they carry the potential to manifest, especially when you collaborate with those around you. There's great potential in teamwork and shared efforts.",
+     "tono": 1
+    },
+    "cancro": {
+     "testo": "Today could feel like a confusing intersection where everyone is hesitant to proceed. Cancer, don’t hold back and let others take the lead. If you recognize that it’s your moment to shine, step forward with confidence. It might also be wise to give a little indication that you’re ready to take action. Others may not be accustomed to seeing you take such a proactive stance.",
+     "tono": 1
+    },
+    "leone": {
+     "testo": "Now is not the time for anyone to question your perspective, Leo. The intensity of your words is potent, and you might find yourself taking drastic measures to convey your message. Exercise caution when it comes to commitments you may struggle to keep. Your strong convictions could lead you to exaggerate scenarios just to emphasize your stance.",
+     "tono": -0.333
+    },
     "vergine": {
-     "testo": "Today, Virgo, you may find yourself unexpectedly drawn to someone special. This individual might have ties to the creative world, such as film, television, or music. You could end up spending a significant amount of time together, possibly online, collaborating on a project. The chemistry between you will be undeniable. If you're considering a new romantic connection, be sure to put your best foot forward!",
+     "testo": "Virgo, your traditional thought patterns have served you well, but now is the moment to explore fresh avenues for your ideas. Embrace bolder methods of self-expression and step outside your comfort zone. As you embark on this exciting new path, you'll discover a wealth of support cheering you on to keep moving forward.",
      "tono": 1
     },
     "bilancia": {
-     "testo": "Libra, if you're currently engaged in a creative endeavor that incorporates cutting-edge technology, today marks a turning point where you could see significant advancements. A fortunate opportunity may guide you toward a fresh path that enriches your project. Expect your interactions with coworkers to be friendly, collaborative, and encouraging, fostering a spirit of togetherness that enhances the overall vibe. You'll be thrilled with what you achieve together!",
-     "tono": 1
+     "testo": "A simple call to a friend could evolve into a profound conversation about life's deeper questions, Libra. Stay aware of the intense thoughts swirling in your mind at the moment. When the floodgates open, you might find yourself overwhelmed by a surge of emotions and ideas. Exercise caution in how you express this energy, as it may feel like you have little control over it.",
+     "tono": -0.333
     },
     "scorpione": {
-     "testo": "Scorpio, if you possess a home or have invested in real estate, today could bring you some exciting news regarding the appreciation of that asset. It seems the value is on the rise and is likely to keep climbing. This development could significantly impact your life at this moment. In fact, you may find several opportunities presenting themselves. Take the time to evaluate each one thoughtfully and aim for the best possible outcome.",
-     "tono": 1
+     "testo": "Today, Scorpio, you might sense a bit of urgency to initiate or develop something that you're not fully prepared for. This feeling of uncertainty suggests that it's wise to proceed with caution and gather more information before diving in. Make sure to assert your influence over the situation, ensuring you steer the course rather than letting it sweep you away.",
+     "tono": -1
     },
     "sagittario": {
-     "testo": "Sagittarius, are you in a situation where you’re technically single but emotionally invested in someone? If that resonates with you, be prepared for a potential marriage proposal today, whether you’re the one proposing or receiving the offer. Recent experiences have drawn you two closer, strengthening your connection significantly. Your partner might be considering making things official. Are you on the same page? If you have any reservations, take a moment to reflect before making any decisions. Now isn’t the time for hasty choices.",
-     "tono": 0
+     "testo": "Today is the day to take decisive action, Sagittarius! There's a restless energy stirring inside you, pushing you to dive into your current project. You possess all the information you require, so it's time to stop holding back. The strength of your communication is on your side. You'll navigate even the most stressful moments with grace and assurance, and your words will come effortlessly.",
+     "tono": 0.333
     },
     "capricorno": {
-     "testo": "Today, Capricorn, you might receive some thrilling news that could fill your life with happiness. Your financial prospects are likely to take a significant leap, and a flurry of professional opportunities may soon present themselves. You could even find yourself in the spotlight with some form of public recognition. Remember, this is just the start of an exciting journey! You'll be pleased to hear that this positive momentum is set to last for a while.",
+     "testo": "Today is the day to inject some excitement into your life, Capricorn! If you find yourself feeling a bit stuck in a rut, it might be time to push your boundaries a little further. Keep in mind that you hold the key to igniting your own passion. Seize the chance to embark on a new venture today—don't hesitate to enlist the support of others to help you along the way!",
      "tono": 1
     },
     "acquario": {
-     "testo": "Aquarius, you may find yourself floating on air due to a deep connection with your romantic partner. The relationship is blossoming rapidly, and everything feels almost idyllic. Take the time to cherish these moments together, as they will serve as beautiful memories during tougher times. Everyone deserves these serene days, so be sure to fully embrace this joyful chapter with your loved one.",
-     "tono": 1
+     "testo": "Today, Aquarius, you might find yourself in the line of fire as others bombard you with their opinions and insights. Prepare for a flood of information that could come your way. It's wise to absorb everything being said before you respond with your own perspectives and feelings. However, be cautious, as the urge to debate may overshadow your ability to address the situation calmly.",
+     "tono": -1
     },
     "pesci": {
-     "testo": "Today, Pisces, you'll find that love in all its forms—be it from friends, family, or romantic partners—blossoms within your home. Expect to hear from many, possibly even those you didn't anticipate. Among them, someone might share delightful news regarding finances. You'll likely feel a profound sense of togetherness that resonates deeply with you.",
-     "tono": 1
+     "testo": "Before you attempt to convince others of your perspective, make sure you have a solid foundation in practical matters. Today, a surge of raw energy is bubbling up inside you, seeking a way to express itself. However, tread carefully to avoid stretching yourself too thin, especially regarding mental challenges. Your eagerness to assert your viewpoint might cloud your understanding of the actual circumstances.",
+     "tono": 0
     }
    }
   }
