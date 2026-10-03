@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-10-02T11:11:41.448Z",
- "giorno": "2026-10-02",
+ "aggiornato": "2026-10-03T10:29:19.840Z",
+ "giorno": "2026-10-03",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,7 +8,7 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, Aries, you might sense that your cheerful demeanor isn't being embraced by those around you. It could feel like a cloud of negativity is hanging over people's reactions, making them resistant to any positive vibes. However, don't allow this to dampen your own spirits! It's crucial to keep your positivity intact and avoid delving too deeply into the motivations behind others' actions at this time.",
+     "testo": "Today, Aries, you might sense that your cheerful demeanor isn't being embraced by those around you. It could feel like a cloud of negativity is hanging over people's reactions, making them resistant to any positive vibes. However, don't allow this to dampen your own spirits. It's crucial to keep your positivity intact and avoid delving too deeply into the motivations behind others' actions at this time.",
      "tono": 0
     },
     "toro": {
@@ -16,23 +16,23 @@
      "tono": 0
     },
     "gemelli": {
-     "testo": "Today, Gemini, you might sense a feeling of being trapped with no way out. However, don't lose hope over what appears to be an impossible situation. Imagine yourself as a skilled magician capable of breaking free from even the toughest restraints. You possess clever solutions that can help you navigate through any challenge that comes your way.",
+     "testo": "Today, Gemini, you might sense a feeling of being trapped with no way out. However, don't lose hope over what appears to be an impossible situation. Imagine yourself as a skilled magician capable of breaking free from even the toughest restraints. You possess clever solutions that can help you navigate through any challenge you encounter.",
      "tono": -0.333
     },
     "cancro": {
-     "testo": "Cancer, now is the moment to assert your position on a matter that you've been uncertain about recently. If you continue to waver, others may start to doubt your resolve. Little do they know, you've been diligently sorting through all the details. It's time to articulate the insights you've gained in your mind.",
+     "testo": "Cancer, now is the moment to assert your position on a matter that you've been uncertain about recently. If you continue to waver, others may start to doubt your resolve. Little do they know, you've been diligently sorting through all the details. It's time to articulate the insights you've gained through your contemplation.",
      "tono": -1
     },
     "leone": {
-     "testo": "Today, Leo, you might find yourself overflowing with excitement to share some thrilling news with your friends. Whether it's a significant delivery or a vital piece of information, your enthusiasm is palpable. Just be cautious about your surroundings, as there may be some ears nearby that aren't looking out for your best interests.",
+     "testo": "Today, Leo, you might find yourself overflowing with excitement to share some thrilling news with your friends. Whether it's a significant delivery or a vital piece of information, your enthusiasm is palpable. However, exercise caution—there may be some eavesdroppers nearby who aren't necessarily looking out for your best interests.",
      "tono": -1
     },
     "vergine": {
-     "testo": "Today, Virgo, your hesitation to voice your thoughts might lead to complications. You may find yourself holding back information due to concerns about others' opinions. It's important to recognize that this could be a cover for your own reluctance to engage. By opening up and sharing your insights, you'll be pleasantly surprised by the wisdom that flows back to you. Just remember, patience may be required as you await this exchange.",
+     "testo": "Today, Virgo, your hesitation to voice your thoughts might lead to complications. You may find yourself holding back information out of concern for others' opinions. It's important to recognize that this could be a cover for your own reluctance to engage. By opening up and sharing your insights, you'll be pleasantly surprised by the wisdom that flows back to you. Just remember, patience may be required as you await this exchange.",
      "tono": 0
     },
     "bilancia": {
-     "testo": "Today, Libra, you might find yourself in a bit of a standoff with an older individual. It seems like someone is taking on a \"parent knows best\" attitude, which could be grating on your nerves. Take a moment to step back and breathe. Remember, this person isn't trying to criticize you; they're simply offering guidance. Keep an open mind, as their insights could prove to be quite beneficial.",
+     "testo": "Today, Libra, you might find yourself in a bit of a standoff with an older individual. It seems like someone is taking on a \"parent knows best\" attitude, which could be getting under your skin. Take a moment to pause and breathe. Remember, this person isn't trying to criticize you; they're simply offering guidance. Keep an open mind, as their insights could prove to be quite beneficial.",
      "tono": 0
     },
     "scorpione": {
@@ -40,15 +40,15 @@
      "tono": 0
     },
     "sagittario": {
-     "testo": "Today, Sagittarius, you might find yourself navigating a complex maze, feeling trapped by walls and winding paths that lead you in circles. Rather than continuing to roam without purpose, take a moment to seek guidance. If you lift your gaze, you'll discover wise figures above who are eager to share their insights from a higher vantage point.",
-     "tono": 0
+     "testo": "Today, Sagittarius, you might find yourself navigating a complex maze, feeling a bit lost among the twists and turns. As you traverse these narrow paths, it may seem like you're not making any progress. Rather than continuing to wander without purpose, take a moment to seek guidance. If you lift your gaze, you'll discover wise souls above who are eager to share their insights, offering you a clearer view of your journey.",
+     "tono": 1
     },
     "capricorno": {
      "testo": "Today, be cautious not to become too rigid in your beliefs, insisting that you have the only correct perspective. It's essential to explore all possibilities before making any commitments. If you remain inflexible, those around you may grow frustrated with your limited viewpoint. Take a moment to step back and assess the broader situation to avoid being perceived this way.",
      "tono": -1
     },
     "acquario": {
-     "testo": "If things aren't unfolding as you wish, Aquarius, consider taking a step back and letting events play out. Resist the urge to intervene in others' affairs, even if you feel you have the perfect solution. Others may hold firm to their views, and trying to change their minds could be futile. Focus on your own well-being instead; this might mean embracing a quieter, more private approach for the time being.",
+     "testo": "If things aren't unfolding as you wish, Aquarius, consider taking a step back and observing from the sidelines. Resist the urge to intervene in others' affairs, even if you believe you have the perfect solution. Others may hold firm to their views, and trying to change their minds could be futile. Focus on your own well-being instead; this might mean embracing a quieter, more private approach for the time being.",
      "tono": 0
     },
     "pesci": {
