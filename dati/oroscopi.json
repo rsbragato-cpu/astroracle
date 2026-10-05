@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-10-04T11:11:02.116Z",
- "giorno": "2026-10-04",
+ "aggiornato": "2026-10-05T12:25:00.360Z",
+ "giorno": "2026-10-05",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,51 +8,51 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Today, you might receive a powerful message through a card, email, or phone call from a sibling or family member. This could be an excellent opportunity to mend fences from past disagreements, but be cautious not to ignite new conflicts! Emotions are heightened at the moment, Aries, and it wouldn't take much to trigger a reaction. If you're considering a shopping trip, proceed with caution as traffic may be heavy.",
-     "tono": -0.2
+     "testo": "At this moment, Aries, you might find yourself feeling a bit indecisive in matters of the heart. Embracing your need for independence is essential, but be cautious—this desire for freedom could be misunderstood. Your partner might perceive your actions as a lack of interest. It's important to communicate that it's perfectly fine to love someone while also cherishing your personal time and space.",
+     "tono": 0
     },
     "toro": {
-     "testo": "You might find that reaching out to a friend has to wait, which could cause you some concern. Today, Taurus, you'll need to exert extra effort to accomplish even the simplest tasks. While you may have pressing responsibilities to tackle, be prepared for crowded streets and impatient shoppers. Take a moment to unwind, take deep breaths, and tap into your inner strength. It's important not to procrastinate at this time.",
-     "tono": 1
+     "testo": "Taurus, you might find yourself feeling a bit perplexed in love today. It’s possible that you sense a lack of attention from someone special, leading to feelings of disappointment. Remember, your emotional well-being is ultimately in your hands, not dependent on another person. Consider how you can weave your aspirations into the collective dreams of those around you, rather than pursuing goals that seem to pull you in different directions.",
+     "tono": 0
     },
     "gemelli": {
-     "testo": "During this time, your romantic connection may deepen, taking on a more spiritual dimension that fosters a desire for a soulful union. The celestial energies are aligning to draw you closer, enhancing your sense of intimacy. If circumstances allow, you might find yourselves enjoying the company of mutual friends today, relishing the moments together, yet feeling a yearning for some private time. Embrace this beautiful energy.",
-     "tono": 1
+     "testo": "Gemini, your whimsical vision of romance is opening doors to a variety of exciting possibilities. Unbeknownst to you, the ideal scenario you desire is closer than you think. However, be cautious not to try to mold someone into your perfect partner. If you're feeling discontent in your current relationship, it might be time to explore new connections.",
+     "tono": 0
     },
     "cancro": {
-     "testo": "Today, the cosmic vibes could spark a wave of inspiration that ignites your creative spirit. You might feel a spontaneous desire to express yourself through writing, painting, drawing, or even making music. This urge may lead you to seek solitude, which could create some tension with friends and family who wish to connect with you. Embrace this creative impulse, Cancer; remember, inspiration can be fleeting and may slip away just as swiftly as it arrives.",
-     "tono": 0.6
+     "testo": "Cancer, your visions and aspirations are vivid and inspiring, but the challenge lies in manifesting them into reality. Avoid getting too caught up in analysis; relationships often defy logic and reason. Embrace the unpredictability of life and be prepared to navigate situations as they unfold.",
+     "tono": -1
     },
     "leone": {
-     "testo": "You've been juggling a lot of responsibilities both at work and in your social life, and now you might find yourself yearning for a romantic connection. If you're in a relationship, carve out some quality time for just the two of you. If you're single, keep your eyes peeled—someone intriguing may soon enter your life. You could experience an instant spark with a new face, or an old friend might suddenly catch your eye in a new light. Remember to put your best foot forward!",
+     "testo": "Romance and personal connections are set to become more enchanting and whimsical for you, Leo. As you think of that special someone, your eyes may shine with a captivating light. This undeniable aura you possess is bound to draw others in, even if you're not actively seeking a romantic partner at the moment.",
      "tono": 0
     },
     "vergine": {
-     "testo": "Today, Virgo, you may feel a strong desire to enjoy some quality time with your partner. However, the current cosmic energies suggest that career obligations for either you or your loved one might interfere. An unexpected opportunity has arisen that requires your immediate attention, which could mean that your plans for togetherness may need to be put on hold. Additionally, reaching out to friends might lead to some frustration, as they too seem to be caught up in their own busy schedules.",
-     "tono": 0.333
-    },
-    "bilancia": {
-     "testo": "You may find yourself taking on extra responsibilities at work due to a colleague's absence, which could lead to some stress, particularly if the tasks are unfamiliar to you. Remember, it's important to pace yourself and not overwhelm yourself with everything at once. On a brighter note, a family member you haven't spoken to in ages might reach out unexpectedly, giving you a delightful opportunity to reconnect and share some joyful moments.",
-     "tono": 0
-    },
-    "scorpione": {
-     "testo": "As a naturally warm and sensitive Scorpio, you may find yourself in a particularly passionate mood today. Thoughts of love and intimacy are likely to occupy your mind. You might feel drawn to romantic literature and films, as well as the comforts of a cozy bed or a soothing bath. If you can, consider organizing a romantic evening with your significant other—perhaps a delightful candlelit dinner at home.",
-     "tono": 1
-    },
-    "sagittario": {
-     "testo": "Today, Sagittarius, you might experience a small mishap at home, but there's no need for concern. It’s likely to lead to more chuckles than trouble. You’ll feel inspired to spruce up your space, especially with a dear friend or romantic partner potentially stopping by. Expect a heartfelt chat or a fiery moment to unfold. Just be mindful not to overindulge in food or drinks.",
-     "tono": 0
-    },
-    "capricorno": {
-     "testo": "You might receive a surprise delivery today, potentially from a distant location, and the situation surrounding it could be quite unusual. Out of the blue, friends or family members you haven't heard from in a while may reach out, leading to an hour or more of delightful conversation. While this can be incredibly fulfilling, Capricorn, remember to pace yourself. Regardless of the topic, you're bound to enjoy the interaction.",
-     "tono": 0
-    },
-    "acquario": {
-     "testo": "Today, you may find yourself devising plans to boost your income, setting the stage for your future goals and aspirations. This could involve collaboration with your partner or close friends. Be cautious while shopping online, as you might be tempted to make spontaneous buys, whether for gifts or a little treat for yourself. As the evening approaches, carve out some quality time with your partner, or if you're single, consider exploring your favorite dating app to meet someone new.",
+     "testo": "In your interactions with others today, Virgo, tread lightly when it comes to wanting things done solely your way. You might find that your lofty expectations for your partner are unrealistic, making it difficult for them to meet your standards. By insisting on a specific type of person, you may inadvertently create an environment ripe for disappointment.",
      "tono": -1
     },
+    "bilancia": {
+     "testo": "Libra, today holds the potential for your dreams to manifest, particularly in the realm of love. This might be the enchanting moment you've envisioned, so prepare yourself. There's a charming, romantic figure nearby who has been watching you closely throughout the evening. Your heart is racing with excitement. Keep in mind that on a day like today, anything is possible!",
+     "tono": 1
+    },
+    "scorpione": {
+     "testo": "As a Scorpio, you often seek deep nurturing and comfort in your romantic connections, but today you might realize that this isn't always achievable. Currently, there seems to be a rift between you and a significant partner that may prove challenging to mend. Patience is key, as time may be the only remedy for this situation. Keep in mind that not every relationship will unfold perfectly as you envision.",
+     "tono": -1
+    },
+    "sagittario": {
+     "testo": "Sagittarius, your creative endeavor is reaching an exciting turning point! It's a great time to share your progress with others and invite some casual critiques to gain valuable insights on your work. Remember, true art evokes emotions in others. Think about how you can push the boundaries and inspire those around you with your unique talents.",
+     "tono": 1
+    },
+    "capricorno": {
+     "testo": "Today, Capricorn, keep an eye out for love in unexpected forms. This new romantic connection may come with a whimsical twist, so prepare yourself for surprises. Remember, love doesn't always need to be meticulously organized or thought out. Embrace the spontaneity that accompanies this intriguing attraction. Be open to those who might not fit your usual criteria of practicality or rationality.",
+     "tono": 1
+    },
+    "acquario": {
+     "testo": "Tonight, prepare a delightful dinner for your special someone, Aquarius. Take them on a whimsical journey, as if riding a magic carpet to enchanting destinations that spark joy and lightheartedness. If you can, enjoy a bottle of wine at a nearby playground afterward. Set the scene at home with candles and incense to cultivate a serene and comforting atmosphere. Your romantic instincts are spot on!",
+     "tono": 1
+    },
     "pesci": {
-     "testo": "Today, your inherent passion is likely to be heightened. The joyful vibe surrounding you fosters deep, affectionate connections, drawing friends and partners closer, Pisces. Get ready for a night filled with fun and excitement at home, if you can. The atmosphere will be charged with optimism and enthusiasm. You'll feel both secure and at ease, yet brimming with energy. Embrace it!",
+     "testo": "In the realm of love, Pisces, it seems you may be engaging in a bit of hide-and-seek rather than fostering a genuine bond built on friendship, trust, and transparency. Perhaps you're intentionally retreating to gauge your partner's resilience. Consider shifting your strategy now; focus on building connections rather than creating distance.",
      "tono": 1
     }
    }
