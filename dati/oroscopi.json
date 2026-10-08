@@ -1,6 +1,6 @@
 {
- "aggiornato": "2026-10-07T11:52:30.064Z",
- "giorno": "2026-10-07",
+ "aggiornato": "2026-10-08T12:08:14.470Z",
+ "giorno": "2026-10-08",
  "fonti": [
   {
    "id": "api-ninjas",
@@ -8,52 +8,52 @@
    "lingua": "en",
    "segni": {
     "ariete": {
-     "testo": "Aries, it's best to avoid overthinking what should happen next. Reality often diverges from our expectations, so refrain from relying on outcomes that aren't certain. Focus on your unique approach and don't let the end results weigh you down. The important thing right now is to savor the journey.",
-     "tono": -1
+     "testo": "If you're sensing some strain in a close relationship, Aries, you might start to question whether this is the right match for you. However, don't be too quick to place the blame on your partner. Challenges related to love and affection can arise no matter the circumstances or the people involved. Rather than jumping to the next option, consider investing the time to resolve the issues at hand.",
+     "tono": 1
     },
     "toro": {
-     "testo": "Today is a great day for you, Taurus, to tend to your plants and ensure they’re basking in sufficient sunlight. If you don’t have any greenery at home, consider visiting a nursery to select a few new additions for your space. Cultivating the natural elements in your life will serve as a beautiful reminder of your own foundational roots, which are particularly significant for you at this time. Ground yourself in the Earth to gain a deeper understanding of your surroundings.",
-     "tono": 1
-    },
-    "gemelli": {
-     "testo": "Today is your day, Gemini! Keep pushing forward and don’t allow the doubts or limited perspectives of others to hinder your momentum. Your unique approach gives you a clear edge. Don’t hesitate to take charge and guide those who require firm leadership. If you’re sure of your insights, speak up with confidence. Remember, if others disagree with your direction, they have the choice to step back.",
-     "tono": 1
-    },
-    "cancro": {
-     "testo": "Cancer, you might find yourself pondering who to turn to for comfort today. Typically, you are the go-to person for others seeking solace, and your shirt may be drenched from all the tears shed upon it. Your deep empathy is undoubtedly one of your greatest assets, but remember that it can also become a double-edged sword.",
-     "tono": 0
-    },
-    "leone": {
-     "testo": "For some time now, your passions have been quietly simmering beneath the surface, Leo, and today, you may notice a thick cloud of smoke rising from those dormant embers. The exciting news is that a powerful breeze is on the horizon, ready to fan those flames into a roaring fire. You've already laid the groundwork with your energy and determination; now, the vital element of air is about to sweep in. Get ready, as things are likely to heat up rapidly!",
-     "tono": 1
-    },
-    "vergine": {
-     "testo": "Caution is advised today, Virgo. You might find that individuals around you are prone to making grandiose promises, driven by an unrealistic sense of optimism. The stock market may experience fluctuations fueled by these fanciful expectations. It’s important to stay grounded, as the allure of potential gains can be hard for many to resist.",
+     "testo": "As stress levels rise, Taurus, you might find your sense of stability wavering. Interacting with others could feel challenging. You may feel drawn to seek comfort in food or drink as a way to soothe your emotions. While these indulgences might provide temporary relief, they won't address the root of the issue. It's essential to resolve any conflicts with those around you, and remember to do so after you've nourished yourself.",
      "tono": -1
     },
+    "gemelli": {
+     "testo": "Today, Gemini, you may find it challenging to articulate your desires. Remember, there’s no definitive right or wrong way to express yourself, even if it feels unclear today. Underlying insecurities could be hindering your ability to communicate openly. While you might feel inclined to be accommodating, deep down, you may actually crave some distance from those around you.",
+     "tono": -1
+    },
+    "cancro": {
+     "testo": "Today, Cancer, you might struggle to articulate your thoughts and feelings, but the world of art is your sanctuary. The emotional tension you’re experiencing can create a sense of insecurity, making it challenging to share what’s on your mind. If you’re feeling this way, consider channeling those emotions into a creative outlet. Grab a large canvas and some paints, and let your feelings flow onto the surface.",
+     "tono": -0.5
+    },
+    "leone": {
+     "testo": "Leo, you may find yourself grappling with feelings of uncertainty that are affecting your inner peace. This unease could lead you to perceive your relationships as shaky. Ironically, the struggles you're facing may cause you to hesitate in sharing your vulnerable feelings with those closest to you. However, opening up and expressing your emotions sincerely can pave the way for healing and strengthen your connections.",
+     "tono": -1
+    },
+    "vergine": {
+     "testo": "Today, Virgo, you might find yourself in a more introspective mood, particularly regarding your love life. There could be a hesitance to open up, even in close connections. Be mindful of how your actions might be interpreted; others may mistakenly believe they are the cause of your withdrawal. While it's perfectly okay to seek solitude, try not to isolate yourself too much.",
+     "tono": 1
+    },
     "bilancia": {
-     "testo": "Libra, today is a great day to indulge in some online shopping for yourself! While you're at it, consider selecting a few gifts for others as well. You'll likely find yourself resonating with the cheerful vibes of those around you. However, if you encounter any negativity or grumpiness, don't hesitate to distance yourself from that energy. Just remember, it might be a bit challenging to do so.",
+     "testo": "Libra, tread lightly with your exuberance today, as not everyone may share your cheerful vibe. It's important to be attuned to the emotions of those around you, so steer clear of humor that might come off as too biting for the moment. A lighthearted spirit is welcome, but no one enjoys a smart aleck. As the day progresses, a more serious atmosphere may settle in by the afternoon. Strive to be a beacon of positivity rather than a source of tension.",
      "tono": 0.333
     },
     "scorpione": {
-     "testo": "Today, Scorpio, you may find yourself drawn to individuals who can captivate your imagination and transport you to distant realms. Seek out these engaging personalities in your surroundings rather than relying on television to fulfill this desire. Be mindful, as it's easy to slip into a sedentary routine, isolating yourself on the couch. Remember, the richness of real-life experiences far surpasses anything that can be broadcasted.",
-     "tono": 1
+     "testo": "Scorpio, you're likely to feel generally upbeat today, but be prepared for some friction in your relationships. When it comes to romance, the stars aren't aligning in your favor, so it's wise to avoid pushing any challenging issues. Instead, focus on embracing your inner warmth. By dedicating time to self-care, you'll naturally cultivate more love to share with those around you.",
+     "tono": -0.333
     },
     "sagittario": {
-     "testo": "Today, seek out those who uplift you and inspire your dreams, Sagittarius, rather than those who pull you back to the mundane. You have a strong desire to radiate more than ever, and there's no reason you can't make that happen. As long as you surround yourself with remarkable individuals and worthy pursuits, everything will fall into place beautifully. Embrace this opportunity!",
+     "testo": "Sagittarius, today you may find yourself yearning for some comfort and reassurance. The thought of enjoying a bowl of warm, homemade soup might sound particularly appealing. If this resonates with you, don’t hesitate to reach out to a close friend and invite them over if you can. Remember, it’s okay to drop the facade of being the strong, independent one if that’s not how you truly feel. Being open about your needs is essential; otherwise, those around you won’t know how to support you.",
      "tono": 1
     },
     "capricorno": {
-     "testo": "You stand at the threshold of finalizing a significant transition in your life. Initially, you might feel inclined to retreat into your thoughts, weighing the advantages and disadvantages of every aspect. However, avoid getting bogged down by excessive details. Instead, focus on the broader perspective. A stroll might just provide the clarity you need, allowing you to declutter your mind and discover the solution you’ve been searching for.",
-     "tono": 0
+     "testo": "Capricorn, you might sense a deep yearning for something, but pinpointing exactly what that is could be a challenge. A friend or loved one may be attempting to help you find that elusive piece of the puzzle, but without clarity on what’s missing, their efforts could feel futile. This uncertainty could lead to some frustration if you're not mindful. It's perfectly okay to acknowledge your feelings of helplessness—there's no need to hide it.",
+     "tono": -0.5
     },
     "acquario": {
-     "testo": "Today is one of those magical moments when you might be strolling along and suddenly hear the enchanting sounds of a street musician. Before you know it, your feet will start to sway, and soon you'll be dancing with joy. You'll find yourself moving to the rhythm for the rest of your journey. It won't take much to get you into the groove, and once you do, it might be tough to pull yourself away. Embrace the moment!",
-     "tono": 1
+     "testo": "As an Aquarius, you might feel the urge to resolve every issue through conversation or decisive action. However, it's wise to pause before making any hasty decisions until you fully grasp your emotions. You could find yourself brimming with enthusiasm and eager to dive into a new venture, but as you begin to take steps forward, feelings of uncertainty may creep in. Consider this hesitation as a signal that it might be prudent to hold off on progressing for now.",
+     "tono": -1
     },
     "pesci": {
-     "testo": "Pisces, it's important to respect what isn't yours. Your keen perception may lead you to notice items that could easily be taken, but deep down, you understand they aren't yours to claim. Your creative mind might tempt you into justifying such actions, but resist the urge to mislead yourself.",
-     "tono": 1
+     "testo": "Today, Pisces, compliments will feel like precious treasures to you. Your heart craves love and warmth, making this a particularly sensitive day. However, be cautious, as you might find yourself easily swayed by those who flatter you. It's also possible that you could feel a bit resistant to this desire for attention, leading to an unwillingness to accept it graciously. Remember, this mindset won't serve you well. Embrace the praise with gratitude and reciprocate the affection you receive.",
+     "tono": 0
     }
    }
   }
